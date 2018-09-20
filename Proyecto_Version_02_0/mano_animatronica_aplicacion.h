@@ -21,9 +21,7 @@ class Mano_Animatronica_Aplicacion : public QMainWindow
 public:
     explicit Mano_Animatronica_Aplicacion(QWidget *parent = nullptr);
 
-    void setModo( int Mode ){
-        Modo = Mode;
-    }
+    void setModo( int Mode );
 
     ~Mano_Animatronica_Aplicacion();
 
@@ -49,7 +47,7 @@ private slots:
 
 private:
     Ui::Mano_Animatronica_Aplicacion *ui;
-    int Modo = NINGUN_MODO;
+    int Modo;
 };
 
 void ActualizarImagenMano( Ui::Mano_Animatronica_Aplicacion * ui, int Menor, int Anular, int Mayor, int Indice, int Pulgar );

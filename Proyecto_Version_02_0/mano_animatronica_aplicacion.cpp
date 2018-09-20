@@ -7,13 +7,29 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
+    QString MensajeStatusBar;
+    MensajeStatusBar = "MODO NO SELECCIONADO!";
+    ui->statusBar->showMessage( MensajeStatusBar );
     ui->cBx_Modo->setCurrentIndex(NINGUN_MODO);
     ui->rdB_Guante_Mano->setChecked(0);
     ui->rdB_Guante_Mano->setChecked(0);
     ui->rdB_Guante_Mano->setChecked(0);
+    ui->grB_Mano->setDisabled(1);
+    ui->grB_Sliders->setDisabled(1);
+    ui->grB_Valores->setDisabled(1);
+    ui->pushB_Cargar->setDisabled(1);
+    ui->pushB_Guardar->setDisabled(1);
+    ui->pushB_PlayPause->setDisabled(1);
+    ui->lbl_Archivo->hide();
+
 
     ActualizarImagenMano( ui, ui->sld_Menor->value(), ui->sld_Anular->value(), ui->sld_Mayor->value(), ui->sld_Indice->value(), ui->sld_Pulgar->value() );
 
+}
+
+void Mano_Animatronica_Aplicacion::setModo( int Mode ){
+    Modo = Mode;
 }
 
 Mano_Animatronica_Aplicacion::~Mano_Animatronica_Aplicacion()
@@ -35,6 +51,15 @@ void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
         ui->rdB_Guante_Mano->setChecked(0);
         ui->rdB_Guante_Mano->setChecked(0);
         setModo(NINGUN_MODO);
+
+        ui->grB_Mano->setDisabled(1);
+        ui->grB_Sliders->setDisabled(1);
+        ui->grB_Valores->setDisabled(1);
+        ui->pushB_Cargar->setDisabled(1);
+        ui->pushB_Guardar->setDisabled(1);
+        ui->pushB_PlayPause->setDisabled(1);
+        ui->lbl_Archivo->hide();
+
     }
 
     if( index == GUANTE_PC ){
@@ -47,6 +72,14 @@ void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
         ui->rdB_Guante_Mano->setChecked(0);
         ui->rdB_Guante_Mano->setChecked(0);
         setModo(GUANTE_PC);
+
+        ui->grB_Mano->setEnabled(1);
+        ui->grB_Sliders->setDisabled(1);
+        ui->grB_Valores->setEnabled(1);
+        ui->pushB_Cargar->setDisabled(1);
+        ui->pushB_Guardar->setEnabled(1);
+        ui->pushB_PlayPause->setDisabled(1);
+        ui->lbl_Archivo->hide();
     }
 
     if( index == PC_MANO ){
@@ -59,6 +92,14 @@ void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
         ui->rdB_PC_Mano->setChecked(1);
         ui->rdB_Guante_Mano->setChecked(0);
         setModo(PC_MANO);
+
+        ui->grB_Mano->setEnabled(1);
+        ui->grB_Sliders->setEnabled(1);
+        ui->grB_Valores->setEnabled(1);
+        ui->pushB_Cargar->setEnabled(1);
+        ui->pushB_Guardar->setDisabled(1);
+        ui->pushB_PlayPause->setEnabled(1);
+        ui->lbl_Archivo->show();
     }
 
     if( index == GUANTE_MANO ){
@@ -71,6 +112,14 @@ void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
         ui->rdB_Guante_Mano->setChecked(0);
         ui->rdB_Guante_Mano->setChecked(1);
         setModo(GUANTE_MANO);
+
+        ui->grB_Mano->setEnabled(1);
+        ui->grB_Sliders->setDisabled(1);
+        ui->grB_Valores->setEnabled(1);
+        ui->pushB_Cargar->setDisabled(1);
+        ui->pushB_Guardar->setDisabled(1);
+        ui->pushB_PlayPause->setDisabled(1);
+        ui->lbl_Archivo->hide();
     }
 
 }
@@ -81,11 +130,18 @@ void Mano_Animatronica_Aplicacion::on_rdB_Guante_PC_clicked()
     MensajeStatusBar = "MODO GUANTE_PC";
     ui->statusBar->showMessage( MensajeStatusBar );
 
-    ui->cBx_Modo->setCurrentIndex(GUANTE_PC);
     ui->rdB_Guante_PC->setChecked(1);
     ui->rdB_Guante_Mano->setChecked(0);
     ui->rdB_Guante_Mano->setChecked(0);
     setModo(GUANTE_PC);
+
+    ui->grB_Mano->setEnabled(1);
+    ui->grB_Sliders->setDisabled(1);
+    ui->grB_Valores->setEnabled(1);
+    ui->pushB_Cargar->setDisabled(1);
+    ui->pushB_Guardar->setEnabled(1);
+    ui->pushB_PlayPause->setDisabled(1);
+    ui->lbl_Archivo->hide();
 }
 
 void Mano_Animatronica_Aplicacion::on_rdB_PC_Mano_clicked()
@@ -94,11 +150,18 @@ void Mano_Animatronica_Aplicacion::on_rdB_PC_Mano_clicked()
     MensajeStatusBar = "MODO PC_MANO";
     ui->statusBar->showMessage( MensajeStatusBar );
 
-    ui->cBx_Modo->setCurrentIndex(PC_MANO);
     ui->rdB_Guante_PC->setChecked(0);
     ui->rdB_PC_Mano->setChecked(1);
     ui->rdB_Guante_Mano->setChecked(0);
     setModo(PC_MANO);
+
+    ui->grB_Mano->setEnabled(1);
+    ui->grB_Sliders->setEnabled(1);
+    ui->grB_Valores->setEnabled(1);
+    ui->pushB_Cargar->setEnabled(1);
+    ui->pushB_Guardar->setDisabled(1);
+    ui->pushB_PlayPause->setEnabled(1);
+    ui->lbl_Archivo->show();
 }
 
 void Mano_Animatronica_Aplicacion::on_rdB_Guante_Mano_clicked()
@@ -107,45 +170,52 @@ void Mano_Animatronica_Aplicacion::on_rdB_Guante_Mano_clicked()
     MensajeStatusBar = "MODO GUANTE_MANO";
     ui->statusBar->showMessage( MensajeStatusBar );
 
-    ui->cBx_Modo->setCurrentIndex(GUANTE_MANO);
     ui->rdB_Guante_Mano->setChecked(0);
     ui->rdB_Guante_Mano->setChecked(0);
     ui->rdB_Guante_Mano->setChecked(1);
     setModo(GUANTE_MANO);
+
+    ui->grB_Mano->setEnabled(1);
+    ui->grB_Sliders->setDisabled(1);
+    ui->grB_Valores->setEnabled(1);
+    ui->pushB_Cargar->setDisabled(1);
+    ui->pushB_Guardar->setDisabled(1);
+    ui->pushB_PlayPause->setDisabled(1);
+    ui->lbl_Archivo->hide();
 }
 
 void Mano_Animatronica_Aplicacion::on_sld_Menor_valueChanged(int value)
 {
-    if( value == PC_MANO ){
-        ActualizarImagenMano( ui, ui->sld_Menor, ui->sld_Anular, ui->sld_Mayor, ui->sld_Indice, ui->sld_Pulgar );
+    if( Modo == PC_MANO ){
+        ActualizarImagenMano( ui, value, ui->sld_Anular->value(), ui->sld_Mayor->value(), ui->sld_Indice->value(), ui->sld_Pulgar->value() );
     }
 }
 
 void Mano_Animatronica_Aplicacion::on_sld_Anular_valueChanged(int value)
 {
-    if( value == PC_MANO ){
-        ActualizarImagenMano( ui, ui->sld_Menor, ui->sld_Anular, ui->sld_Mayor, ui->sld_Indice, ui->sld_Pulgar );
+    if( Modo == PC_MANO ){
+        ActualizarImagenMano( ui, ui->sld_Menor->value(), value, ui->sld_Mayor->value(), ui->sld_Indice->value(), ui->sld_Pulgar->value() );
     }
 }
 
 void Mano_Animatronica_Aplicacion::on_sld_Mayor_valueChanged(int value)
 {
-    if( value == PC_MANO ){
-        ActualizarImagenMano( ui, ui->sld_Menor, ui->sld_Anular, ui->sld_Mayor, ui->sld_Indice, ui->sld_Pulgar );
+    if( Modo == PC_MANO ){
+        ActualizarImagenMano( ui, ui->sld_Menor->value(), ui->sld_Anular->value(), value, ui->sld_Indice->value(), ui->sld_Pulgar->value() );
     }
 }
 
 void Mano_Animatronica_Aplicacion::on_sld_Indice_valueChanged(int value)
 {
-    if( value == PC_MANO ){
-        ActualizarImagenMano( ui, ui->sld_Menor, ui->sld_Anular, ui->sld_Mayor, ui->sld_Indice, ui->sld_Pulgar );
+    if( Modo == PC_MANO ){
+        ActualizarImagenMano( ui, ui->sld_Menor->value(), ui->sld_Anular->value(), ui->sld_Mayor->value(), value, ui->sld_Pulgar->value() );
     }
 }
 
 void Mano_Animatronica_Aplicacion::on_sld_Pulgar_valueChanged(int value)
 {
-    if( value == PC_MANO ){
-        ActualizarImagenMano( ui, ui->sld_Menor, ui->sld_Anular, ui->sld_Mayor, ui->sld_Indice, ui->sld_Pulgar );
+    if( Modo == PC_MANO ){
+        ActualizarImagenMano( ui, ui->sld_Menor->value(), ui->sld_Anular->value(), ui->sld_Mayor->value(), ui->sld_Indice->value(), value );
     }
 }
 
