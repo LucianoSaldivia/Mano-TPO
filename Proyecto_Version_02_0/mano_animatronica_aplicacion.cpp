@@ -7,13 +7,16 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
+    /*  MODO    */
     QString MensajeStatusBar;
     MensajeStatusBar = "MODO NO SELECCIONADO!";
     ui->statusBar->showMessage( MensajeStatusBar );
     ui->cBx_Modo->setCurrentIndex(NINGUN_MODO);
-    ui->rdB_Guante_Mano->setChecked(0);
-    ui->rdB_Guante_Mano->setChecked(0);
+
+    /*  Widgets enabled & disabled*/
+    ui->cBx_Modo->setEnabled(1);
+    ui->rdB_Guante_PC->setChecked(0);
+    ui->rdB_PC_Mano->setChecked(0);
     ui->rdB_Guante_Mano->setChecked(0);
     ui->grB_Mano->setDisabled(1);
     ui->grB_Sliders->setDisabled(1);
@@ -23,7 +26,23 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
     ui->pushB_PlayPause->setDisabled(1);
     ui->lbl_Archivo->hide();
 
+    /*   TOOLTIPS   */
+        /*  Pestañas */
+    ui->tab_Comunicacion->setToolTip("Comunicación serie");
+    ui->tab_Controles->setToolTip("Controles para hardware");
+        /*  Widgets  */
+    ui->cBx_Modo->setToolTip("Modo a utilizar");
+    ui->rdB_Guante_PC->setToolTip("IN: Guante - OUT: PC");
+    ui->rdB_PC_Mano->setToolTip("IN: PC - OUT: Mano");
+    ui->rdB_Guante_Mano->setToolTip("IN: Guante - OUT: Mano");
+    ui->grB_Mano->setToolTip("Simulación de la Mano");
+    ui->grB_Sliders->setToolTip("Simulación del Guante");
+    ui->grB_Valores->setToolTip("Valores de entrada");
+    ui->pushB_Cargar->setToolTip("Cargar movimientos a la mano");
+    ui->pushB_Guardar->setToolTip("Guardar movimientos desde el Guante");
+    ui->pushB_PlayPause->setToolTip("Leer/Reproducir");
 
+    /*  GroupBox Mano   */
     ActualizarImagenMano( ui, ui->sld_Menor->value(), ui->sld_Anular->value(), ui->sld_Mayor->value(), ui->sld_Indice->value(), ui->sld_Pulgar->value() );
 
 }
@@ -42,16 +61,19 @@ void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
 
     if( index == NINGUN_MODO ){
 
+        /*  Status Bar    */
         QString MensajeStatusBar;
         MensajeStatusBar = "MODO NO SELECCIONADO!";
         ui->statusBar->showMessage( MensajeStatusBar );
 
+        /*  ComboBox Modo */
         ui->cBx_Modo->setCurrentIndex(NINGUN_MODO);
-        ui->rdB_Guante_Mano->setChecked(0);
-        ui->rdB_Guante_Mano->setChecked(0);
+        ui->rdB_Guante_PC->setChecked(0);
+        ui->rdB_PC_Mano->setChecked(0);
         ui->rdB_Guante_Mano->setChecked(0);
         setModo(NINGUN_MODO);
 
+        /*  Widgets enabled & disabled*/
         ui->grB_Mano->setDisabled(1);
         ui->grB_Sliders->setDisabled(1);
         ui->grB_Valores->setDisabled(1);
@@ -60,19 +82,34 @@ void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
         ui->pushB_PlayPause->setDisabled(1);
         ui->lbl_Archivo->hide();
 
+        /*   TOOLTIPS   */
+        ui->cBx_Modo->setToolTip("Modo a utilizar");
+        ui->rdB_Guante_PC->setToolTip("IN: Guante - OUT: PC");
+        ui->rdB_PC_Mano->setToolTip("IN: PC - OUT: Mano");
+        ui->rdB_Guante_Mano->setToolTip("IN: Guante - OUT: Mano");
+        ui->grB_Mano->setToolTip("Simulación de la Mano");
+        ui->grB_Sliders->setToolTip("Simulación del Guante");
+        ui->grB_Valores->setToolTip("Valores de entrada");
+        ui->pushB_Cargar->setToolTip("Cargar movimientos a la mano");
+        ui->pushB_Guardar->setToolTip("Guardar movimientos desde el Guante");
+        ui->pushB_PlayPause->setToolTip("Leer/Reproducir");
+
     }
 
     if( index == GUANTE_PC ){
 
+        /*  Status Bar    */
         QString MensajeStatusBar;
         MensajeStatusBar = "MODO GUANTE_PC";
         ui->statusBar->showMessage( MensajeStatusBar );
 
+        /*  ComboBox Modo */
         ui->rdB_Guante_PC->setChecked(1);
-        ui->rdB_Guante_Mano->setChecked(0);
+        ui->rdB_PC_Mano->setChecked(0);
         ui->rdB_Guante_Mano->setChecked(0);
         setModo(GUANTE_PC);
 
+        /*  Widgets enabled & disabled*/
         ui->grB_Mano->setEnabled(1);
         ui->grB_Sliders->setDisabled(1);
         ui->grB_Valores->setEnabled(1);
@@ -80,19 +117,34 @@ void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
         ui->pushB_Guardar->setEnabled(1);
         ui->pushB_PlayPause->setDisabled(1);
         ui->lbl_Archivo->hide();
+
+        /*   TOOLTIPS   */
+        ui->cBx_Modo->setToolTip("Modo actual: Guante -> PC");
+        ui->rdB_Guante_PC->setToolTip("IN: Guante - OUT: PC");
+        ui->rdB_PC_Mano->setToolTip("IN: PC - OUT: Mano");
+        ui->rdB_Guante_Mano->setToolTip("IN: Guante - OUT: Mano");
+        ui->grB_Mano->setToolTip("Simulación de la Mano");
+        ui->grB_Sliders->setToolTip("Simulación del Guante");
+        ui->grB_Valores->setToolTip("Valores del Guante");
+        ui->pushB_Cargar->setToolTip("Sólo para PC -> Mano");
+        ui->pushB_Guardar->setToolTip("Guardar movimientos desde el Guante");
+        ui->pushB_PlayPause->setToolTip("Comenzar lectura (10 seg.)");
     }
 
     if( index == PC_MANO ){
 
+        /*  Status Bar    */
         QString MensajeStatusBar;
         MensajeStatusBar = "MODO PC_MANO";
         ui->statusBar->showMessage( MensajeStatusBar );
 
+        /*  ComboBox Modo */
         ui->rdB_Guante_PC->setChecked(0);
         ui->rdB_PC_Mano->setChecked(1);
         ui->rdB_Guante_Mano->setChecked(0);
         setModo(PC_MANO);
 
+        /*  Widgets enabled & disabled*/
         ui->grB_Mano->setEnabled(1);
         ui->grB_Sliders->setEnabled(1);
         ui->grB_Valores->setEnabled(1);
@@ -100,19 +152,35 @@ void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
         ui->pushB_Guardar->setDisabled(1);
         ui->pushB_PlayPause->setEnabled(1);
         ui->lbl_Archivo->show();
+
+        /*   TOOLTIPS   */
+        ui->cBx_Modo->setToolTip("Modo actual: PC -> Mano");
+        ui->rdB_Guante_PC->setToolTip("IN: Guante - OUT: PC");
+        ui->rdB_PC_Mano->setToolTip("IN: PC - OUT: Mano");
+        ui->rdB_Guante_Mano->setToolTip("IN: Guante - OUT: Mano");
+        ui->grB_Mano->setToolTip("Simulación de la Mano");
+        ui->grB_Sliders->setToolTip("Simulación del Guante");
+        ui->grB_Valores->setToolTip("Valores de los sliders");
+        ui->pushB_Cargar->setToolTip("Cargar movimientos a la Mano");
+        ui->pushB_Guardar->setToolTip("Sólo para Guante -> PC");
+        ui->pushB_PlayPause->setToolTip("Reproducir (10 seg.)");
+        ui->lbl_Archivo->setToolTip("Archivo a reproducir");
     }
 
     if( index == GUANTE_MANO ){
 
+        /*  MODO    */
         QString MensajeStatusBar;
         MensajeStatusBar = "MODO GUANTE_MANO";
         ui->statusBar->showMessage( MensajeStatusBar );
 
-        ui->rdB_Guante_Mano->setChecked(0);
-        ui->rdB_Guante_Mano->setChecked(0);
+        /*  ComboBox Modo */
+        ui->rdB_Guante_PC->setChecked(0);
+        ui->rdB_PC_Mano->setChecked(0);
         ui->rdB_Guante_Mano->setChecked(1);
         setModo(GUANTE_MANO);
 
+        /*  Widgets enabled & disabled*/
         ui->grB_Mano->setEnabled(1);
         ui->grB_Sliders->setDisabled(1);
         ui->grB_Valores->setEnabled(1);
@@ -120,21 +188,36 @@ void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
         ui->pushB_Guardar->setDisabled(1);
         ui->pushB_PlayPause->setDisabled(1);
         ui->lbl_Archivo->hide();
+
+        /*   TOOLTIPS   */
+        ui->cBx_Modo->setToolTip("Modo actual: Guante -> Mano");
+        ui->rdB_Guante_PC->setToolTip("IN: Guante - OUT: PC");
+        ui->rdB_PC_Mano->setToolTip("IN: PC - OUT: Mano");
+        ui->rdB_Guante_Mano->setToolTip("IN: Guante - OUT: Mano");
+        ui->grB_Mano->setToolTip("Simulación de la Mano");
+        ui->grB_Sliders->setToolTip("Simulación del Guante");
+        ui->grB_Valores->setToolTip("Valores del Guante");
+        ui->pushB_Cargar->setToolTip("Sólo para PC -> Mano");
+        ui->pushB_Guardar->setToolTip("Sólo para Guante -> PC");
+        ui->pushB_PlayPause->setToolTip("Comenzar lectura (10 seg.)");
     }
 
 }
 
 void Mano_Animatronica_Aplicacion::on_rdB_Guante_PC_clicked()
 {
+    /*  Status Bar    */
     QString MensajeStatusBar;
     MensajeStatusBar = "MODO GUANTE_PC";
     ui->statusBar->showMessage( MensajeStatusBar );
 
+    /*  ComboBox Modo */
     ui->rdB_Guante_PC->setChecked(1);
-    ui->rdB_Guante_Mano->setChecked(0);
+    ui->rdB_PC_Mano->setChecked(0);
     ui->rdB_Guante_Mano->setChecked(0);
     setModo(GUANTE_PC);
 
+    /*  Widgets enabled & disabled*/
     ui->grB_Mano->setEnabled(1);
     ui->grB_Sliders->setDisabled(1);
     ui->grB_Valores->setEnabled(1);
@@ -142,19 +225,34 @@ void Mano_Animatronica_Aplicacion::on_rdB_Guante_PC_clicked()
     ui->pushB_Guardar->setEnabled(1);
     ui->pushB_PlayPause->setDisabled(1);
     ui->lbl_Archivo->hide();
+
+    /*   TOOLTIPS   */
+    ui->cBx_Modo->setToolTip("Modo actual: Guante -> PC");
+    ui->rdB_Guante_PC->setToolTip("IN: Guante - OUT: PC");
+    ui->rdB_PC_Mano->setToolTip("IN: PC - OUT: Mano");
+    ui->rdB_Guante_Mano->setToolTip("IN: Guante - OUT: Mano");
+    ui->grB_Mano->setToolTip("Simulación de la Mano");
+    ui->grB_Sliders->setToolTip("Simulación del Guante");
+    ui->grB_Valores->setToolTip("Valores del Guante");
+    ui->pushB_Cargar->setToolTip("Sólo para PC -> Mano");
+    ui->pushB_Guardar->setToolTip("Guardar movimientos desde el Guante");
+    ui->pushB_PlayPause->setToolTip("Comenzar lectura (10 seg.)");
 }
 
 void Mano_Animatronica_Aplicacion::on_rdB_PC_Mano_clicked()
 {
+    /*  Status Bar    */
     QString MensajeStatusBar;
     MensajeStatusBar = "MODO PC_MANO";
     ui->statusBar->showMessage( MensajeStatusBar );
 
+    /*  ComboBox Modo */
     ui->rdB_Guante_PC->setChecked(0);
     ui->rdB_PC_Mano->setChecked(1);
     ui->rdB_Guante_Mano->setChecked(0);
     setModo(PC_MANO);
 
+    /*  Widgets enabled & disabled*/
     ui->grB_Mano->setEnabled(1);
     ui->grB_Sliders->setEnabled(1);
     ui->grB_Valores->setEnabled(1);
@@ -162,19 +260,35 @@ void Mano_Animatronica_Aplicacion::on_rdB_PC_Mano_clicked()
     ui->pushB_Guardar->setDisabled(1);
     ui->pushB_PlayPause->setEnabled(1);
     ui->lbl_Archivo->show();
+
+    /*   TOOLTIPS   */
+    ui->cBx_Modo->setToolTip("Modo actual: PC -> Mano");
+    ui->rdB_Guante_PC->setToolTip("IN: Guante - OUT: PC");
+    ui->rdB_PC_Mano->setToolTip("IN: PC - OUT: Mano");
+    ui->rdB_Guante_Mano->setToolTip("IN: Guante - OUT: Mano");
+    ui->grB_Mano->setToolTip("Simulación de la Mano");
+    ui->grB_Sliders->setToolTip("Simulación del Guante");
+    ui->grB_Valores->setToolTip("Valores de los sliders");
+    ui->pushB_Cargar->setToolTip("Cargar movimientos a la Mano");
+    ui->pushB_Guardar->setToolTip("Sólo para Guante -> PC");
+    ui->pushB_PlayPause->setToolTip("Reproducir (10 seg.)");
+    ui->lbl_Archivo->setToolTip("Archivo a reproducir");
 }
 
 void Mano_Animatronica_Aplicacion::on_rdB_Guante_Mano_clicked()
 {
+    /*  MODO    */
     QString MensajeStatusBar;
     MensajeStatusBar = "MODO GUANTE_MANO";
     ui->statusBar->showMessage( MensajeStatusBar );
 
-    ui->rdB_Guante_Mano->setChecked(0);
-    ui->rdB_Guante_Mano->setChecked(0);
+    /*  ComboBox Modo */
+    ui->rdB_Guante_PC->setChecked(0);
+    ui->rdB_PC_Mano->setChecked(0);
     ui->rdB_Guante_Mano->setChecked(1);
     setModo(GUANTE_MANO);
 
+    /*  Widgets enabled & disabled*/
     ui->grB_Mano->setEnabled(1);
     ui->grB_Sliders->setDisabled(1);
     ui->grB_Valores->setEnabled(1);
@@ -182,6 +296,18 @@ void Mano_Animatronica_Aplicacion::on_rdB_Guante_Mano_clicked()
     ui->pushB_Guardar->setDisabled(1);
     ui->pushB_PlayPause->setDisabled(1);
     ui->lbl_Archivo->hide();
+
+    /*   TOOLTIPS   */
+    ui->cBx_Modo->setToolTip("Modo actual: Guante -> Mano");
+    ui->rdB_Guante_PC->setToolTip("IN: Guante - OUT: PC");
+    ui->rdB_PC_Mano->setToolTip("IN: PC - OUT: Mano");
+    ui->rdB_Guante_Mano->setToolTip("IN: Guante - OUT: Mano");
+    ui->grB_Mano->setToolTip("Simulación de la Mano");
+    ui->grB_Sliders->setToolTip("Simulación del Guante");
+    ui->grB_Valores->setToolTip("Valores del Guante");
+    ui->pushB_Cargar->setToolTip("Sólo para PC -> Mano");
+    ui->pushB_Guardar->setToolTip("Sólo para Guante -> PC");
+    ui->pushB_PlayPause->setToolTip("Comenzar lectura (10 seg.)");
 }
 
 void Mano_Animatronica_Aplicacion::on_sld_Menor_valueChanged(int value)
@@ -325,4 +451,9 @@ void ActualizarImagenMano( Ui::Mano_Animatronica_Aplicacion *ui, QSlider *S_Meno
     ui->lbl_5_Indice_Img->setPixmap(I_Indice.scaled( ui->lbl_5_Indice_Img->width() , ui->lbl_5_Indice_Img->height() ,Qt::KeepAspectRatio));
     ui->lbl_6_Pulgar_Img->setPixmap(I_Pulgar.scaled( ui->lbl_6_Pulgar_Img->width() , ui->lbl_6_Pulgar_Img->height() ,Qt::KeepAspectRatio));
 
+}
+
+void Mano_Animatronica_Aplicacion::on_pushButton_clicked()
+{
+    /* algo */
 }

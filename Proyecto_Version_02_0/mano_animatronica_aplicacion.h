@@ -45,6 +45,10 @@ private slots:
 
     void on_sld_Pulgar_valueChanged(int value);
 
+    void on_pushB_PruebaGuante_clicked();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::Mano_Animatronica_Aplicacion *ui;
     int Modo;
