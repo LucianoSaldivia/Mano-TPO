@@ -1,80 +1,213 @@
 #include "mano_animatronica_aplicacion.h"
 #include "ui_mano_animatronica_aplicacion.h"
 
+#include <QLabel>
+#include <QMessageBox>
+
+/*
+ SerialPort
+    Todo sacado de código hecho por Qt en el proyecto: Welcome->Examples->Search:terminal
+*/
+
+
 Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::Mano_Animatronica_Aplicacion)
-{
+    ui(new Ui::Mano_Animatronica_Aplicacion){
     ui->setupUi(this);
 
-    /*  Connects    */
-    connect( ui->cBx_Modo, SIGNAL(QComboBox::activated()), this, SLOT(on_cBx_Modo_activated(int)) );
-    //connect( ui->cBx_Puerto, SIGNAL(QComboBox::activated()), this, SLOT(on_cBx_Puerto_activated(int)) );
+    /*  QSerialPort */
+        m_serial = new QSerialPort(this);
 
-    connect( ui->rdB_Guante_PC, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_Guante_PC_clicked()) );
-    connect( ui->rdB_PC_Mano, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_PC_Mano_clicked()) );
-    connect( ui->rdB_Guante_Mano, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_Guante_Mano_clicked()) );
+    /*  Timers   */{
+        Timer_UART = new QTimer(this);
+        Timer_WIFI = new QTimer(this);
+    }
 
-    connect( ui->sld_Menor, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Menor_valueChanged(int)) );
-    connect( ui->sld_Anular, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Anular_valueChanged(int)) );
-    connect( ui->sld_Mayor, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Mayor_valueChanged(int)) );
-    connect( ui->sld_Indice, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Indice_valueChanged(int)) );
-    connect( ui->sld_Pulgar, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Pulgar_valueChanged(int)) );
+    /*  Connects    */{
+            /*  SerialPorts */
+            //connect( m_serial, SIGNAL(QSerialPort::errorOccurred(SerialPortError error) ) , this, SLOT((handleError())) );
+            //connect( m_serial, SIGNAL(QSerialPort::readyRead() ) , this, SLOT(readData()) );
 
-    //connect( ui->pushB_PlayPause, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_PlayPause_clicked()) );
-    //connect( ui->pushB_Cargar, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Cargar_clicked()) );
-    //connect( ui->pushB_Guardar, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Guardar_clicked()) );
-    connect( ui->pushB_Prueba_Guante, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Prueba_Guante_clicked()) );
+            /*  Timers  */
+            connect( Timer_UART, SIGNAL(timeout()), this, SLOT(on_Timer_UART_timeout()) );
+            connect( Timer_WIFI, SIGNAL(timeout()), this, SLOT(on_Timer_WIFI_timeout()) );
+
+            /*  ComboBoxes    */
+            connect( ui->cBx_Modo, SIGNAL(QComboBox::activated()), this, SLOT(on_cBx_Modo_activated(int)) );
+            //connect( ui->cBx_Puerto, SIGNAL(QComboBox::activated()), this, SLOT(on_cBx_Puerto_activated(int)) );
+
+            /*  RadioButtons */
+            connect( ui->rdB_Guante_PC, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_Guante_PC_clicked()) );
+            connect( ui->rdB_PC_Mano, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_PC_Mano_clicked()) );
+            connect( ui->rdB_Guante_Mano, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_Guante_Mano_clicked()) );
+
+            /*  Sliders  */
+            connect( ui->sld_Menor, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Menor_valueChanged(int)) );
+            connect( ui->sld_Anular, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Anular_valueChanged(int)) );
+            connect( ui->sld_Mayor, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Mayor_valueChanged(int)) );
+            connect( ui->sld_Indice, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Indice_valueChanged(int)) );
+            connect( ui->sld_Pulgar, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Pulgar_valueChanged(int)) );
+
+            /* PushButtons   */
+            //connect( ui->pushB_PlayPause, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_PlayPause_clicked()) );
+            //connect( ui->pushB_Cargar, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Cargar_clicked()) );
+            //connect( ui->pushB_Guardar, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Guardar_clicked()) );
+            //connect( ui->pushB_Actualizar, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Actualizar_clicked()) );
+            connect( ui->pushB_Prueba_UART, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Prueba_UART_clicked()) );
+            connect( ui->pushB_Prueba_WIFI, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Prueba_WIFI_clicked()) );
+    }
+
+    /*  Status Bar  */{
+        QString MensajeStatusBar;
+        MensajeStatusBar = "MODO NO SELECCIONADO!";
+        ui->statusBar->showMessage( MensajeStatusBar );
+        ui->cBx_Modo->setCurrentIndex(NINGUN_MODO);
+    }
+
+    /*  Pestañas enables & disables */{
+        ui->tab_Controles->setDisabled(true);
+        ui->tab_Comunicacion->setEnabled(true);
+    }
+
+    /*  Widgets enables & disables  */{
+        ui->cBx_Modo->setEnabled(true);
+        ui->rdB_Guante_PC->setChecked(false);
+        ui->rdB_PC_Mano->setChecked(false);
+        ui->rdB_Guante_Mano->setChecked(false);
+        ui->grB_Mano->setDisabled(true);
+        ui->grB_Sliders->setDisabled(true);
+        ui->grB_Valores->setDisabled(true);
+        ui->pushB_Cargar->setDisabled(true);
+        ui->pushB_Guardar->setDisabled(true);
+        ui->pushB_PlayPause->setDisabled(true);
+        ui->lbl_Archivo->hide();
+    }
+
+    /*  SetUp SerialPort    */{
+
+        ui->cBx_Puerto->clear();
+        const auto infos = QSerialPortInfo::availablePorts();
+        for (const QSerialPortInfo &info : infos) {
+            QStringList list;
+            list << info.portName()
+                 /*<< (!description.isEmpty() ? description : blankString)
+                 << (!manufacturer.isEmpty() ? manufacturer : blankString)
+                 << (!serialNumber.isEmpty() ? serialNumber : blankString)
+                 << info.systemLocation()
+                 << (info.vendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : blankString)
+                 << (info.productIdentifier() ? QString::number(info.productIdentifier(), 16) : blankString)*/;
+
+            ui->cBx_Puerto->addItem(list.first(), list);
+        }
+        ui->cBx_Puerto->setCurrentIndex(0);
+        m_currentSettings.name = ui->cBx_Puerto->currentText();
+
+        m_currentSettings.baudRate = static_cast <QSerialPort::BaudRate> (BAUD_RATE);
+        m_currentSettings.stringBaudRate = QStringLiteral(STR_BAUD_RATE);
+
+        m_currentSettings.dataBits = static_cast <QSerialPort::DataBits> (DATA_BITS);
+        m_currentSettings.stringDataBits = QStringLiteral(STR_DATA_BITS);
+
+        m_currentSettings.parity = static_cast <QSerialPort::Parity> (PARITY);
+        m_currentSettings.stringParity = QStringLiteral(STR_PARITY);
+
+        m_currentSettings.stopBits = static_cast <QSerialPort::StopBits> (STOP_BITS);
+        m_currentSettings.stringStopBits = QStringLiteral(STR_STOP_BITS);
+
+        m_currentSettings.flowControl = static_cast <QSerialPort::FlowControl> (FLOW_CONTROL);
+        m_currentSettings.stringFlowControl = QStringLiteral(STR_FLOW_CONTROL);
 
 
+        m_serial->setPortName(m_currentSettings.name);
+        m_serial->setBaudRate(m_currentSettings.baudRate);
+        m_serial->setDataBits(m_currentSettings.dataBits);
+        m_serial->setParity(m_currentSettings.parity);
+        m_serial->setStopBits(m_currentSettings.stopBits);
+        m_serial->setFlowControl(m_currentSettings.flowControl);
+    }
 
-    /*  Status Bar  */
-    QString MensajeStatusBar;
-    MensajeStatusBar = "MODO NO SELECCIONADO!";
-    ui->statusBar->showMessage( MensajeStatusBar );
-    ui->cBx_Modo->setCurrentIndex(NINGUN_MODO);
-
-    /*  Widgets enabled & disabled*/
-    ui->cBx_Modo->setEnabled(1);
-    ui->rdB_Guante_PC->setChecked(0);
-    ui->rdB_PC_Mano->setChecked(0);
-    ui->rdB_Guante_Mano->setChecked(0);
-    ui->grB_Mano->setDisabled(1);
-    ui->grB_Sliders->setDisabled(1);
-    ui->grB_Valores->setDisabled(1);
-    ui->pushB_Cargar->setDisabled(1);
-    ui->pushB_Guardar->setDisabled(1);
-    ui->pushB_PlayPause->setDisabled(1);
-    ui->lbl_Archivo->hide();
-
-    /*   TOOLTIPS   */
+    /*  TOOLTIPS   */{
         /*  Pestañas */
-    ui->tab_Comunicacion->setToolTip("Comunicación serie");
-    ui->tab_Controles->setToolTip("Controles para hardware");
-        /*  Widgets  */
-    ui->cBx_Modo->setToolTip("Modo a utilizar");
-    ui->rdB_Guante_PC->setToolTip("IN: Guante - OUT: PC");
-    ui->rdB_PC_Mano->setToolTip("IN: PC - OUT: Mano");
-    ui->rdB_Guante_Mano->setToolTip("IN: Guante - OUT: Mano");
-    ui->grB_Mano->setToolTip("Simulación de la Mano");
-    ui->grB_Sliders->setToolTip("Simulación del Guante");
-    ui->grB_Valores->setToolTip("Valores de entrada");
-    ui->pushB_Cargar->setToolTip("Cargar movimientos a la mano");
-    ui->pushB_Guardar->setToolTip("Guardar movimientos desde el Guante");
-    ui->pushB_PlayPause->setToolTip("Leer/Reproducir");
+            ui->tab_Comunicacion->setToolTip("Comunicación serie");
+            ui->tab_Controles->setToolTip("Controles para hardware");
 
-    /*  GroupBox Mano   */
-    ActualizarImagenMano( ui, ui->sld_Menor->value(), ui->sld_Anular->value(), ui->sld_Mayor->value(), ui->sld_Indice->value(), ui->sld_Pulgar->value() );
+        /*  Widgets (tab_Controles) */
+            ui->cBx_Modo->setToolTip("Modo a utilizar");
+            ui->rdB_Guante_PC->setToolTip("IN: Guante - OUT: PC");
+            ui->rdB_PC_Mano->setToolTip("IN: PC - OUT: Mano");
+            ui->rdB_Guante_Mano->setToolTip("IN: Guante - OUT: Mano");
+            ui->grB_Mano->setToolTip("Simulación de la Mano");
+            ui->grB_Sliders->setToolTip("Simulación del Guante");
+            ui->grB_Valores->setToolTip("Valores de entrada");
+            ui->pushB_Cargar->setToolTip("Cargar movimientos a la mano");
+            ui->pushB_Guardar->setToolTip("Guardar movimientos desde el Guante");
+            ui->pushB_PlayPause->setToolTip("Leer/Reproducir");
 
-}
+        /*  Widgets (tab_Comunicacion) */
+            ui->pushB_Actualizar->setToolTip("Actualizar puertos");
+            ui->pushB_Prueba_UART->setToolTip("Prueba de conexión UART");
+            ui->pushB_Prueba_WIFI->setToolTip("Prueba de conexión UART");
+            ui->cBx_Puerto->setToolTip("Puerto UART a utilizar");
+            ui->pushB_Actualizar->setToolTip("Actualizar puertos");
+    }
 
-void Mano_Animatronica_Aplicacion::setModo( int Mode ){
-    Modo = Mode;
+    /*  Labels  */{
+        ui->lbl_Estado_Con_UART->setAutoFillBackground(true);
+        ui->lbl_Estado_Con_UART->setText("Desconectado");
+        ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
+        ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_ROJO_LETRA_NEGRA);
+
+        ui->lbl_Estado_Con_WIFI->setAutoFillBackground(true);
+        ui->lbl_Estado_Con_WIFI->setText("Desconectado");
+        ui->lbl_Estado_Con_WIFI->setAlignment(Qt::AlignCenter);
+        ui->lbl_Estado_Con_WIFI->setStyleSheet(FONDO_ROJO_LETRA_NEGRA);
+
+        ui->lbl_BaudRate->setText( "BaudRate : " + m_currentSettings.stringBaudRate );
+        ui->lbl_DataBits->setText( "DataBits : " + m_currentSettings.stringDataBits );
+        ui->lbl_Parity->setText( "Parity : " + m_currentSettings.stringParity );
+        ui->lbl_StopBits->setText( "StopBits : " + m_currentSettings.stringStopBits );
+        ui->lbl_FlowControl->setText( "FlowControl : " + m_currentSettings.stringFlowControl );
+    }
+
+    /*  GroupBox Mano   */{
+        ActualizarImagenMano( ui, ui->sld_Menor->value(), ui->sld_Anular->value(), ui->sld_Mayor->value(), ui->sld_Indice->value(), ui->sld_Pulgar->value() );
+    }
+
+
 }
 
 Mano_Animatronica_Aplicacion::~Mano_Animatronica_Aplicacion()
 {
+    if (m_serial->isOpen())  m_serial->close();
+    delete m_serial;
+
+    delete Timer_UART;
+    delete Timer_WIFI;
     delete ui;
+}
+
+void Mano_Animatronica_Aplicacion::setModo( int Nuevo_Modo ){
+    Modo = Nuevo_Modo;
+}
+
+int Mano_Animatronica_Aplicacion::getModo(){
+    return Modo;
+}
+
+void Mano_Animatronica_Aplicacion::setEstado_UART( int Nuevo_Estado ){
+    Estado_Conexion_UART = Nuevo_Estado;
+}
+
+int Mano_Animatronica_Aplicacion::getEstado_UART(){
+    return Estado_Conexion_UART;
+}
+
+void Mano_Animatronica_Aplicacion::setEstado_WIFI( int Nuevo_Estado ){
+    Estado_Conexion_WIFI = Nuevo_Estado;
+}
+
+int Mano_Animatronica_Aplicacion::getEstado_WIFI(){
+    return Estado_Conexion_WIFI;
 }
 
 void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
@@ -89,18 +222,18 @@ void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
 
         /*  ComboBox Modo */
         ui->cBx_Modo->setCurrentIndex(NINGUN_MODO);
-        ui->rdB_Guante_PC->setChecked(0);
-        ui->rdB_PC_Mano->setChecked(0);
-        ui->rdB_Guante_Mano->setChecked(0);
+        ui->rdB_Guante_PC->setChecked(false);
+        ui->rdB_PC_Mano->setChecked(false);
+        ui->rdB_Guante_Mano->setChecked(false);
         setModo(NINGUN_MODO);
 
-        /*  Widgets enabled & disabled*/
-        ui->grB_Mano->setDisabled(1);
-        ui->grB_Sliders->setDisabled(1);
-        ui->grB_Valores->setDisabled(1);
-        ui->pushB_Cargar->setDisabled(1);
-        ui->pushB_Guardar->setDisabled(1);
-        ui->pushB_PlayPause->setDisabled(1);
+        /*  Widgets enables & disables  */
+        ui->grB_Mano->setDisabled(true);
+        ui->grB_Sliders->setDisabled(true);
+        ui->grB_Valores->setDisabled(true);
+        ui->pushB_Cargar->setDisabled(true);
+        ui->pushB_Guardar->setDisabled(true);
+        ui->pushB_PlayPause->setDisabled(true);
         ui->lbl_Archivo->hide();
 
         /*   TOOLTIPS   */
@@ -125,18 +258,18 @@ void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
         ui->statusBar->showMessage( MensajeStatusBar );
 
         /*  ComboBox Modo */
-        ui->rdB_Guante_PC->setChecked(1);
-        ui->rdB_PC_Mano->setChecked(0);
-        ui->rdB_Guante_Mano->setChecked(0);
+        ui->rdB_Guante_PC->setChecked(true);
+        ui->rdB_PC_Mano->setChecked(false);
+        ui->rdB_Guante_Mano->setChecked(false);
         setModo(GUANTE_PC);
 
-        /*  Widgets enabled & disabled*/
-        ui->grB_Mano->setEnabled(1);
-        ui->grB_Sliders->setDisabled(1);
-        ui->grB_Valores->setEnabled(1);
-        ui->pushB_Cargar->setDisabled(1);
-        ui->pushB_Guardar->setEnabled(1);
-        ui->pushB_PlayPause->setDisabled(1);
+        /*  Widgets enables & disables  */
+        ui->grB_Mano->setEnabled(true);
+        ui->grB_Sliders->setDisabled(true);
+        ui->grB_Valores->setEnabled(true);
+        ui->pushB_Cargar->setDisabled(true);
+        ui->pushB_Guardar->setEnabled(true);
+        ui->pushB_PlayPause->setDisabled(true);
         ui->lbl_Archivo->hide();
 
         /*   TOOLTIPS   */
@@ -160,18 +293,18 @@ void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
         ui->statusBar->showMessage( MensajeStatusBar );
 
         /*  ComboBox Modo */
-        ui->rdB_Guante_PC->setChecked(0);
-        ui->rdB_PC_Mano->setChecked(1);
-        ui->rdB_Guante_Mano->setChecked(0);
+        ui->rdB_Guante_PC->setChecked(false);
+        ui->rdB_PC_Mano->setChecked(true);
+        ui->rdB_Guante_Mano->setChecked(false);
         setModo(PC_MANO);
 
-        /*  Widgets enabled & disabled*/
-        ui->grB_Mano->setEnabled(1);
-        ui->grB_Sliders->setEnabled(1);
-        ui->grB_Valores->setEnabled(1);
-        ui->pushB_Cargar->setEnabled(1);
-        ui->pushB_Guardar->setDisabled(1);
-        ui->pushB_PlayPause->setEnabled(1);
+        /*  Widgets enables & disables  */
+        ui->grB_Mano->setEnabled(true);
+        ui->grB_Sliders->setEnabled(true);
+        ui->grB_Valores->setEnabled(true);
+        ui->pushB_Cargar->setEnabled(true);
+        ui->pushB_Guardar->setDisabled(true);
+        ui->pushB_PlayPause->setEnabled(true);
         ui->lbl_Archivo->show();
 
         /*   TOOLTIPS   */
@@ -196,18 +329,18 @@ void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
         ui->statusBar->showMessage( MensajeStatusBar );
 
         /*  ComboBox Modo */
-        ui->rdB_Guante_PC->setChecked(0);
-        ui->rdB_PC_Mano->setChecked(0);
-        ui->rdB_Guante_Mano->setChecked(1);
+        ui->rdB_Guante_PC->setChecked(false);
+        ui->rdB_PC_Mano->setChecked(false);
+        ui->rdB_Guante_Mano->setChecked(true);
         setModo(GUANTE_MANO);
 
-        /*  Widgets enabled & disabled*/
-        ui->grB_Mano->setEnabled(1);
-        ui->grB_Sliders->setDisabled(1);
-        ui->grB_Valores->setEnabled(1);
-        ui->pushB_Cargar->setDisabled(1);
-        ui->pushB_Guardar->setDisabled(1);
-        ui->pushB_PlayPause->setDisabled(1);
+        /*  Widgets enables & disables  */
+        ui->grB_Mano->setEnabled(true);
+        ui->grB_Sliders->setDisabled(true);
+        ui->grB_Valores->setEnabled(true);
+        ui->pushB_Cargar->setDisabled(true);
+        ui->pushB_Guardar->setDisabled(true);
+        ui->pushB_PlayPause->setDisabled(true);
         ui->lbl_Archivo->hide();
 
         /*   TOOLTIPS   */
@@ -232,20 +365,19 @@ void Mano_Animatronica_Aplicacion::on_rdB_Guante_PC_clicked()
     MensajeStatusBar = "MODO GUANTE_PC";
     ui->statusBar->showMessage( MensajeStatusBar );
 
-    /*  ComboBox y RadioButtons Modo */
-    ui->cBx_Modo->setCurrentIndex(GUANTE_PC);
-    ui->rdB_Guante_PC->setChecked(1);
-    ui->rdB_PC_Mano->setChecked(0);
-    ui->rdB_Guante_Mano->setChecked(0);
+    /*  ComboBox Modo */
+    ui->rdB_Guante_PC->setChecked(true);
+    ui->rdB_PC_Mano->setChecked(false);
+    ui->rdB_Guante_Mano->setChecked(false);
     setModo(GUANTE_PC);
 
-    /*  Widgets enabled & disabled*/
-    ui->grB_Mano->setEnabled(1);
-    ui->grB_Sliders->setDisabled(1);
-    ui->grB_Valores->setEnabled(1);
-    ui->pushB_Cargar->setDisabled(1);
-    ui->pushB_Guardar->setEnabled(1);
-    ui->pushB_PlayPause->setDisabled(1);
+    /*  Widgets enables & disables  */
+    ui->grB_Mano->setEnabled(true);
+    ui->grB_Sliders->setDisabled(true);
+    ui->grB_Valores->setEnabled(true);
+    ui->pushB_Cargar->setDisabled(true);
+    ui->pushB_Guardar->setEnabled(true);
+    ui->pushB_PlayPause->setDisabled(true);
     ui->lbl_Archivo->hide();
 
     /*   TOOLTIPS   */
@@ -268,20 +400,19 @@ void Mano_Animatronica_Aplicacion::on_rdB_PC_Mano_clicked()
     MensajeStatusBar = "MODO PC_MANO";
     ui->statusBar->showMessage( MensajeStatusBar );
 
-    /*  ComboBox y RadioButtons Modo */
-    ui->cBx_Modo->setCurrentIndex(PC_MANO);
-    ui->rdB_Guante_PC->setChecked(0);
-    ui->rdB_PC_Mano->setChecked(1);
-    ui->rdB_Guante_Mano->setChecked(0);
+    /*  ComboBox Modo */
+    ui->rdB_Guante_PC->setChecked(false);
+    ui->rdB_PC_Mano->setChecked(true);
+    ui->rdB_Guante_Mano->setChecked(false);
     setModo(PC_MANO);
 
-    /*  Widgets enabled & disabled*/
-    ui->grB_Mano->setEnabled(1);
-    ui->grB_Sliders->setEnabled(1);
-    ui->grB_Valores->setEnabled(1);
-    ui->pushB_Cargar->setEnabled(1);
-    ui->pushB_Guardar->setDisabled(1);
-    ui->pushB_PlayPause->setEnabled(1);
+    /*  Widgets enables & disables  */
+    ui->grB_Mano->setEnabled(true);
+    ui->grB_Sliders->setEnabled(true);
+    ui->grB_Valores->setEnabled(true);
+    ui->pushB_Cargar->setEnabled(true);
+    ui->pushB_Guardar->setDisabled(true);
+    ui->pushB_PlayPause->setEnabled(true);
     ui->lbl_Archivo->show();
 
     /*   TOOLTIPS   */
@@ -305,20 +436,19 @@ void Mano_Animatronica_Aplicacion::on_rdB_Guante_Mano_clicked()
     MensajeStatusBar = "MODO GUANTE_MANO";
     ui->statusBar->showMessage( MensajeStatusBar );
 
-    /*  ComboBox y RadioButtons Modo */
-    ui->cBx_Modo->setCurrentIndex(GUANTE_MANO);
-    ui->rdB_Guante_PC->setChecked(0);
-    ui->rdB_PC_Mano->setChecked(0);
-    ui->rdB_Guante_Mano->setChecked(1);
+    /*  ComboBox Modo */
+    ui->rdB_Guante_PC->setChecked(false);
+    ui->rdB_PC_Mano->setChecked(false);
+    ui->rdB_Guante_Mano->setChecked(true);
     setModo(GUANTE_MANO);
 
-    /*  Widgets enabled & disabled*/
-    ui->grB_Mano->setEnabled(1);
-    ui->grB_Sliders->setDisabled(1);
-    ui->grB_Valores->setEnabled(1);
-    ui->pushB_Cargar->setDisabled(1);
-    ui->pushB_Guardar->setDisabled(1);
-    ui->pushB_PlayPause->setDisabled(1);
+    /*  Widgets enables & disables  */
+    ui->grB_Mano->setEnabled(true);
+    ui->grB_Sliders->setDisabled(true);
+    ui->grB_Valores->setEnabled(true);
+    ui->pushB_Cargar->setDisabled(true);
+    ui->pushB_Guardar->setDisabled(true);
+    ui->pushB_PlayPause->setDisabled(true);
     ui->lbl_Archivo->hide();
 
     /*   TOOLTIPS   */
@@ -336,10 +466,12 @@ void Mano_Animatronica_Aplicacion::on_rdB_Guante_Mano_clicked()
 
 void Mano_Animatronica_Aplicacion::on_sld_Menor_valueChanged(int value)
 {
-    if( Modo == PC_MANO ){
+    if( getModo() == PC_MANO ){
         value = (value * MAX_VAL) / ui->sld_Menor->maximum();
+
         /*  GroupBox Mano   */
         ActualizarImagenMano( ui, ui->sld_Menor->value(), ui->sld_Anular->value(), ui->sld_Mayor->value(), ui->sld_Indice->value(), ui->sld_Pulgar->value() );
+
         /*  Label   */
         ui->lbl_VMenor->setText( "Menor : " + QString::number(value));
     }
@@ -347,10 +479,12 @@ void Mano_Animatronica_Aplicacion::on_sld_Menor_valueChanged(int value)
 
 void Mano_Animatronica_Aplicacion::on_sld_Anular_valueChanged(int value)
 {
-    if( Modo == PC_MANO ){
+    if( getModo() == PC_MANO ){
         value = (value * MAX_VAL) / ui->sld_Anular->maximum();
+
         /*  GroupBox Mano   */
         ActualizarImagenMano( ui, ui->sld_Menor->value(), ui->sld_Anular->value(), ui->sld_Mayor->value(), ui->sld_Indice->value(), ui->sld_Pulgar->value() );
+
         /*  Label   */
         ui->lbl_VAnular->setText( "Anular : " + QString::number(value));
     }
@@ -358,10 +492,12 @@ void Mano_Animatronica_Aplicacion::on_sld_Anular_valueChanged(int value)
 
 void Mano_Animatronica_Aplicacion::on_sld_Mayor_valueChanged(int value)
 {
-    if( Modo == PC_MANO ){
+    if( getModo() == PC_MANO ){
         value = (value * MAX_VAL) / ui->sld_Mayor->maximum();
+
         /*  GroupBox Mano   */
         ActualizarImagenMano( ui, ui->sld_Menor->value(), ui->sld_Anular->value(), ui->sld_Mayor->value(), ui->sld_Indice->value(), ui->sld_Pulgar->value() );
+
         /*  Label   */
         ui->lbl_VMayor->setText( "Mayor : " + QString::number(value));
     }
@@ -369,10 +505,12 @@ void Mano_Animatronica_Aplicacion::on_sld_Mayor_valueChanged(int value)
 
 void Mano_Animatronica_Aplicacion::on_sld_Indice_valueChanged(int value)
 {
-    if( Modo == PC_MANO ){
+    if( getModo() == PC_MANO ){
         value = (value * MAX_VAL) / ui->sld_Indice->maximum();
+
         /*  GroupBox Mano   */
         ActualizarImagenMano( ui, ui->sld_Menor->value(), ui->sld_Anular->value(), ui->sld_Mayor->value(), ui->sld_Indice->value(), ui->sld_Pulgar->value() );
+
         /*  Label   */
         ui->lbl_VIndice->setText( "Indice : " + QString::number(value));
     }
@@ -380,21 +518,110 @@ void Mano_Animatronica_Aplicacion::on_sld_Indice_valueChanged(int value)
 
 void Mano_Animatronica_Aplicacion::on_sld_Pulgar_valueChanged(int value)
 {
-    if( Modo == PC_MANO ){
+    if( getModo() == PC_MANO ){
         value = (value * MAX_VAL) / ui->sld_Pulgar->maximum();
+
         /*  GroupBox Mano   */
         ActualizarImagenMano( ui, ui->sld_Menor->value(), ui->sld_Anular->value(), ui->sld_Mayor->value(), ui->sld_Indice->value(), ui->sld_Pulgar->value() );
+
         /*  Label   */
         ui->lbl_VPulgar->setText( "Pulgar : " + QString::number(value));
     }
 }
 
-void Mano_Animatronica_Aplicacion::on_pushB_Prueba_Guante_clicked(){
-    ui->LABEL_DE_PRUEBA->setStyleSheet("QLabel { background-color : red; color : blue; }");
-    /*ui->lbl_FlowControl->setStyleSheet("QLabel { background-color : red; color : black; }");
-    ui->lbl_StopBits->setStyleSheet("QLabel { background-color : yellow; color : black; }");
-    ui->lbl_Parity->setStyleSheet("QLabel { background-color : green; color : black; }");*/
+void Mano_Animatronica_Aplicacion::on_pushB_Prueba_UART_clicked(){
+
+    /*  Timer   */
+    Timer_UART->start( TIEMPO_DE_ESPERA_UART );
+
+    setEstado_UART( ESPERANDO );
+
+    m_currentSettings.name = ui->cBx_Puerto->currentText();
+    /*ui->statusBar->showMessage( "\"" + ui->cBx_Puerto->currentText() + "\"" );*/
+
+    /*  Label   */
+    ui->lbl_Estado_Con_UART->setText("Esperando...");
+    ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
+    ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_AMARILLO_LETRA_NEGRA);
+
+    /*  PushButton  */
+    ui->pushB_Prueba_UART->setDisabled(true);
+
+    /*  Prueba UART */
+    if (m_serial->open(QIODevice::ReadWrite)) {
+        setEstado_UART(CONECTADO);
+
+        /*  Label   */
+        ui->lbl_Estado_Con_UART->setText("Conectado!");
+        ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
+        ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_VERDE_LETRA_NEGRA);
+
+        /*  Pestañas enables & disables */{
+            ui->tab_Controles->setEnabled(true);
+        }
+    }
+    else {
+        /*QMessageBox::critical(this, tr("Error"), m_serial->errorString());*/
+        setEstado_UART(DESCONECTADO);
+
+        /*  Label   */
+        ui->lbl_Estado_Con_UART->setText("Desconectado");
+        ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
+        ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_ROJO_LETRA_NEGRA);
+
+        /*  PushButton  */
+        ui->pushB_Prueba_UART->setEnabled(true);
+    }
 }
+
+void Mano_Animatronica_Aplicacion::on_pushB_Prueba_WIFI_clicked(){
+
+    setEstado_WIFI( ESPERANDO );
+
+    /*  Timer   */
+    Timer_WIFI->start( TIEMPO_DE_ESPERA_WIFI );
+
+    /*  Label   */
+    ui->lbl_Estado_Con_WIFI->setText("Esperando...");
+    ui->lbl_Estado_Con_WIFI->setAlignment(Qt::AlignCenter);
+    ui->lbl_Estado_Con_WIFI->setStyleSheet(FONDO_AMARILLO_LETRA_NEGRA);
+
+    /*  PushButton  */
+    ui->pushB_Prueba_WIFI->setDisabled(true);
+}
+
+void Mano_Animatronica_Aplicacion::on_Timer_UART_timeout(){
+
+    if( getEstado_UART() == ESPERANDO ){
+        setEstado_UART( DESCONECTADO );
+
+        /*  Label   */
+        ui->lbl_Estado_Con_UART->setText("Desconectado");
+        ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
+        ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_ROJO_LETRA_NEGRA);
+
+        /*  PushButton  */
+        ui->pushB_Prueba_UART->setEnabled(true);
+    }
+}
+
+void Mano_Animatronica_Aplicacion::on_Timer_WIFI_timeout(){
+
+    setEstado_WIFI( ESPERANDO );
+
+    /*  Label   */
+    ui->lbl_Estado_Con_WIFI->setText("Desconectado");
+    ui->lbl_Estado_Con_WIFI->setAlignment(Qt::AlignCenter);
+    ui->lbl_Estado_Con_WIFI->setStyleSheet(FONDO_ROJO_LETRA_NEGRA);
+
+    /*  PushButton  */
+    ui->pushB_Prueba_WIFI->setEnabled(true);
+}
+
+
+
+
+
 
 
 
@@ -450,7 +677,6 @@ void ActualizarImagenMano( Ui::Mano_Animatronica_Aplicacion *ui, int Menor, int 
     ui->lbl_4_Mayor_Img->setPixmap(I_Mayor.scaled( ui->lbl_4_Mayor_Img->width() , ui->lbl_4_Mayor_Img->height() ,Qt::KeepAspectRatio));
     ui->lbl_5_Indice_Img->setPixmap(I_Indice.scaled( ui->lbl_5_Indice_Img->width() , ui->lbl_5_Indice_Img->height() ,Qt::KeepAspectRatio));
     ui->lbl_6_Pulgar_Img->setPixmap(I_Pulgar.scaled( ui->lbl_6_Pulgar_Img->width() , ui->lbl_6_Pulgar_Img->height() ,Qt::KeepAspectRatio));
-
 }
 
 void ActualizarImagenMano( Ui::Mano_Animatronica_Aplicacion *ui, QSlider *S_Menor, QSlider *S_Anular, QSlider *S_Mayor, QSlider *S_Indice, QSlider *S_Pulgar ){
@@ -502,5 +728,4 @@ void ActualizarImagenMano( Ui::Mano_Animatronica_Aplicacion *ui, QSlider *S_Meno
     ui->lbl_4_Mayor_Img->setPixmap(I_Mayor.scaled( ui->lbl_4_Mayor_Img->width() , ui->lbl_4_Mayor_Img->height() ,Qt::KeepAspectRatio));
     ui->lbl_5_Indice_Img->setPixmap(I_Indice.scaled( ui->lbl_5_Indice_Img->width() , ui->lbl_5_Indice_Img->height() ,Qt::KeepAspectRatio));
     ui->lbl_6_Pulgar_Img->setPixmap(I_Pulgar.scaled( ui->lbl_6_Pulgar_Img->width() , ui->lbl_6_Pulgar_Img->height() ,Qt::KeepAspectRatio));
-
 }

@@ -30,50 +30,23 @@
      <attribute name="title">
       <string>Comunicación</string>
      </attribute>
-     <widget class="QGroupBox" name="grB_Con_Guante">
+     <widget class="QGroupBox" name="grB_Con_UART">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>20</y>
+        <y>10</y>
         <width>660</width>
-        <height>231</height>
+        <height>240</height>
        </rect>
       </property>
       <property name="title">
        <string>Conexión UART</string>
       </property>
-     </widget>
-     <widget class="QWidget" name="gridLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>40</y>
-        <width>641</width>
-        <height>201</height>
-       </rect>
-      </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0" rowspan="2">
-        <widget class="QGroupBox" name="groupBox">
+       <item row="0" column="2" rowspan="2">
+        <widget class="QGroupBox" name="grB_Config">
          <property name="title">
-          <string>Seleccione Puerto :</string>
-         </property>
-         <widget class="QComboBox" name="cBx_Puerto">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>30</y>
-            <width>181</width>
-            <height>31</height>
-           </rect>
-          </property>
-         </widget>
-        </widget>
-       </item>
-       <item row="0" column="1" rowspan="2">
-        <widget class="QGroupBox" name="groupBox_2">
-         <property name="title">
-          <string>Configuración de la conexión</string>
+          <string>Configuración de la conexión :</string>
          </property>
          <widget class="QLabel" name="lbl_Parity">
           <property name="geometry">
@@ -142,18 +115,18 @@
          </widget>
         </widget>
        </item>
-       <item row="0" column="2" rowspan="2">
-        <widget class="QGroupBox" name="groupBox_3">
+       <item row="0" column="1" rowspan="2">
+        <widget class="QGroupBox" name="grB_Con_UART_2">
          <property name="title">
-          <string>Estado de la conexión</string>
+          <string>Estado de la conexión :</string>
          </property>
-         <widget class="QPushButton" name="pushB_Prueba_Guante">
+         <widget class="QPushButton" name="pushB_Prueba_UART">
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>50</y>
+            <y>35</y>
             <width>191</width>
-            <height>36</height>
+            <height>51</height>
            </rect>
           </property>
           <property name="text">
@@ -161,35 +134,104 @@
  al Puerto seleccionado</string>
           </property>
          </widget>
-         <widget class="QLabel" name="lbl_Estado_Conexion">
+         <widget class="QLabel" name="lbl_Estado_Con_UART">
           <property name="geometry">
            <rect>
-            <x>40</x>
+            <x>30</x>
             <y>110</y>
-            <width>141</width>
+            <width>151</width>
             <height>61</height>
            </rect>
           </property>
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
           <property name="text">
-           <string>Estado de la conexión</string>
+           <string>Desconectado</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
-         <widget class="QLabel" name="LABEL_DE_PRUEBA">
+        </widget>
+       </item>
+       <item row="0" column="0" rowspan="2">
+        <widget class="QGroupBox" name="grB_Puerto">
+         <property name="title">
+          <string>Seleccione Puerto :</string>
+         </property>
+         <widget class="QComboBox" name="cBx_Puerto">
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>100</y>
+            <y>70</y>
             <width>191</width>
-            <height>16</height>
+            <height>31</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushB_Actualizar">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>30</y>
+            <width>191</width>
+            <height>31</height>
            </rect>
           </property>
           <property name="text">
-           <string>Texto</string>
+           <string>Actualizar</string>
           </property>
          </widget>
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QGroupBox" name="grB_Con_WIFI">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>270</y>
+        <width>660</width>
+        <height>240</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Conexión Wi-Fi</string>
+      </property>
+      <widget class="QPushButton" name="pushB_Prueba_WIFI">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>90</y>
+         <width>201</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Comprobar conexión 
+ del Puerto Wi-Fi configurado</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lbl_Estado_Con_WIFI">
+       <property name="geometry">
+        <rect>
+         <x>370</x>
+         <y>90</y>
+         <width>201</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Desconectado</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_Controles">
@@ -461,7 +503,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Menor : 9999</string>
+        <string>Menor : 0</string>
        </property>
       </widget>
       <widget class="QLabel" name="lbl_VAnular">
@@ -474,7 +516,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Anular : 9999</string>
+        <string>Anular : 0</string>
        </property>
       </widget>
       <widget class="QLabel" name="lbl_VMayor">
@@ -487,7 +529,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Mayor : 9999</string>
+        <string>Mayor : 0</string>
        </property>
       </widget>
       <widget class="QLabel" name="lbl_VIndice">
@@ -500,7 +542,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Indice : 9999</string>
+        <string>Indice : 0</string>
        </property>
       </widget>
       <widget class="QLabel" name="lbl_VPulgar">
@@ -513,7 +555,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Pulgar : 9999</string>
+        <string>Pulgar : 0</string>
        </property>
       </widget>
      </widget>
