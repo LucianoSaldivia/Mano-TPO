@@ -3,11 +3,15 @@
 
 #include <QLabel>
 #include <QMessageBox>
+#include <QByteArray>
+#include <QIODevice>
 
 /*
  SerialPort
     Todo sacado de código hecho por Qt en el proyecto: Welcome->Examples->Search:terminal
 */
+
+static const char blankString[] = QT_TRANSLATE_NOOP("SettingsDialog", "N/A");
 
 
 Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
@@ -25,16 +29,17 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
 
     /*  Connects    */{
             /*  SerialPorts */
-            //connect( m_serial, SIGNAL(QSerialPort::errorOccurred(SerialPortError error) ) , this, SLOT((handleError())) );
-            //connect( m_serial, SIGNAL(QSerialPort::readyRead() ) , this, SLOT(readData()) );
+            connect( m_serial, &QSerialPort::errorOccurred, this, &Mano_Animatronica_Aplicacion::handler_Error_UART);
+            connect( m_serial, &QSerialPort::readyRead, this, &Mano_Animatronica_Aplicacion::handler_ReadyRead);
+
 
             /*  Timers  */
-            connect( Timer_UART, SIGNAL(timeout()), this, SLOT(on_Timer_UART_timeout()) );
-            connect( Timer_WIFI, SIGNAL(timeout()), this, SLOT(on_Timer_WIFI_timeout()) );
+            connect( Timer_UART, SIGNAL(QTimer::timeout()), this, SLOT(on_Timer_UART_timeout()) );
+            connect( Timer_WIFI, SIGNAL(QTimer::timeout()), this, SLOT(on_Timer_WIFI_timeout()) );
 
             /*  ComboBoxes    */
             connect( ui->cBx_Modo, SIGNAL(QComboBox::activated()), this, SLOT(on_cBx_Modo_activated(int)) );
-            //connect( ui->cBx_Puerto, SIGNAL(QComboBox::activated()), this, SLOT(on_cBx_Puerto_activated(int)) );
+            connect( ui->cBx_Puerto, SIGNAL(QComboBox::currentIndexChanged()), this, SLOT(on_cBx_Puerto_currentIndexChanged(int index)) );
 
             /*  RadioButtons */
             connect( ui->rdB_Guante_PC, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_Guante_PC_clicked()) );
@@ -52,7 +57,7 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
             //connect( ui->pushB_PlayPause, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_PlayPause_clicked()) );
             //connect( ui->pushB_Cargar, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Cargar_clicked()) );
             //connect( ui->pushB_Guardar, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Guardar_clicked()) );
-            //connect( ui->pushB_Actualizar, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Actualizar_clicked()) );
+            connect( ui->pushB_Actualizar, SIGNAL(QPushButton::clicked()), this, SLOT(Actualizar_Puertos()) );
             connect( ui->pushB_Prueba_UART, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Prueba_UART_clicked()) );
             connect( ui->pushB_Prueba_WIFI, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Prueba_WIFI_clicked()) );
     }
@@ -83,24 +88,9 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
         ui->lbl_Archivo->hide();
     }
 
-    /*  SetUp SerialPort    */{
+    /*  SetUp SerialPortInfo & ComboBox Puerto  */{
 
-        ui->cBx_Puerto->clear();
-        const auto infos = QSerialPortInfo::availablePorts();
-        for (const QSerialPortInfo &info : infos) {
-            QStringList list;
-            list << info.portName()
-                 /*<< (!description.isEmpty() ? description : blankString)
-                 << (!manufacturer.isEmpty() ? manufacturer : blankString)
-                 << (!serialNumber.isEmpty() ? serialNumber : blankString)
-                 << info.systemLocation()
-                 << (info.vendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : blankString)
-                 << (info.productIdentifier() ? QString::number(info.productIdentifier(), 16) : blankString)*/;
-
-            ui->cBx_Puerto->addItem(list.first(), list);
-        }
-        ui->cBx_Puerto->setCurrentIndex(0);
-        m_currentSettings.name = ui->cBx_Puerto->currentText();
+        Actualizar_Puertos();
 
         m_currentSettings.baudRate = static_cast <QSerialPort::BaudRate> (BAUD_RATE);
         m_currentSettings.stringBaudRate = QStringLiteral(STR_BAUD_RATE);
@@ -117,13 +107,6 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
         m_currentSettings.flowControl = static_cast <QSerialPort::FlowControl> (FLOW_CONTROL);
         m_currentSettings.stringFlowControl = QStringLiteral(STR_FLOW_CONTROL);
 
-
-        m_serial->setPortName(m_currentSettings.name);
-        m_serial->setBaudRate(m_currentSettings.baudRate);
-        m_serial->setDataBits(m_currentSettings.dataBits);
-        m_serial->setParity(m_currentSettings.parity);
-        m_serial->setStopBits(m_currentSettings.stopBits);
-        m_serial->setFlowControl(m_currentSettings.flowControl);
     }
 
     /*  TOOLTIPS   */{
@@ -153,20 +136,27 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
 
     /*  Labels  */{
         ui->lbl_Estado_Con_UART->setAutoFillBackground(true);
-        ui->lbl_Estado_Con_UART->setText("Desconectado");
+        ui->lbl_Estado_Con_UART->setText(TEXTO_DESCONECTADO);
         ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
-        ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_ROJO_LETRA_NEGRA);
+        ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_ROJO_NEGRITA_LETRA_NEGRA);
 
         ui->lbl_Estado_Con_WIFI->setAutoFillBackground(true);
-        ui->lbl_Estado_Con_WIFI->setText("Desconectado");
+        ui->lbl_Estado_Con_WIFI->setText(TEXTO_DESCONECTADO);
         ui->lbl_Estado_Con_WIFI->setAlignment(Qt::AlignCenter);
-        ui->lbl_Estado_Con_WIFI->setStyleSheet(FONDO_ROJO_LETRA_NEGRA);
+        ui->lbl_Estado_Con_WIFI->setStyleSheet(FONDO_ROJO_NEGRITA_LETRA_NEGRA);
 
-        ui->lbl_BaudRate->setText( "BaudRate : " + m_currentSettings.stringBaudRate );
-        ui->lbl_DataBits->setText( "DataBits : " + m_currentSettings.stringDataBits );
-        ui->lbl_Parity->setText( "Parity : " + m_currentSettings.stringParity );
-        ui->lbl_StopBits->setText( "StopBits : " + m_currentSettings.stringStopBits );
-        ui->lbl_FlowControl->setText( "FlowControl : " + m_currentSettings.stringFlowControl );
+        ui->lbl_BaudRate->setText( "Taza de Baudios: " + m_currentSettings.stringBaudRate );
+        ui->lbl_DataBits->setText( "Bits de Datos: " + m_currentSettings.stringDataBits );
+        ui->lbl_Parity->setText( "Paridad: " + m_currentSettings.stringParity );
+        ui->lbl_StopBits->setText( "Bits de Stop: " + m_currentSettings.stringStopBits );
+        ui->lbl_FlowControl->setText( "Control de Flujo: " + m_currentSettings.stringFlowControl );
+
+        QStringList list;
+        list = ui->cBx_Puerto->itemData( ui->cBx_Puerto->currentIndex() ).toStringList();
+        ui->lbl_UART_Des->setText(tr("Descripción: %1").arg(list.count() > 1 ? list.at(1) : tr(blankString)));
+        ui->lbl_UART_Fab->setText(tr("Fabricante: %1").arg(list.count() > 2 ? list.at(2) : tr(blankString)));
+        ui->lbl_UART_Nsr->setText(tr("Núm.Serie: %1").arg(list.count() > 3 ? list.at(3) : tr(blankString)));
+        ui->lbl_UART_Ubi->setText(tr("Ubicación: %1").arg(list.count() > 4 ? list.at(4) : tr(blankString)));
     }
 
     /*  GroupBox Mano   */{
@@ -178,7 +168,9 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
 
 Mano_Animatronica_Aplicacion::~Mano_Animatronica_Aplicacion()
 {
-    if (m_serial->isOpen())  m_serial->close();
+    if (m_serial->isOpen()){
+        m_serial->close();
+    }
     delete m_serial;
 
     delete Timer_UART;
@@ -208,6 +200,29 @@ void Mano_Animatronica_Aplicacion::setEstado_WIFI( int Nuevo_Estado ){
 
 int Mano_Animatronica_Aplicacion::getEstado_WIFI(){
     return Estado_Conexion_WIFI;
+}
+
+void Mano_Animatronica_Aplicacion::Actualizar_Puertos(){
+    ui->cBx_Puerto->clear();
+
+    const auto infos = QSerialPortInfo::availablePorts();
+    for (const QSerialPortInfo &info : infos) {
+        QStringList list;
+        description = info.description();
+        manufacturer = info.manufacturer();
+        serialNumber = info.serialNumber();
+        list << info.portName()
+             << (!description.isEmpty() ? description : blankString)
+             << (!manufacturer.isEmpty() ? manufacturer : blankString)
+             << (!serialNumber.isEmpty() ? serialNumber : blankString)
+             << info.systemLocation()
+             /*<< (info.vendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : blankString)
+             << (info.productIdentifier() ? QString::number(info.productIdentifier(), 16) : blankString)*/;
+
+        ui->cBx_Puerto->addItem(list.first(), list);
+    }
+    ui->cBx_Puerto->setCurrentIndex(0);
+    m_currentSettings.name = ui->cBx_Puerto->currentText();
 }
 
 void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
@@ -356,6 +371,35 @@ void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
         ui->pushB_PlayPause->setToolTip("Comenzar lectura (10 seg.)");
     }
 
+}
+
+void Mano_Animatronica_Aplicacion::on_cBx_Puerto_currentIndexChanged(int index){
+
+    /*  Labels  */
+    QStringList list;
+    list = ui->cBx_Puerto->itemData(index).toStringList();
+    ui->lbl_UART_Des->setText(tr("Descripción: %1").arg(list.count() > 1 ? list.at(1) : tr(blankString)));
+    ui->lbl_UART_Fab->setText(tr("Fabricante: %1").arg(list.count() > 2 ? list.at(2) : tr(blankString)));
+    ui->lbl_UART_Nsr->setText(tr("Núm.Serie: %1").arg(list.count() > 3 ? list.at(3) : tr(blankString)));
+    ui->lbl_UART_Ubi->setText(tr("Ubicación: %1").arg(list.count() > 4 ? list.at(4) : tr(blankString)));
+
+    if( getEstado_UART() != DESCONECTADO ){
+
+        setEstado_UART( DESCONECTADO );
+
+        /*  SerialPort  */
+        if (m_serial->isOpen()){
+            m_serial->close();
+        }
+
+        /*  Labels   */
+        ui->lbl_Estado_Con_UART->setText(TEXTO_DESCONECTADO);
+        ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
+        ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_ROJO_NEGRITA_LETRA_NEGRA);
+
+        /*  PushButton  */
+        ui->pushB_Prueba_UART->setEnabled(true);
+    }
 }
 
 void Mano_Animatronica_Aplicacion::on_rdB_Guante_PC_clicked()
@@ -529,50 +573,132 @@ void Mano_Animatronica_Aplicacion::on_sld_Pulgar_valueChanged(int value)
     }
 }
 
+
 void Mano_Animatronica_Aplicacion::on_pushB_Prueba_UART_clicked(){
 
     /*  Timer   */
-    Timer_UART->start( TIEMPO_DE_ESPERA_UART );
+    //Timer_UART->start( TIEMPO_DE_ESPERA_UART );
 
     setEstado_UART( ESPERANDO );
 
-    m_currentSettings.name = ui->cBx_Puerto->currentText();
-    /*ui->statusBar->showMessage( "\"" + ui->cBx_Puerto->currentText() + "\"" );*/
-
     /*  Label   */
-    ui->lbl_Estado_Con_UART->setText("Esperando...");
+    ui->lbl_Estado_Con_UART->setText(TEXTO_ESPERANDO);
     ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
-    ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_AMARILLO_LETRA_NEGRA);
+    ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_AMARILLO_NEGRITA_LETRA_NEGRA);
 
     /*  PushButton  */
     ui->pushB_Prueba_UART->setDisabled(true);
 
     /*  Prueba UART */
+    m_currentSettings.name = ui->cBx_Puerto->currentText();
+
+    m_serial->setPortName(ui->cBx_Puerto->currentText());
+    m_serial->setBaudRate(m_currentSettings.baudRate);
+    m_serial->setDataBits(m_currentSettings.dataBits);
+    m_serial->setParity(m_currentSettings.parity);
+    m_serial->setStopBits(m_currentSettings.stopBits);
+    m_serial->setFlowControl(m_currentSettings.flowControl);
+
     if (m_serial->open(QIODevice::ReadWrite)) {
-        setEstado_UART(CONECTADO);
+        setEstado_UART( CONECTADO );
 
         /*  Label   */
-        ui->lbl_Estado_Con_UART->setText("Conectado!");
+        ui->lbl_Estado_Con_UART->setText(TEXTO_CONECTADO);
         ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
-        ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_VERDE_LETRA_NEGRA);
+        ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_VERDE_NEGRITA_LETRA_NEGRA);
 
-        /*  Pestañas enables & disables */{
+        /*  Pestañas enables & disables */
             ui->tab_Controles->setEnabled(true);
+
+        /*  ENVIO _ UART */{
+            m_serial->write( TEXTO_A_ENVIAR, sizeof(TEXTO_A_ENVIAR) );
+            m_serial->flush();
+            QString a(TEXTO_A_ENVIAR);
+            QString b(" enviado.");
+            ui->statusBar->showMessage( a + b );
         }
+
     }
     else {
-        /*QMessageBox::critical(this, tr("Error"), m_serial->errorString());*/
+        QMessageBox::critical(this, tr("Error"), m_serial->errorString());
         setEstado_UART(DESCONECTADO);
 
         /*  Label   */
-        ui->lbl_Estado_Con_UART->setText("Desconectado");
+        ui->lbl_Estado_Con_UART->setText(TEXTO_DESCONECTADO);
         ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
-        ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_ROJO_LETRA_NEGRA);
+        ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_ROJO_NEGRITA_LETRA_NEGRA);
 
         /*  PushButton  */
         ui->pushB_Prueba_UART->setEnabled(true);
     }
 }
+
+void Mano_Animatronica_Aplicacion::handler_ReadyRead(){
+    QByteArray data_rx;
+
+    data_rx.append(m_serial->readAll());
+
+    // Solo chequeamos el dato recibido cuando llegaron las dos '/' indicando toda una transmision
+    if(data_rx.count('/') == 2){
+        // Borramos la '/' del final y del principio
+        QString dato(data_rx);
+
+        dato.chop(1); // Sacamos '/' del final
+        dato.remove(0,1); // Sacamos '/' del principio
+
+        // En esta instancia, en dato solo tendremos XXXX
+        ui->statusBar->showMessage("Ultimo dato: " + dato); // Mostramos el ultimo dato recibido
+    }
+}
+
+
+void Mano_Animatronica_Aplicacion::on_Timer_UART_timeout(){
+
+
+
+    /*char *Prueba;
+    Prueba = new char [50];
+
+    memset( &Prueba[0], '\0', 50);
+
+    //QString Str;
+    //Str.clear();
+
+    //QByteArray ArrayR;
+
+    if(m_serial->canReadLine()) {
+        m_serial->readLine( Prueba, 49 );
+    }
+    if( strcmp( Prueba, "0" ) > 0 ) {
+        //Str.append( Prueba );
+        ui->statusBar->showMessage( Prueba );
+    }*/
+}
+
+/*void Mano_Animatronica_Aplicacion::on_Timer_UART_timeout(){
+
+    if( getEstado_UART() == ESPERANDO ){
+        setEstado_UART( DESCONECTADO );*/
+
+        /*  Label   */
+        /*ui->lbl_Estado_Con_UART->setText(TEXTO_DESCONECTADO);
+        ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
+        ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_ROJO_NEGRITA_LETRA_NEGRA);*/
+
+        /*  PushButton  */
+        /*ui->pushB_Prueba_UART->setEnabled(true);
+    }
+}*/
+
+void Mano_Animatronica_Aplicacion::handler_Error_UART(QSerialPort::SerialPortError error){
+    if (error == QSerialPort::ResourceError) {
+        QMessageBox::critical(this, tr("Critical Error"), m_serial->errorString());
+        if (m_serial->isOpen()){
+            m_serial->close();
+        }
+    }
+}
+
 
 void Mano_Animatronica_Aplicacion::on_pushB_Prueba_WIFI_clicked(){
 
@@ -582,43 +708,26 @@ void Mano_Animatronica_Aplicacion::on_pushB_Prueba_WIFI_clicked(){
     Timer_WIFI->start( TIEMPO_DE_ESPERA_WIFI );
 
     /*  Label   */
-    ui->lbl_Estado_Con_WIFI->setText("Esperando...");
+    ui->lbl_Estado_Con_WIFI->setText(TEXTO_ESPERANDO);
     ui->lbl_Estado_Con_WIFI->setAlignment(Qt::AlignCenter);
-    ui->lbl_Estado_Con_WIFI->setStyleSheet(FONDO_AMARILLO_LETRA_NEGRA);
+    ui->lbl_Estado_Con_WIFI->setStyleSheet(FONDO_AMARILLO_NEGRITA_LETRA_NEGRA);
 
     /*  PushButton  */
     ui->pushB_Prueba_WIFI->setDisabled(true);
 }
 
-void Mano_Animatronica_Aplicacion::on_Timer_UART_timeout(){
-
-    if( getEstado_UART() == ESPERANDO ){
-        setEstado_UART( DESCONECTADO );
-
-        /*  Label   */
-        ui->lbl_Estado_Con_UART->setText("Desconectado");
-        ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
-        ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_ROJO_LETRA_NEGRA);
-
-        /*  PushButton  */
-        ui->pushB_Prueba_UART->setEnabled(true);
-    }
-}
-
 void Mano_Animatronica_Aplicacion::on_Timer_WIFI_timeout(){
 
-    setEstado_WIFI( ESPERANDO );
+    setEstado_WIFI( DESCONECTADO );
 
     /*  Label   */
-    ui->lbl_Estado_Con_WIFI->setText("Desconectado");
+    ui->lbl_Estado_Con_WIFI->setText(TEXTO_DESCONECTADO);
     ui->lbl_Estado_Con_WIFI->setAlignment(Qt::AlignCenter);
-    ui->lbl_Estado_Con_WIFI->setStyleSheet(FONDO_ROJO_LETRA_NEGRA);
+    ui->lbl_Estado_Con_WIFI->setStyleSheet(FONDO_ROJO_NEGRITA_LETRA_NEGRA);
 
     /*  PushButton  */
     ui->pushB_Prueba_WIFI->setEnabled(true);
 }
-
-
 
 
 

@@ -31,15 +31,24 @@
 #define ESPERANDO   1
 #define CONECTADO   2
 
+/*  QByteArray de prueba    */
+#define TEXTO_A_ENVIAR    "#S$"
+//#define TEXTO_A_RECIBIR   "Rx = #S$"
+
 /*  Tiempos */
 #define TIEMPO_DE_ESPERA_UART 1500
 #define TIEMPO_DE_ESPERA_WIFI 1000
 
+/*  Textos Conexión */
+#define TEXTO_DESCONECTADO "DESCONECTADO"
+#define TEXTO_ESPERANDO "ESPERANDO..."
+#define TEXTO_CONECTADO "CONECTADO !"
+
 /*  Colores */
 //  Para conseguir otros colores, https://htmlcolorcodes.com/
-#define FONDO_ROJO_LETRA_NEGRA        "QLabel { background-color: #D71B17 ; color : #000000; }"
-#define FONDO_AMARILLO_LETRA_NEGRA    "QLabel { background-color: #D2CF00 ; color : #000000; }"
-#define FONDO_VERDE_LETRA_NEGRA       "QLabel { background-color: #38CC25 ; color : #000000; }"
+#define FONDO_ROJO_NEGRITA_LETRA_NEGRA        "QLabel { background-color: #D71B17 ; font-weight: bold; color : #000000; }"
+#define FONDO_AMARILLO_NEGRITA_LETRA_NEGRA    "QLabel { background-color: #D2CF00 ; font-weight: bold; color : #000000; }"
+#define FONDO_VERDE_NEGRITA_LETRA_NEGRA       "QLabel { background-color: #38CC25 ; font-weight: bold; color : #000000; }"
 
 /*  Maximo Valor de lectura analógica */
 #define MAX_VAL 1024
@@ -86,9 +95,13 @@ public:
 
 private slots:
     //void readData();
-    //void handleError(QSerialPort::SerialPortError error);
+    void handler_Error_UART(QSerialPort::SerialPortError error);
+
+    void Actualizar_Puertos();
 
     void on_cBx_Modo_activated(int index);
+
+    void on_cBx_Puerto_currentIndexChanged(int index);
 
     void on_rdB_Guante_PC_clicked();
 
@@ -107,11 +120,10 @@ private slots:
     void on_sld_Pulgar_valueChanged(int value);
 
     void on_pushB_Prueba_UART_clicked();
-
-    void on_pushB_Prueba_WIFI_clicked();
-
+    void handler_ReadyRead();
     void on_Timer_UART_timeout();
 
+    void on_pushB_Prueba_WIFI_clicked();
     void on_Timer_WIFI_timeout();
 
 private:
@@ -122,6 +134,8 @@ private:
     QSerialPort *m_serial;
 
     QTimer *Timer_UART, *Timer_WIFI;
+
+    QString description, manufacturer, serialNumber;
 
     int Modo, Estado_Conexion_UART, Estado_Conexion_WIFI;
 
