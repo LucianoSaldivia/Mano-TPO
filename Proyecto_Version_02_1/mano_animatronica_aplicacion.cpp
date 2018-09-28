@@ -27,39 +27,60 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
         Timer_WIFI = new QTimer(this);
     }
 
+    /*  Tab Order   */{
+
+        ui->pushB_Prueba_UART->setAutoDefault( true );
+        ui->pushB_Actualizar->setAutoDefault( true );
+        ui->pushB_Prueba_WIFI->setAutoDefault( true );
+
+
+        ui->tabWidget->setTabOrder( ui->tab_Comunicacion, ui->tab_Controles );
+        ui->tab_Comunicacion->setTabOrder( ui->pushB_Prueba_UART, ui->pushB_Actualizar );
+        ui->tab_Comunicacion->setTabOrder( ui->pushB_Actualizar, ui->cBx_Puerto );
+        ui->tab_Comunicacion->setTabOrder( ui->cBx_Puerto, ui->pushB_Prueba_WIFI );
+
+        ui->tab_Controles->setTabOrder( ui->cBx_Modo, ui->rdB_Guante_PC);
+        ui->tab_Controles->setTabOrder( ui->rdB_Guante_PC, ui->rdB_PC_Mano );
+        ui->tab_Controles->setTabOrder( ui->rdB_PC_Mano, ui->rdB_Guante_Mano );
+        ui->tab_Controles->setTabOrder( ui->rdB_Guante_Mano, ui->pushB_Cargar );
+        ui->tab_Controles->setTabOrder( ui->pushB_Cargar, ui->pushB_Guardar );
+        ui->tab_Controles->setTabOrder( ui->pushB_Guardar, ui->pushB_PlayPause);
+    }
+
+
     /*  Connects    */{
-            /*  SerialPorts */
-            connect( m_serial, &QSerialPort::errorOccurred, this, &Mano_Animatronica_Aplicacion::handler_Error_UART);
-            connect( m_serial, &QSerialPort::readyRead, this, &Mano_Animatronica_Aplicacion::handler_ReadyRead);
+        /*  SerialPorts */
+        connect( m_serial, &QSerialPort::errorOccurred, this, &Mano_Animatronica_Aplicacion::handler_Error_UART);
+        connect( m_serial, &QSerialPort::readyRead, this, &Mano_Animatronica_Aplicacion::handler_ReadyRead);
 
 
-            /*  Timers  */
-            connect( Timer_UART, SIGNAL(QTimer::timeout()), this, SLOT(on_Timer_UART_timeout()) );
-            connect( Timer_WIFI, SIGNAL(QTimer::timeout()), this, SLOT(on_Timer_WIFI_timeout()) );
+        /*  Timers  */
+        connect( Timer_UART, SIGNAL(QTimer::timeout()), this, SLOT(on_Timer_UART_timeout()) );
+        connect( Timer_WIFI, SIGNAL(QTimer::timeout()), this, SLOT(on_Timer_WIFI_timeout()) );
 
-            /*  ComboBoxes    */
-            connect( ui->cBx_Modo, SIGNAL(QComboBox::activated()), this, SLOT(on_cBx_Modo_activated(int)) );
-            connect( ui->cBx_Puerto, SIGNAL(QComboBox::currentIndexChanged()), this, SLOT(on_cBx_Puerto_currentIndexChanged(int index)) );
+        /*  ComboBoxes    */
+        connect( ui->cBx_Modo, SIGNAL(QComboBox::activated()), this, SLOT(on_cBx_Modo_activated(int)) );
+        connect( ui->cBx_Puerto, SIGNAL(QComboBox::currentIndexChanged()), this, SLOT(on_cBx_Puerto_currentIndexChanged(int index)) );
 
-            /*  RadioButtons */
-            connect( ui->rdB_Guante_PC, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_Guante_PC_clicked()) );
-            connect( ui->rdB_PC_Mano, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_PC_Mano_clicked()) );
-            connect( ui->rdB_Guante_Mano, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_Guante_Mano_clicked()) );
+        /*  RadioButtons */
+        connect( ui->rdB_Guante_PC, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_Guante_PC_clicked()) );
+        connect( ui->rdB_PC_Mano, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_PC_Mano_clicked()) );
+        connect( ui->rdB_Guante_Mano, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_Guante_Mano_clicked()) );
 
-            /*  Sliders  */
-            connect( ui->sld_Menor, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Menor_valueChanged(int)) );
-            connect( ui->sld_Anular, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Anular_valueChanged(int)) );
-            connect( ui->sld_Mayor, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Mayor_valueChanged(int)) );
-            connect( ui->sld_Indice, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Indice_valueChanged(int)) );
-            connect( ui->sld_Pulgar, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Pulgar_valueChanged(int)) );
+        /*  Sliders  */
+        connect( ui->sld_Menor, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Menor_valueChanged(int)) );
+        connect( ui->sld_Anular, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Anular_valueChanged(int)) );
+        connect( ui->sld_Mayor, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Mayor_valueChanged(int)) );
+        connect( ui->sld_Indice, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Indice_valueChanged(int)) );
+        connect( ui->sld_Pulgar, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Pulgar_valueChanged(int)) );
 
-            /* PushButtons   */
-            //connect( ui->pushB_PlayPause, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_PlayPause_clicked()) );
-            //connect( ui->pushB_Cargar, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Cargar_clicked()) );
-            //connect( ui->pushB_Guardar, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Guardar_clicked()) );
-            connect( ui->pushB_Actualizar, SIGNAL(QPushButton::clicked()), this, SLOT(Actualizar_Puertos()) );
-            connect( ui->pushB_Prueba_UART, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Prueba_UART_clicked()) );
-            connect( ui->pushB_Prueba_WIFI, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Prueba_WIFI_clicked()) );
+        /* PushButtons   */
+        //connect( ui->pushB_PlayPause, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_PlayPause_clicked()) );
+        //connect( ui->pushB_Cargar, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Cargar_clicked()) );
+        //connect( ui->pushB_Guardar, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Guardar_clicked()) );
+        connect( ui->pushB_Actualizar, SIGNAL(QPushButton::clicked()), this, SLOT(Actualizar_Puertos()) );
+        connect( ui->pushB_Prueba_UART, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Prueba_UART_clicked()) );
+        connect( ui->pushB_Prueba_WIFI, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Prueba_WIFI_clicked()) );
     }
 
     /*  Status Bar  */{
