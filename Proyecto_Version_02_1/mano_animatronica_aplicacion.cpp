@@ -22,16 +22,14 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
     /*  QSerialPort */
         m_serial = new QSerialPort(this);
 
-    /*  Timers   */{
-
-    }
+    /*  Timer   */
+        Timer_WIFI = new QTimer(this);
 
     /*  Tab Order   */{
 
         ui->pushB_Prueba_UART->setAutoDefault( true );
         ui->pushB_Actualizar->setAutoDefault( true );
         ui->pushB_Prueba_WIFI->setAutoDefault( true );
-
 
         ui->tabWidget->setTabOrder( ui->tab_Comunicacion, ui->tab_Controles );
         ui->tab_Comunicacion->setTabOrder( ui->pushB_Prueba_UART, ui->pushB_Actualizar );
@@ -52,12 +50,12 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
         connect( m_serial, &QSerialPort::errorOccurred, this, &Mano_Animatronica_Aplicacion::handler_Error_UART);
         /*bool a = */connect( m_serial, &QSerialPort::readyRead, this, &Mano_Animatronica_Aplicacion::handler_ReadyRead);
 
-
         /*  Timers  */
+        connect( Timer_WIFI, &QTimer::timeout, this, &Mano_Animatronica_Aplicacion::on_Timer_WIFI_timeout);
 
         /*  ComboBoxes    */
         QObject::connect<void(QComboBox::*)(int)>( ui->cBx_Puerto, &QComboBox::currentIndexChanged, this,  &Mano_Animatronica_Aplicacion::on_cBx_Puerto_currentIndexChanged );
-        QObject::connect<void(QComboBox::*)(int)>( ui->cBx_Modo, &QComboBox::activated, this,  &Mano_Animatronica_Aplicacion::on_cBx_Modo_Activated );
+        QObject::connect<void(QComboBox::*)(int)>( ui->cBx_Modo, &QComboBox::activated, this,  &Mano_Animatronica_Aplicacion::on_cBx_Modo_activated );
         /*  Porque la señal "currentIndexChanged" y la señal "activated" está sobrecargada, forzamos a que sea la que entregue un int    */
 
         /*  RadioButtons */
@@ -187,6 +185,7 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
 
 }
 
+
 Mano_Animatronica_Aplicacion::~Mano_Animatronica_Aplicacion()
 {
     if (m_serial->isOpen()){
@@ -196,6 +195,7 @@ Mano_Animatronica_Aplicacion::~Mano_Animatronica_Aplicacion()
 
     delete ui;
 }
+
 
 void Mano_Animatronica_Aplicacion::setModo( int Nuevo_Modo ){
     Modo = Nuevo_Modo;
@@ -241,7 +241,7 @@ void Mano_Animatronica_Aplicacion::Actualizar_Puertos(){
     m_currentSettings.name = ui->cBx_Puerto->currentText();
 }
 
-void Mano_Animatronica_Aplicacion::on_cBx_Modo_Activated(int index)
+void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
 {
 
     if( index == NINGUN_MODO ){
@@ -609,7 +609,7 @@ void Mano_Animatronica_Aplicacion::on_pushB_Prueba_UART_clicked(){
         ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
         ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_VERDE_NEGRITA_LETRA_NEGRA);
 
-        /*  Pestañas enables & disables */
+        /*  Tab Controles */
             ui->tab_Controles->setEnabled(true);
 
         /*  ENVIO de prueba UART */{
@@ -678,6 +678,7 @@ void Mano_Animatronica_Aplicacion::on_pushB_Prueba_WIFI_clicked(){
     setEstado_WIFI( ESPERANDO );
 
     /*  Timer   */
+    Timer_WIFI->start( TIEMPO_DE_ESPERA_WIFI );
 
     /*  Label   */
     ui->lbl_Estado_Con_WIFI->setText(TEXTO_ESPERANDO);
@@ -687,7 +688,17 @@ void Mano_Animatronica_Aplicacion::on_pushB_Prueba_WIFI_clicked(){
     /*  PushButton  */
     ui->pushB_Prueba_WIFI->setDisabled(true);
 }
+void Mano_Animatronica_Aplicacion::on_Timer_WIFI_timeout(){
+    setEstado_WIFI( CONECTADO );
 
+    /*  Label   */
+    ui->lbl_Estado_Con_WIFI->setText(TEXTO_CONECTADO);
+    ui->lbl_Estado_Con_WIFI->setAlignment(Qt::AlignCenter);
+    ui->lbl_Estado_Con_WIFI->setStyleSheet(FONDO_VERDE_NEGRITA_LETRA_NEGRA);
+
+    /*  Pestañas enables & disables */
+        ui->tab_Controles->setEnabled(true);
+}
 
 
 

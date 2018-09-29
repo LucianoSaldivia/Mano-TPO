@@ -98,7 +98,7 @@ private slots:
     void handler_Error_UART(QSerialPort::SerialPortError error);
     void Actualizar_Puertos();
 
-    void on_cBx_Modo_Activated(int index);
+    void on_cBx_Modo_activated(int index);
     void on_cBx_Puerto_currentIndexChanged(int index);
 
     void on_rdB_Guante_PC_clicked();
@@ -115,6 +115,7 @@ private slots:
     void handler_ReadyRead();
 
     void on_pushB_Prueba_WIFI_clicked();
+    void on_Timer_WIFI_timeout();
 
 private:
     Ui::Mano_Animatronica_Aplicacion *ui;
@@ -122,6 +123,8 @@ private:
     Settings m_currentSettings;
 
     QSerialPort *m_serial;
+
+    QTimer *Timer_WIFI;
 
     QString description, manufacturer, serialNumber;
 
