@@ -23,8 +23,7 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
         m_serial = new QSerialPort(this);
 
     /*  Timers   */{
-        Timer_UART = new QTimer(this);
-        Timer_WIFI = new QTimer(this);
+
     }
 
     /*  Tab Order   */{
@@ -48,47 +47,48 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
     }
 
 
-    /*  Connects    */{
+    /*  Connects    */
         /*  SerialPorts */
         connect( m_serial, &QSerialPort::errorOccurred, this, &Mano_Animatronica_Aplicacion::handler_Error_UART);
-        connect( m_serial, &QSerialPort::readyRead, this, &Mano_Animatronica_Aplicacion::handler_ReadyRead);
+        /*bool a = */connect( m_serial, &QSerialPort::readyRead, this, &Mano_Animatronica_Aplicacion::handler_ReadyRead);
 
 
         /*  Timers  */
-        connect( Timer_UART, SIGNAL(QTimer::timeout()), this, SLOT(on_Timer_UART_timeout()) );
-        connect( Timer_WIFI, SIGNAL(QTimer::timeout()), this, SLOT(on_Timer_WIFI_timeout()) );
 
         /*  ComboBoxes    */
-        connect( ui->cBx_Modo, SIGNAL(QComboBox::activated()), this, SLOT(on_cBx_Modo_activated(int)) );
-        connect( ui->cBx_Puerto, SIGNAL(QComboBox::currentIndexChanged()), this, SLOT(on_cBx_Puerto_currentIndexChanged(int index)) );
+        QObject::connect<void(QComboBox::*)(int)>( ui->cBx_Puerto, &QComboBox::currentIndexChanged, this,  &Mano_Animatronica_Aplicacion::on_cBx_Puerto_currentIndexChanged );
+        QObject::connect<void(QComboBox::*)(int)>( ui->cBx_Modo, &QComboBox::activated, this,  &Mano_Animatronica_Aplicacion::on_cBx_Modo_Activated );
+        /*  Porque la señal "currentIndexChanged" y la señal "activated" está sobrecargada, forzamos a que sea la que entregue un int    */
 
         /*  RadioButtons */
-        connect( ui->rdB_Guante_PC, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_Guante_PC_clicked()) );
-        connect( ui->rdB_PC_Mano, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_PC_Mano_clicked()) );
-        connect( ui->rdB_Guante_Mano, SIGNAL(QRadioButton::clicked()), this, SLOT(on_rdB_Guante_Mano_clicked()) );
+        connect( ui->rdB_Guante_PC, &QRadioButton::clicked, this, &Mano_Animatronica_Aplicacion::on_rdB_Guante_PC_clicked );
+        connect( ui->rdB_PC_Mano, &QRadioButton::clicked, this, &Mano_Animatronica_Aplicacion::on_rdB_PC_Mano_clicked );
+        connect( ui->rdB_Guante_Mano, &QRadioButton::clicked, this, &Mano_Animatronica_Aplicacion::on_rdB_Guante_Mano_clicked );
 
         /*  Sliders  */
-        connect( ui->sld_Menor, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Menor_valueChanged(int)) );
-        connect( ui->sld_Anular, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Anular_valueChanged(int)) );
-        connect( ui->sld_Mayor, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Mayor_valueChanged(int)) );
-        connect( ui->sld_Indice, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Indice_valueChanged(int)) );
-        connect( ui->sld_Pulgar, SIGNAL(QSlider::valueChanged()), this, SLOT(on_sld_Pulgar_valueChanged(int)) );
+        connect( ui->sld_Menor, &QSlider::valueChanged, this, &Mano_Animatronica_Aplicacion::on_sld_Menor_valueChanged );
+        connect( ui->sld_Anular, &QSlider::valueChanged, this, &Mano_Animatronica_Aplicacion::on_sld_Anular_valueChanged );
+        connect( ui->sld_Mayor, &QSlider::valueChanged, this, &Mano_Animatronica_Aplicacion::on_sld_Mayor_valueChanged );
+        connect( ui->sld_Indice, &QSlider::valueChanged, this, &Mano_Animatronica_Aplicacion::on_sld_Indice_valueChanged );
+        connect( ui->sld_Pulgar, &QSlider::valueChanged, this, &Mano_Animatronica_Aplicacion::on_sld_Pulgar_valueChanged );
 
         /* PushButtons   */
-        //connect( ui->pushB_PlayPause, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_PlayPause_clicked()) );
-        //connect( ui->pushB_Cargar, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Cargar_clicked()) );
-        //connect( ui->pushB_Guardar, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Guardar_clicked()) );
-        connect( ui->pushB_Actualizar, SIGNAL(QPushButton::clicked()), this, SLOT(Actualizar_Puertos()) );
-        connect( ui->pushB_Prueba_UART, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Prueba_UART_clicked()) );
-        connect( ui->pushB_Prueba_WIFI, SIGNAL(QPushButton::clicked()), this, SLOT(on_pushB_Prueba_WIFI_clicked()) );
-    }
+        //connect( ui->pushB_PlayPause, &QPushButton::clicked, this, &Mano_Animatronica_Aplicacion::on_pushB_PlayPause_clicked );
+        //connect( ui->pushB_Cargar, &QPushButton::clicked, this, &Mano_Animatronica_Aplicacion::on_pushB_Cargar_clicked );
+        //connect( ui->pushB_Guardar, &QPushButton::clicked, this, &Mano_Animatronica_Aplicacion::on_pushB_Guardar_clicked );
+        connect( ui->pushB_Actualizar, &QPushButton::clicked, this, &Mano_Animatronica_Aplicacion::Actualizar_Puertos );
+        connect( ui->pushB_Prueba_UART, &QPushButton::clicked, this, &Mano_Animatronica_Aplicacion::on_pushB_Prueba_UART_clicked );
+        connect( ui->pushB_Prueba_WIFI, &QPushButton::clicked, this, &Mano_Animatronica_Aplicacion::on_pushB_Prueba_WIFI_clicked );
 
-    /*  Status Bar  */{
+
+    /*  Status Bar  */
         QString MensajeStatusBar;
         MensajeStatusBar = "MODO NO SELECCIONADO!";
         ui->statusBar->showMessage( MensajeStatusBar );
-        ui->cBx_Modo->setCurrentIndex(NINGUN_MODO);
-    }
+        ui->cBx_Modo->setCurrentIndex( NINGUN_MODO );
+
+        /*ui->statusBar->showMessage( QString::number(a) );*/
+
 
     /*  Pestañas enables & disables */{
         ui->tab_Controles->setDisabled(true);
@@ -150,7 +150,7 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
         /*  Widgets (tab_Comunicacion) */
             ui->pushB_Actualizar->setToolTip("Actualizar puertos");
             ui->pushB_Prueba_UART->setToolTip("Prueba de conexión UART");
-            ui->pushB_Prueba_WIFI->setToolTip("Prueba de conexión UART");
+            ui->pushB_Prueba_WIFI->setToolTip("Prueba de conexión WIFI");
             ui->cBx_Puerto->setToolTip("Puerto UART a utilizar");
             ui->pushB_Actualizar->setToolTip("Actualizar puertos");
     }
@@ -194,15 +194,12 @@ Mano_Animatronica_Aplicacion::~Mano_Animatronica_Aplicacion()
     }
     delete m_serial;
 
-    delete Timer_UART;
-    delete Timer_WIFI;
     delete ui;
 }
 
 void Mano_Animatronica_Aplicacion::setModo( int Nuevo_Modo ){
     Modo = Nuevo_Modo;
 }
-
 int Mano_Animatronica_Aplicacion::getModo(){
     return Modo;
 }
@@ -210,7 +207,6 @@ int Mano_Animatronica_Aplicacion::getModo(){
 void Mano_Animatronica_Aplicacion::setEstado_UART( int Nuevo_Estado ){
     Estado_Conexion_UART = Nuevo_Estado;
 }
-
 int Mano_Animatronica_Aplicacion::getEstado_UART(){
     return Estado_Conexion_UART;
 }
@@ -218,7 +214,6 @@ int Mano_Animatronica_Aplicacion::getEstado_UART(){
 void Mano_Animatronica_Aplicacion::setEstado_WIFI( int Nuevo_Estado ){
     Estado_Conexion_WIFI = Nuevo_Estado;
 }
-
 int Mano_Animatronica_Aplicacion::getEstado_WIFI(){
     return Estado_Conexion_WIFI;
 }
@@ -246,7 +241,7 @@ void Mano_Animatronica_Aplicacion::Actualizar_Puertos(){
     m_currentSettings.name = ui->cBx_Puerto->currentText();
 }
 
-void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
+void Mano_Animatronica_Aplicacion::on_cBx_Modo_Activated(int index)
 {
 
     if( index == NINGUN_MODO ){
@@ -393,7 +388,6 @@ void Mano_Animatronica_Aplicacion::on_cBx_Modo_activated(int index)
     }
 
 }
-
 void Mano_Animatronica_Aplicacion::on_cBx_Puerto_currentIndexChanged(int index){
 
     /*  Labels  */
@@ -431,9 +425,7 @@ void Mano_Animatronica_Aplicacion::on_rdB_Guante_PC_clicked()
     ui->statusBar->showMessage( MensajeStatusBar );
 
     /*  ComboBox Modo */
-    ui->rdB_Guante_PC->setChecked(true);
-    ui->rdB_PC_Mano->setChecked(false);
-    ui->rdB_Guante_Mano->setChecked(false);
+    ui->cBx_Modo->setCurrentIndex( GUANTE_PC );
     setModo(GUANTE_PC);
 
     /*  Widgets enables & disables  */
@@ -457,7 +449,6 @@ void Mano_Animatronica_Aplicacion::on_rdB_Guante_PC_clicked()
     ui->pushB_Guardar->setToolTip("Guardar movimientos desde el Guante");
     ui->pushB_PlayPause->setToolTip("Comenzar lectura (10 seg.)");
 }
-
 void Mano_Animatronica_Aplicacion::on_rdB_PC_Mano_clicked()
 {
     /*  Status Bar    */
@@ -466,10 +457,8 @@ void Mano_Animatronica_Aplicacion::on_rdB_PC_Mano_clicked()
     ui->statusBar->showMessage( MensajeStatusBar );
 
     /*  ComboBox Modo */
-    ui->rdB_Guante_PC->setChecked(false);
-    ui->rdB_PC_Mano->setChecked(true);
-    ui->rdB_Guante_Mano->setChecked(false);
-    setModo(PC_MANO);
+    ui->cBx_Modo->setCurrentIndex( PC_MANO );
+    setModo( PC_MANO );
 
     /*  Widgets enables & disables  */
     ui->grB_Mano->setEnabled(true);
@@ -493,7 +482,6 @@ void Mano_Animatronica_Aplicacion::on_rdB_PC_Mano_clicked()
     ui->pushB_PlayPause->setToolTip("Reproducir (10 seg.)");
     ui->lbl_Archivo->setToolTip("Archivo a reproducir");
 }
-
 void Mano_Animatronica_Aplicacion::on_rdB_Guante_Mano_clicked()
 {
     /*  MODO    */
@@ -502,9 +490,7 @@ void Mano_Animatronica_Aplicacion::on_rdB_Guante_Mano_clicked()
     ui->statusBar->showMessage( MensajeStatusBar );
 
     /*  ComboBox Modo */
-    ui->rdB_Guante_PC->setChecked(false);
-    ui->rdB_PC_Mano->setChecked(false);
-    ui->rdB_Guante_Mano->setChecked(true);
+    ui->cBx_Modo->setCurrentIndex( GUANTE_MANO );
     setModo(GUANTE_MANO);
 
     /*  Widgets enables & disables  */
@@ -541,7 +527,6 @@ void Mano_Animatronica_Aplicacion::on_sld_Menor_valueChanged(int value)
         ui->lbl_VMenor->setText( "Menor : " + QString::number(value));
     }
 }
-
 void Mano_Animatronica_Aplicacion::on_sld_Anular_valueChanged(int value)
 {
     if( getModo() == PC_MANO ){
@@ -554,7 +539,6 @@ void Mano_Animatronica_Aplicacion::on_sld_Anular_valueChanged(int value)
         ui->lbl_VAnular->setText( "Anular : " + QString::number(value));
     }
 }
-
 void Mano_Animatronica_Aplicacion::on_sld_Mayor_valueChanged(int value)
 {
     if( getModo() == PC_MANO ){
@@ -567,7 +551,6 @@ void Mano_Animatronica_Aplicacion::on_sld_Mayor_valueChanged(int value)
         ui->lbl_VMayor->setText( "Mayor : " + QString::number(value));
     }
 }
-
 void Mano_Animatronica_Aplicacion::on_sld_Indice_valueChanged(int value)
 {
     if( getModo() == PC_MANO ){
@@ -580,7 +563,6 @@ void Mano_Animatronica_Aplicacion::on_sld_Indice_valueChanged(int value)
         ui->lbl_VIndice->setText( "Indice : " + QString::number(value));
     }
 }
-
 void Mano_Animatronica_Aplicacion::on_sld_Pulgar_valueChanged(int value)
 {
     if( getModo() == PC_MANO ){
@@ -593,7 +575,6 @@ void Mano_Animatronica_Aplicacion::on_sld_Pulgar_valueChanged(int value)
         ui->lbl_VPulgar->setText( "Pulgar : " + QString::number(value));
     }
 }
-
 
 void Mano_Animatronica_Aplicacion::on_pushB_Prueba_UART_clicked(){
 
@@ -620,7 +601,7 @@ void Mano_Animatronica_Aplicacion::on_pushB_Prueba_UART_clicked(){
     m_serial->setStopBits(m_currentSettings.stopBits);
     m_serial->setFlowControl(m_currentSettings.flowControl);
 
-    if (m_serial->open(QIODevice::ReadWrite)) {
+    if ( m_serial->open(QIODevice::ReadWrite)  ||  m_serial->isOpen() ) {
         setEstado_UART( CONECTADO );
 
         /*  Label   */
@@ -631,12 +612,9 @@ void Mano_Animatronica_Aplicacion::on_pushB_Prueba_UART_clicked(){
         /*  Pestañas enables & disables */
             ui->tab_Controles->setEnabled(true);
 
-        /*  ENVIO _ UART */{
+        /*  ENVIO de prueba UART */{
             m_serial->write( TEXTO_A_ENVIAR, sizeof(TEXTO_A_ENVIAR) );
             m_serial->flush();
-            QString a(TEXTO_A_ENVIAR);
-            QString b(" enviado.");
-            ui->statusBar->showMessage( a + b );
         }
 
     }
@@ -653,12 +631,11 @@ void Mano_Animatronica_Aplicacion::on_pushB_Prueba_UART_clicked(){
         ui->pushB_Prueba_UART->setEnabled(true);
     }
 }
-
 void Mano_Animatronica_Aplicacion::handler_ReadyRead(){
     QByteArray data_rx;
 
     data_rx.append(m_serial->readAll());
-
+    long bytes = m_serial->bytesAvailable();
     // Solo chequeamos el dato recibido cuando llegaron las dos '/' indicando toda una transmision
     if(data_rx.count('/') == 2){
         // Borramos la '/' del final y del principio
@@ -668,65 +645,39 @@ void Mano_Animatronica_Aplicacion::handler_ReadyRead(){
         dato.remove(0,1); // Sacamos '/' del principio
 
         // En esta instancia, en dato solo tendremos XXXX
-        ui->statusBar->showMessage("Ultimo dato: " + dato); // Mostramos el ultimo dato recibido
+        ui->statusBar->showMessage("Ultimo dato: " + dato + " Nuevos bytes para leer: " + QString::number(bytes)); // Mostramos el ultimo dato recibido
+
+
     }
 }
-
-
-void Mano_Animatronica_Aplicacion::on_Timer_UART_timeout(){
-
-
-
-    /*char *Prueba;
-    Prueba = new char [50];
-
-    memset( &Prueba[0], '\0', 50);
-
-    //QString Str;
-    //Str.clear();
-
-    //QByteArray ArrayR;
-
-    if(m_serial->canReadLine()) {
-        m_serial->readLine( Prueba, 49 );
-    }
-    if( strcmp( Prueba, "0" ) > 0 ) {
-        //Str.append( Prueba );
-        ui->statusBar->showMessage( Prueba );
-    }*/
-}
-
-/*void Mano_Animatronica_Aplicacion::on_Timer_UART_timeout(){
-
-    if( getEstado_UART() == ESPERANDO ){
-        setEstado_UART( DESCONECTADO );*/
-
-        /*  Label   */
-        /*ui->lbl_Estado_Con_UART->setText(TEXTO_DESCONECTADO);
-        ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
-        ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_ROJO_NEGRITA_LETRA_NEGRA);*/
-
-        /*  PushButton  */
-        /*ui->pushB_Prueba_UART->setEnabled(true);
-    }
-}*/
-
 void Mano_Animatronica_Aplicacion::handler_Error_UART(QSerialPort::SerialPortError error){
     if (error == QSerialPort::ResourceError) {
-        QMessageBox::critical(this, tr("Critical Error"), m_serial->errorString());
+        QMessageBox::critical(this, tr("Critical Error"), m_serial->errorString() + "\nCompruebe si el dispositivo sigue conectado...");
         if (m_serial->isOpen()){
             m_serial->close();
         }
+
+        setEstado_UART(DESCONECTADO);
+
+        /*  Tab Controles   */
+        ui->tab_Controles->setDisabled(true);
+
+        /*  Label   */
+        ui->lbl_Estado_Con_UART->setText(TEXTO_DESCONECTADO);
+        ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
+        ui->lbl_Estado_Con_UART->setStyleSheet(FONDO_ROJO_NEGRITA_LETRA_NEGRA);
+
+        /*  PushButton  */
+        ui->pushB_Prueba_UART->setEnabled(true);
+
     }
 }
-
 
 void Mano_Animatronica_Aplicacion::on_pushB_Prueba_WIFI_clicked(){
 
     setEstado_WIFI( ESPERANDO );
 
     /*  Timer   */
-    Timer_WIFI->start( TIEMPO_DE_ESPERA_WIFI );
 
     /*  Label   */
     ui->lbl_Estado_Con_WIFI->setText(TEXTO_ESPERANDO);
@@ -736,20 +687,6 @@ void Mano_Animatronica_Aplicacion::on_pushB_Prueba_WIFI_clicked(){
     /*  PushButton  */
     ui->pushB_Prueba_WIFI->setDisabled(true);
 }
-
-void Mano_Animatronica_Aplicacion::on_Timer_WIFI_timeout(){
-
-    setEstado_WIFI( DESCONECTADO );
-
-    /*  Label   */
-    ui->lbl_Estado_Con_WIFI->setText(TEXTO_DESCONECTADO);
-    ui->lbl_Estado_Con_WIFI->setAlignment(Qt::AlignCenter);
-    ui->lbl_Estado_Con_WIFI->setStyleSheet(FONDO_ROJO_NEGRITA_LETRA_NEGRA);
-
-    /*  PushButton  */
-    ui->pushB_Prueba_WIFI->setEnabled(true);
-}
-
 
 
 
@@ -808,7 +745,6 @@ void ActualizarImagenMano( Ui::Mano_Animatronica_Aplicacion *ui, int Menor, int 
     ui->lbl_5_Indice_Img->setPixmap(I_Indice.scaled( ui->lbl_5_Indice_Img->width() , ui->lbl_5_Indice_Img->height() ,Qt::KeepAspectRatio));
     ui->lbl_6_Pulgar_Img->setPixmap(I_Pulgar.scaled( ui->lbl_6_Pulgar_Img->width() , ui->lbl_6_Pulgar_Img->height() ,Qt::KeepAspectRatio));
 }
-
 void ActualizarImagenMano( Ui::Mano_Animatronica_Aplicacion *ui, QSlider *S_Menor, QSlider *S_Anular, QSlider *S_Mayor, QSlider *S_Indice, QSlider *S_Pulgar ){
     QPixmap I_Base, I_Menor, I_Anular, I_Mayor, I_Indice, I_Pulgar;
 
