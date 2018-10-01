@@ -1,8 +1,5 @@
 #include <stdio.h>
-#include "server.h"
-
-// Lista de los hijos que se van a ir creando
-static process_node_t *hijos = NULL;
+#include "Server.h"
 
 int main(){
     // Variables locales
@@ -12,19 +9,20 @@ int main(){
     int idColaMensajes;
     int msgflg = IPC_CREAT | 0666;
 
+    char FLAG_SALIDA = 0;
+
     /*struct sigaction controlNuevo = {{0}};*/
     sigset_t SET1;
     sigemptyset( & SET1 );
     struct sigaction controlNuevo = { {NULL}, SET1, 0, NULL };
     struct sigaction controlViejo = { {NULL}, SET1, 0, NULL };
 
-    int socketServidor, socketCliente;
+    int socketServidor = -1, socketCliente = -1;
     struct sockaddr_in addressServidor;
     struct sockaddr_in addressCliente;
 
     int ans;
 
-    process_node_t *nodoNuevo;
     msgBuff_t mensaje;
 
     // Indico el manejador de la señal SIGCHILD
@@ -84,7 +82,7 @@ int main(){
     printf("Server: Esperando conexiones...\n\n");
 
     // Main loop
-    while(1){
+    while( FLAG_SALIDA != -5 ){
         socklen_t sockin_size = sizeof(struct sockaddr_in);
 
         if((socketCliente = accept(socketServidor, (struct sockaddr *) &addressCliente, &sockin_size)) == -1){
@@ -113,24 +111,6 @@ int main(){
                 // El fork salio bien. Revisamos si es el padre o el hijo
                 if(pid){
                     // Cuando pid != 0 -> estamos en el padre
-
-                    // Agrego el hijo a la lista de hijos
-                    nodoNuevo = (process_node_t *) malloc(sizeof(process_node_t));
-
-                    if(nodoNuevo != NULL){
-                        // Todo salio bien, lo agrego a la lista
-                        nodoNuevo->father_pid = getpid();
-                        nodoNuevo->child_pid = pid;
-                        add_node(&hijos, nodoNuevo);
-                    } else{
-                        // Algo fallo, podria ser que no hay memoria
-                        // Ante la duda, salgo.
-                        printf("Hubo un error con malloc...\n");
-                        close(socketServidor);
-                        close(socketCliente);
-                        delete_list(&hijos);
-                        exit(1);
-                    }
                 } else{
                     // Cuando pid = 0 -> estamos en el hijo
 
@@ -144,7 +124,7 @@ int main(){
                     }
 
                     // Loop hasta que termine la comunicacion del cliente
-                    while(1){
+                    while( FLAG_SALIDA != -5 ){
                         // Recibo el pedido del cliente que se conecto:
                         int cantidadRecibida = ( int ) recv(socketCliente, mensaje.buff, BUFF_SIZE - 1, 0);
 
@@ -178,21 +158,49 @@ int main(){
 
                         printf("PID:%d -> Recibidos %d bytes que contienen: %s\n", getpid(), cantidadRecibida, mensaje.buff);
 
-                        // Pongo datos en la cola de mensajes
-                        inet_ntop(AF_INET, &(addressCliente.sin_addr), mensaje.ip, sockin_size);
-                        mensaje.tipo = NUEVA_INFORMACION;
-                        mensaje.timestamp = time(NULL);
+                        if( strstr( mensaje.buff, CODIGO_SALIDA_DE_EMERGENCIA) != NULL ){
+                            FLAG_SALIDA = -5;
+                            perror("CODIGO_SALIDA_DE_EMERGENCIA");
+                        }else{
+                            // Pongo datos en la cola de mensajes
+                            inet_ntop(AF_INET, &(addressCliente.sin_addr), mensaje.ip, sockin_size);
+                            mensaje.tipo = NUEVA_INFORMACION;
+                            mensaje.timestamp = time(NULL);
 
-                        msgsnd(idColaMensajes, &mensaje, sizeof(msgBuff_t), 0);
+                            msgsnd(idColaMensajes, &mensaje, sizeof(msgBuff_t), 0);
+                        }
                     }
                 }
             }
         }
     }
 
-    delete_list(&hijos);
+    perror("CODIGO_SALIDA_DE_EMERGENCIA");
+    if( socketServidor != -1 ){
+        close(socketServidor);
+    }
+    if( socketCliente != -1 ){
+        close(socketCliente);
+    }
+    return -1;
+}
 
-    return 0;
+void Minusculizar(char *s)
+{
+    char  *p;
+
+    for (p = s; *p != '\0'; p++){
+        *p = (char) tolower(*p);
+    }
+}
+
+void Mayusculizar(char *s)
+{
+    char  *p;
+
+    for (p = s; *p != '\0'; p++){
+        *p = (char) toupper(*p);
+    }
 }
 
 void sigchild_handler(int signal_number){
@@ -201,10 +209,6 @@ void sigchild_handler(int signal_number){
 
     do{
         pid_number = waitpid(-1, &child_status, WNOHANG);
-
-        if(pid_number > 0){
-            delete_node_by_pid(&hijos, pid_number);
-        }
     }while((pid_number != (pid_t)0) && (pid_number != (pid_t)-1));
 
     return;

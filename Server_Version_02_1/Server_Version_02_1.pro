@@ -4,9 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    Server.c \
-    process_list.c
+    Server.c
 
 HEADERS += \
-    server.h \
-    process_list.h
+    Server.h \
