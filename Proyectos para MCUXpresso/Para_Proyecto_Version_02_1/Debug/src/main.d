@@ -32,8 +32,8 @@ src/main.o src/main.d: ../src/main.c \
  /home/lsldv/Descargas/Bibliotecas_de_Giura/PR_Teclado.h \
  /home/lsldv/Descargas/Bibliotecas_de_Giura/PR_UART.h \
  /home/lsldv/Descargas/Bibliotecas_de_Giura/PR_Buzzer.h \
- /home/lsldv/Documents/MCUXpresso_10.2.0_759/workspace/Prueba1/inc/AP_Prueba1.h \
- /home/lsldv/Documents/MCUXpresso_10.2.0_759/workspace/Prueba1/inc/AP_PruebaUART.h
+ /home/lsldv/Informática_II/Mano-TPO/Proyectos\ para\ MCUXpresso/Para_Proyecto_Version_02_1/inc/AP_Prueba1.h \
+ /home/lsldv/Informática_II/Mano-TPO/Proyectos\ para\ MCUXpresso/Para_Proyecto_Version_02_1/inc/AP_PruebaUART.h
 
 /home/lsldv/Descargas/Bibliotecas_de_Giura/bibliotecaInfoII.h:
 
@@ -101,6 +101,6 @@ src/main.o src/main.d: ../src/main.c \
 
 /home/lsldv/Descargas/Bibliotecas_de_Giura/PR_Buzzer.h:
 
-/home/lsldv/Documents/MCUXpresso_10.2.0_759/workspace/Prueba1/inc/AP_Prueba1.h:
+/home/lsldv/Informática_II/Mano-TPO/Proyectos\ para\ MCUXpresso/Para_Proyecto_Version_02_1/inc/AP_Prueba1.h:
 
-/home/lsldv/Documents/MCUXpresso_10.2.0_759/workspace/Prueba1/inc/AP_PruebaUART.h:
+/home/lsldv/Informática_II/Mano-TPO/Proyectos\ para\ MCUXpresso/Para_Proyecto_Version_02_1/inc/AP_PruebaUART.h:
