@@ -64,7 +64,14 @@ int main(){
     // Configuracion de los sockets creados
     addressServidor.sin_family = AF_INET; // Familia de socket
     addressServidor.sin_port = htons(CONNECTION_PORT); // Ordeno los bytes para convertirlos a tipo network
-    addressServidor.sin_addr.s_addr = INADDR_ANY; // Para bindear a todas las interfaces
+
+
+
+    //addressServidor.sin_addr.s_addr = INADDR_ANY; // Para bindear a todas las interfaces
+    inet_aton( IP_ACTUAL , &addressServidor.sin_addr );
+
+
+
     memset(&(addressServidor.sin_zero), '\0', 8); // Relleno con ceros el resto de la estructura
 
     if(bind(socketServidor, (struct sockaddr *) &addressServidor, sizeof(struct sockaddr)) == -1){
@@ -78,7 +85,8 @@ int main(){
         exit(1);
     }
 
-    printf("Server: Hostname: %d\n", addressServidor.sin_addr.s_addr);
+    printf("Server: Hostname: %s\n", inet_ntoa(addressServidor.sin_addr));
+    printf("Server: Puerto: %d\n", ntohs(addressServidor.sin_port) );
     printf("Server: Esperando conexiones...\n\n");
 
     // Main loop
