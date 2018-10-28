@@ -25,7 +25,7 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
     /*  Timer   */
         Timer_WIFI = new QTimer(this);
 
-    /*  Tab Order   */{
+    /*  Tab Order   */
 
         ui->pushB_Prueba_UART->setAutoDefault( true );
         ui->pushB_Actualizar->setAutoDefault( true );
@@ -42,7 +42,6 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
         ui->tab_Controles->setTabOrder( ui->rdB_Guante_Mano, ui->pushB_Cargar );
         ui->tab_Controles->setTabOrder( ui->pushB_Cargar, ui->pushB_Guardar );
         ui->tab_Controles->setTabOrder( ui->pushB_Guardar, ui->pushB_PlayPause);
-    }
 
 
     /*  Connects    */
@@ -88,12 +87,11 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
         /*ui->statusBar->showMessage( QString::number(a) );*/
 
 
-    /*  Pestañas enables & disables */{
+    /*  Pestañas enables & disables */
         ui->tab_Controles->setDisabled(true);
         ui->tab_Comunicacion->setEnabled(true);
-    }
 
-    /*  Widgets enables & disables  */{
+    /*  Widgets enables & disables  */
         ui->cBx_Modo->setEnabled(true);
         ui->rdB_Guante_PC->setChecked(false);
         ui->rdB_PC_Mano->setChecked(false);
@@ -105,9 +103,8 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
         ui->pushB_Guardar->setDisabled(true);
         ui->pushB_PlayPause->setDisabled(true);
         ui->lbl_Archivo->hide();
-    }
 
-    /*  SetUp SerialPortInfo & ComboBox Puerto  */{
+    /*  SetUp SerialPortInfo & ComboBox Puerto  */
 
         Actualizar_Puertos();
 
@@ -126,9 +123,8 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
         m_currentSettings.flowControl = static_cast <QSerialPort::FlowControl> (FLOW_CONTROL);
         m_currentSettings.stringFlowControl = QStringLiteral(STR_FLOW_CONTROL);
 
-    }
 
-    /*  TOOLTIPS   */{
+    /*  TOOLTIPS   */
         /*  Pestañas */
             ui->tab_Comunicacion->setToolTip("Comunicación serie");
             ui->tab_Controles->setToolTip("Controles para hardware");
@@ -151,9 +147,8 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
             ui->pushB_Prueba_WIFI->setToolTip("Prueba de conexión WIFI");
             ui->cBx_Puerto->setToolTip("Puerto UART a utilizar");
             ui->pushB_Actualizar->setToolTip("Actualizar puertos");
-    }
 
-    /*  Labels  */{
+    /*  Labels  */
         ui->lbl_Estado_Con_UART->setAutoFillBackground(true);
         ui->lbl_Estado_Con_UART->setText(TEXTO_DESCONECTADO);
         ui->lbl_Estado_Con_UART->setAlignment(Qt::AlignCenter);
@@ -176,11 +171,9 @@ Mano_Animatronica_Aplicacion::Mano_Animatronica_Aplicacion(QWidget *parent) :
         ui->lbl_UART_Fab->setText(tr("Fabricante: %1").arg(list.count() > 2 ? list.at(2) : tr(blankString)));
         ui->lbl_UART_Nsr->setText(tr("Núm.Serie: %1").arg(list.count() > 3 ? list.at(3) : tr(blankString)));
         ui->lbl_UART_Ubi->setText(tr("Ubicación: %1").arg(list.count() > 4 ? list.at(4) : tr(blankString)));
-    }
 
-    /*  GroupBox Mano   */{
+    /*  GroupBox Mano   */
         ActualizarImagenMano( ui, ui->sld_Menor->value(), ui->sld_Anular->value(), ui->sld_Mayor->value(), ui->sld_Indice->value(), ui->sld_Pulgar->value() );
-    }
 
 
 }

@@ -18,12 +18,14 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+/*      DESACTIVAR FIREWALL !!!     */
+
 // Defines generales
 #define		BACKLOG_MAX                     10
 #define		CONNECTION_PORT                 8000
 #define		BUFF_SIZE                       100
 #define     CODIGO_SALIDA_DE_EMERGENCIA     "<<__salir__>>"
-#define     IP_ACTUAL                       "192.168.1.4"       // La IP que devuelve el comando "$ ip addr show"
+#define     IP_ACTUAL                       "192.168.1.3"       // La IP que devuelve el comando "$ ip addr show"
 
 // Defines para la key
 #define		KEY_RUTA                        "/dev/random"
