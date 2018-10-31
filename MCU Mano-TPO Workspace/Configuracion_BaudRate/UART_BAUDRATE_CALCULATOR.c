@@ -1,114 +1,271 @@
 #include <stdio.h>
+#include <stdlib.h>
 
+#define MILLONES                *1000000
+#define MIL                     *1000
+#define CCLK                    120 MILLONES
+#define MI_TIPO_ERROR           100
+#define ERROR_MAXIMO_ADMITIDO   1.0
+#define CANT_VALORES_TABLA      72
+#define CANT_VALORES_BAUDRATE   15
 
-#define BAUDRATE    256000
+typedef struct{
+    float BaudRate_Calculado;
+    float Error_Porcentual;
+    int BaudRate;
+    int PCLK;
+    int DLM;
+    int DLL;
+    char DivAddVal;
+    char MulVal;
+    char inutil1;       //  Para evitar warning: padding size of S_Config with bytes to alignment boundary
+    char inutil2;       //  Para evitar warning: padding size of S_Config with bytes to alignment boundary
+}S_Config;
 
+void MostrarTodo( int BaudRate );
+void Estimar_Valores( S_Config *Config_Final );
+void Actualizar_BaudRate( S_Config *Config_Final );
+void Actualizar_Error_Porcentual( S_Config *Config_Final );
+char Index_DAV_MV_by_FR( float FR, S_Config *Config_Final );
+char DAV_by_Index( char I );
+char MV_by_Index( char I );
 
+static float Valores_FR_Tabla[CANT_VALORES_TABLA] =
+{ (float) 1.000, (float) 1.067, (float) 1.071, (float) 1.077, (float) 1.083,
+  (float) 1.091, (float) 1.100, (float) 1.111, (float) 1.125, (float) 1.133,
+  (float) 1.143, (float) 1.154, (float) 1.167, (float) 1.182, (float) 1.200,
+  (float) 1.214, (float) 1.222, (float) 1.231, (float) 1.250, (float) 1.267,
+  (float) 1.273, (float) 1.286, (float) 1.300, (float) 1.308, (float) 1.333,
+  (float) 1.357, (float) 1.364, (float) 1.375, (float) 1.385, (float) 1.400,
+  (float) 1.417, (float) 1.429, (float) 1.444, (float) 1.455, (float) 1.462,
+  (float) 1.467, (float) 1.500, (float) 1.533, (float) 1.538, (float) 1.545,
+  (float) 1.556, (float) 1.571, (float) 1.583, (float) 1.600, (float) 1.615,
+  (float) 1.625, (float) 1.636, (float) 1.643, (float) 1.667, (float) 1.692,
+  (float) 1.700, (float) 1.714, (float) 1.727, (float) 1.733, (float) 1.750,
+  (float) 1.769, (float) 1.778, (float) 1.786, (float) 1.800, (float) 1.818,
+  (float) 1.833, (float) 1.846, (float) 1.857, (float) 1.867, (float) 1.875,
+  (float) 1.889, (float) 1.900, (float) 1.909, (float) 1.917, (float) 1.923,
+  (float) 1.929, (float) 1.933};
 
+static int Valores_BaudRate_A_Testear[CANT_VALORES_BAUDRATE] =
+{ (int) 600, (int) 1200, (int) 2400, (int) 4800, (int) 9600,
+  (int) 14400, (int) 19200, (int) 28800, (int) 38400, (int) 56000,
+  (int) 57600, (int) 115200, (int) 128000, (int) 230400, (int) 256000};
 
+int main( void ){
 
-#define MILLONES    *1000000
-#define MIL         *1000
-#define ERROR       100
+    int Index;
 
-void Estimar_Valores( int PCLK, int BaudRate, int *DLM, int *DLL, int *DivAddVal, int *MulVal );
-float Calcular_BaudRate( int PCLK, int DLM, int DLL, int DivAddVal, int MulVal );
-float Calcular_Error_Porcentual( int BaudRate, float Actual_BaudRate );
-char TABLA_DAV( float FR_est_F );
-char TABLA_MV( float FR_est_F, char DivAddValue );
+    printf( "\nPedido\tPCLK\t\tObtenido\tError %%\t\tDLM  \tDLL  DivAddVal  MulVal\n\n" );
 
-int main()
-{
-    int BaudRate = BAUDRATE, PCLK;
-    int DLM = 1, DLL = 0, DivAddVal = 0, MulVal = 1;
-    float Error_Porcentual, Actual_BaudRate;
-
-    PCLK = 12 MILLONES;
-    Estimar_Valores( PCLK, BaudRate, &DLM, &DLL, &DivAddVal, &MulVal );
-    Actual_BaudRate = Calcular_BaudRate( PCLK, DLM, DLL, DivAddVal, MulVal );
-    Error_Porcentual = Calcular_Error_Porcentual( BaudRate, Actual_BaudRate );
-
-    printf( "\n\n\n PCLK = %d", PCLK );
-    printf( "\n BaudRate pedido = %d", BaudRate );
-    printf( "\n BaudRate Conseguido = %f", (double) Actual_BaudRate );
-    printf( "\n Error Porcentual = %f %%", (double) Error_Porcentual );
-    printf( "\n DLM = %d", DLM );
-    printf( "\n DLL = %d", DLL );
-    printf( "\n DivAddVal = %d", DivAddVal );
-    printf( "\n MulVal = %d", MulVal );
-
-
-
-    PCLK = 6 MILLONES;
-    Estimar_Valores( PCLK, BaudRate, &DLM, &DLL, &DivAddVal, &MulVal );
-    Actual_BaudRate = Calcular_BaudRate( PCLK, DLM, DLL, DivAddVal, MulVal );
-    Error_Porcentual = Calcular_Error_Porcentual( BaudRate, Actual_BaudRate );
-
-    printf( "\n\n\n PCLK = %d", PCLK );
-    printf( "\n BaudRate pedido = %d", BaudRate );
-    printf( "\n BaudRate Conseguido = %f", (double) Actual_BaudRate );
-    printf( "\n Error Porcentual = %f", (double) Error_Porcentual );
-    printf( "\n DLM = %d", DLM );
-    printf( "\n DLL = %d", DLL );
-    printf( "\n DivAddVal = %d", DivAddVal );
-    printf( "\n MulVal = %d", MulVal );
-
-
-
-    PCLK = 3 MILLONES;
-    Estimar_Valores( PCLK, BaudRate, &DLM, &DLL, &DivAddVal, &MulVal );
-    Actual_BaudRate = Calcular_BaudRate( PCLK, DLM, DLL, DivAddVal, MulVal );
-    Error_Porcentual = Calcular_Error_Porcentual( BaudRate, Actual_BaudRate );
-
-    printf( "\n\n\n PCLK = %d", PCLK );
-    printf( "\n BaudRate pedido = %d", BaudRate );
-    printf( "\n BaudRate Conseguido = %f", (double) Actual_BaudRate );
-    printf( "\n Error Porcentual = %f", (double) Error_Porcentual );
-    printf( "\n DLM = %d", DLM );
-    printf( "\n DLL = %d", DLL );
-    printf( "\n DivAddVal = %d", DivAddVal );
-    printf( "\n MulVal = %d", MulVal );
-
-
-
-    PCLK = 1500 MIL;
-    Estimar_Valores( PCLK, BaudRate, &DLM, &DLL, &DivAddVal, &MulVal );
-    Actual_BaudRate = Calcular_BaudRate( PCLK, DLM, DLL, DivAddVal, MulVal );
-
-    Error_Porcentual = Calcular_Error_Porcentual( BaudRate, Actual_BaudRate );
-
-    printf( "\n\n\n PCLK = %d", PCLK );
-    printf( "\n BaudRate pedido = %d", BaudRate );
-    printf( "\n BaudRate Conseguido = %f", (double) Actual_BaudRate );
-    printf( "\n Error Porcentual = %f", (double) Error_Porcentual );
-    printf( "\n DLM = %d", DLM );
-    printf( "\n DLL = %d", DLL );
-    printf( "\n DivAddVal = %d", DivAddVal );
-    printf( "\n MulVal = %d", MulVal );
-
-    return 0;
-}
-/*                                                                                                                                                                                                  */
-void Estimar_Valores( int PCLK, int BaudRate, int *DLM, int *DLL, int *DivAddVal, int *MulVal ){
-    float FR_est = 0; // Fraccion estimada
-
-    (*DivAddVal) = 0;
-    (*MulVal) = 1;
-    (*DLM) = PCLK / ( 16 * 256 * BaudRate );
-    (*DLL) = ( PCLK / ( 16 * BaudRate ) ) - 256 * (*DLM);
-
-    if( Calcular_Error_Porcentual( BaudRate, Calcular_BaudRate( PCLK, (*DLM), (*DLL), (*DivAddVal), (*MulVal) ) )  > 1.5 ){
-        FR_est = (float) 1.0 * PCLK / ( (float) 16.0 * ( (*DLM) * 256 + (*DLL) ) * BaudRate );
-
-        (*DivAddVal) = (int) TABLA_DAV(FR_est);
-        (*MulVal) = (int) TABLA_MV(FR_est, (char) (*DivAddVal) );
+    for( Index = 0 ; Index < CANT_VALORES_BAUDRATE ; Index++ ){
+        MostrarTodo( Valores_BaudRate_A_Testear[ Index ] );
     }
-    else return;
-
 }
 
-float Calcular_BaudRate( int PCLK, int DLM, int DLL, int DivAddVal, int MulVal ){
-    float BaudRateCalculado;
+void MostrarTodo( int BaudRate ){
+    S_Config *Config;
+
+    Config = (S_Config *) malloc( sizeof( S_Config ) );
+
+    Config->BaudRate = BaudRate;
+    Config->PCLK = CCLK;
+    Config->BaudRate_Calculado = 0.0;
+    Config->Error_Porcentual= 0.0;
+    Config->DLM = 0;
+    Config->DLL = 1;
+    Config->DivAddVal = 1;
+    Config->MulVal = 1;
+
+    Estimar_Valores( Config );
+    Actualizar_BaudRate( Config );
+    Actualizar_Error_Porcentual( Config );
+
+    printf( "\n%d", Config->BaudRate );
+    printf( "\t%d", Config->PCLK );
+    printf( "\t%f", (double) Config->BaudRate_Calculado );
+    printf( "\t%f %%", (double) Config->Error_Porcentual );
+    printf( "\t%d", Config->DLM );
+    printf( "\t%d", Config->DLL );
+    printf( "\t%d", Config->DivAddVal );
+    printf( "\t%d", Config->MulVal );
+
+
+
+    Config->BaudRate = BaudRate;
+    Config->PCLK = CCLK / 2;
+    Config->BaudRate_Calculado = 0.0;
+    Config->Error_Porcentual= 0.0;
+    Config->DLM = 0;
+    Config->DLL = 1;
+    Config->DivAddVal = 1;
+    Config->MulVal = 1;
+
+    Estimar_Valores( Config );
+    Actualizar_BaudRate( Config );
+    Actualizar_Error_Porcentual( Config );
+
+    printf( "\n\t %d", Config->PCLK );
+    printf( "\t%f", (double) Config->BaudRate_Calculado );
+    printf( "\t%f %%", (double) Config->Error_Porcentual );
+    printf( "\t%d", Config->DLM );
+    printf( "\t%d", Config->DLL );
+    printf( "\t%d", Config->DivAddVal );
+    printf( "\t%d", Config->MulVal );
+
+
+
+
+    Config->BaudRate = BaudRate;
+    Config->PCLK = CCLK / 4;
+    Config->BaudRate_Calculado = 0.0;
+    Config->Error_Porcentual= 0.0;
+    Config->DLM = 0;
+    Config->DLL = 1;
+    Config->DivAddVal = 1;
+    Config->MulVal = 1;
+
+    Estimar_Valores( Config );
+    Actualizar_BaudRate( Config );
+    Actualizar_Error_Porcentual( Config );
+
+    printf( "\n\t %d", Config->PCLK );
+    printf( "\t%f", (double) Config->BaudRate_Calculado );
+    printf( "\t%f %%", (double) Config->Error_Porcentual );
+    printf( "\t%d", Config->DLM );
+    printf( "\t%d", Config->DLL );
+    printf( "\t%d", Config->DivAddVal );
+    printf( "\t%d", Config->MulVal );
+
+
+
+
+    Config->BaudRate = BaudRate;
+    Config->PCLK = CCLK / 8;
+    Config->BaudRate_Calculado = 0.0;
+    Config->Error_Porcentual= 0.0;
+    Config->DLM = 0;
+    Config->DLL = 1;
+    Config->DivAddVal = 1;
+    Config->MulVal = 1;
+
+    Estimar_Valores( Config );
+    Actualizar_BaudRate( Config );
+    Actualizar_Error_Porcentual( Config );
+
+    printf( "\n\t %d", Config->PCLK );
+    printf( "\t%f", (double) Config->BaudRate_Calculado );
+    printf( "\t%f %%", (double) Config->Error_Porcentual );
+    printf( "\t%d", Config->DLM );
+    printf( "\t%d", Config->DLL );
+    printf( "\t%d", Config->DivAddVal );
+    printf( "\t%d\n\n", Config->MulVal );
+}
+
+void Estimar_Valores( S_Config *Config_Final ){
+
+    S_Config *C_Mejor, *C_Pos;
+    float FR = 0.0;
+
+    C_Mejor = (S_Config *) malloc( sizeof( S_Config ) );
+
+    //  Inicializamos por seguridad
+    (*C_Mejor) = (*Config_Final);
+    C_Mejor->BaudRate_Calculado = 0.0;
+    C_Mejor->Error_Porcentual= 0.0;
+    C_Mejor->DLM = 0;
+    C_Mejor->DLL = 1;
+    C_Mejor->DivAddVal = 0;
+    C_Mejor->MulVal = 1;
+
+    //  Algoritmo
+    C_Mejor->DLM = C_Mejor->PCLK / ( 16 * 256 * C_Mejor->BaudRate );    // Truco DLM
+    C_Mejor->DLL = ( C_Mejor->PCLK / ( 16 * C_Mejor->BaudRate ) ) - 256 * C_Mejor->DLM; // Trunco DLL
+
+    if( C_Mejor->DLM == 0 && C_Mejor->DLL == 0 ){   // Si ambos son 0, DLL = 1
+        C_Mejor->DLL = 1;
+        (*Config_Final) = (*C_Mejor);
+        return;
+    }
+    Actualizar_BaudRate( C_Mejor );
+    Actualizar_Error_Porcentual( C_Mejor );
+
+    /*
+    Ya tenemos una base (C_Mejor) con DLM y DLL, ahora queremos mas precisión usando DAV y MV
+    Pasos según mi algoritmo:
+     1º Calcular DLM con DLL = 0, DAV = 1 y MV = 0
+     2º Calcular DLL con el DLM calculado en el 1º paso, y con DAV = 1, MV = 0
+     3º Calcular DAV y MV con los últimos DLL y DLM obtenidos
+     4º if( es la primera vez ) guardamos el error actual como MEJOR_ERROR, y guardamos nuestros valores actuales
+        else if( nuestro error actual < MEJOR_ERROR ) sobreescribimos MEJOR_ERROR y guardamos nuestros valores actuales
+     5º Volvemos al paso 3, haciendo DLL(nuevo) = DLL(anterior) - 1, siempre que ( DLL > 0 ) o ( DLL = 0  &&  DLM > 0 )
+     6º Volvemos al paso 2, haciendo DLM(nuevo) = DLM(anterior) - 1, siempre que DLM >= 0
+
+     7º En MEJOR_ERROR tenemos el Error más bajo posible habiendo probado con todos los DLM, DLL, DAV y MV más cercanos.
+     Y en donde los guardamos, tenemos los valores que generan ese error
+
+    */
+
+    C_Pos = (S_Config *) malloc( sizeof( S_Config ) );
+    (*C_Pos) = (*C_Mejor);
+
+    if( C_Pos->DLM >= 1 && C_Pos->DLL == 0 ){   //
+            C_Pos->DLM --;
+            C_Pos->DLL = ( C_Pos->PCLK / ( 16 * C_Pos->BaudRate ) ) - 256 * C_Pos->DLM;
+    }
+
+    if( C_Pos->DLM == 0 ){
+        while ( C_Pos->DLL > 0 ){
+            FR = (float) 1.0 * C_Pos->PCLK / ( (float) 16.0 * ( C_Pos->DLM * 256 + C_Pos->DLL ) * C_Pos->BaudRate );
+
+            Index_DAV_MV_by_FR( FR, C_Pos );    // También actualiza BR y Err %
+
+            if( C_Pos->Error_Porcentual < C_Mejor->Error_Porcentual ){
+                (*C_Mejor)= (*C_Pos);
+            }
+
+            C_Pos->DLL -- ;
+        }
+
+        (*Config_Final) = (*C_Mejor);
+        Actualizar_BaudRate( Config_Final );
+        Actualizar_Error_Porcentual( Config_Final );
+
+        return;
+    }
+
+    else{
+        while( C_Pos->DLM >= 0 ){
+
+            C_Pos->DLL = ( C_Pos->PCLK / ( 16 * C_Pos->BaudRate ) ) - 256 * C_Pos->DLM;
+
+            while ( C_Pos->DLL > 0 || ( C_Pos->DLL == 0 && C_Pos->DLM > 0 ) ){
+
+                FR = (float) 1.0 * C_Pos->PCLK / ( (float) 16.0 * ( C_Pos->DLM * 256 + C_Pos->DLL ) * C_Pos->BaudRate );
+
+                Index_DAV_MV_by_FR( FR, C_Pos );
+
+                Actualizar_BaudRate( C_Pos );
+                Actualizar_Error_Porcentual( C_Pos );
+
+                if( C_Pos->Error_Porcentual < C_Mejor->Error_Porcentual ){
+                    (*C_Mejor)= (*C_Pos);
+                }
+
+                C_Pos->DLL -- ;
+            }
+
+            C_Pos->DLM -- ;
+        }
+
+        (*Config_Final) = (*C_Mejor);
+        Actualizar_BaudRate( Config_Final );
+        Actualizar_Error_Porcentual( Config_Final );
+        return;
+    }
+}
+
+void Actualizar_BaudRate( S_Config *Config_Final ){
     float Aux1, Aux2;
 
     /*
@@ -118,260 +275,95 @@ float Calcular_BaudRate( int PCLK, int DLM, int DLL, int DivAddVal, int MulVal )
                 16 * ( DLM * 256 + DLL ) * ( 1 + DivAddVal / MulVal )
     */
 
-    Aux1 = DLL + DLM * (float) 256.0;
-    Aux2 = (float) 1.0 + ( ( (float) 1.0 * DivAddVal ) / ( (float) 1.0 * MulVal ) );
+    Aux1 = Config_Final->DLL + Config_Final->DLM * (float) 256.0;
+    Aux2 = (float) 1.0 + ( ( (float) 1.0 * Config_Final->DivAddVal ) / ( (float) 1.0 * Config_Final->MulVal ) );
 
-    /*printf( "\n\n EN LA FUNCION" );
-    printf( "\n\t\t Aux1 = %f", (double) Aux1 );
-    printf( "\n\t\t Aux2 = %f", (double) Aux2 );*/
-
-    BaudRateCalculado = PCLK / ( 16 * Aux1 * Aux2 );
-
-    /*printf( "\n\t DLM = %d", DLM );
-    printf( "\n\t DLL = %d", DLL );
-    printf( "\n\t DivAddVal = %d", DivAddVal );
-    printf( "\n\t MulVal = %d \n\n\n", MulVal );*/
-
-    return BaudRateCalculado;
+    Config_Final->BaudRate_Calculado = Config_Final->PCLK / ( 16 * Aux1 * Aux2 );
 }
 
-float Calcular_Error_Porcentual( int BaudRate, float Actual_BaudRate ){
+void Actualizar_Error_Porcentual( S_Config *Config_Final ){
 
-    float Error_Porcentual;
-
-    if( Actual_BaudRate > BaudRate ){
-        Error_Porcentual = 100 * ( ( Actual_BaudRate - BaudRate ) / BaudRate );
+    if( Config_Final->BaudRate > Config_Final->BaudRate_Calculado ){
+        Config_Final->Error_Porcentual = 100 * ( ( Config_Final->BaudRate - Config_Final->BaudRate_Calculado ) / Config_Final->BaudRate );
     }else{
-        Error_Porcentual = 100 * ( ( BaudRate - Actual_BaudRate ) / BaudRate );
+        Config_Final->Error_Porcentual = 100 * ( ( Config_Final->BaudRate_Calculado - Config_Final->BaudRate ) / Config_Final->BaudRate );
     }
-
-    return Error_Porcentual;
 }
 
-char TABLA_DAV( float FR_est_F ){
-    if( FR_est_F >= (float) 1.000 && FR_est_F < (float) 1.0335 ){               // 0/1
-        return 0;
+char Index_DAV_MV_by_FR( float FR, S_Config *Config_Final ){
+
+    S_Config *C_MAX, *C_MIN;
+    int Index = 0;
+
+    C_MAX = (S_Config *) malloc( sizeof( S_Config ) );  //  Inicializo ambas configuraciones
+    C_MIN = (S_Config *) malloc( sizeof( S_Config ) );
+
+    (*C_MAX) = (*Config_Final);
+    (*C_MIN) = (*Config_Final);
+
+    for( Index = 0; Index < CANT_VALORES_TABLA && FR > Valores_FR_Tabla[Index]; Index ++);
+
+    FR = Valores_FR_Tabla[ Index ];       // MAX
+    C_MAX->DivAddVal = DAV_by_Index( (char) Index );
+    C_MAX->MulVal = MV_by_Index( (char) Index );
+    Actualizar_BaudRate( C_MAX );
+    Actualizar_Error_Porcentual( C_MAX );
+
+    FR = Valores_FR_Tabla[ Index - 1 ];   // MIN
+    C_MIN->DivAddVal = DAV_by_Index( (char) Index - 1 );
+    C_MIN->MulVal = MV_by_Index( (char) Index - 1 );
+    Actualizar_BaudRate( C_MIN );
+    Actualizar_Error_Porcentual( C_MIN );
+
+
+    if( C_MIN->Error_Porcentual < C_MAX->Error_Porcentual ){
+        (*Config_Final) = (*C_MIN);
+        return (char) Index - 1;
     }
-    if( ( FR_est_F >= (float) 1.0335 && FR_est_F < (float) 1.129 ) ||           // [ 1/15 ; 1/8 ]
-            ( FR_est_F >= (float) 1.138 && FR_est_F < (float) 1.1485 ) ||       // 1/7
-            ( FR_est_F >= (float) 1.1605 && FR_est_F < (float) 1.1745 ) ||      // 1/6
-            ( FR_est_F >= (float) 1.191 && FR_est_F < (float) 1.207 ) ||        // 1/5
-            ( FR_est_F >= (float) 1.2405 && FR_est_F < (float) 1.2585 ) ||      // 1/4
-            ( FR_est_F >= (float) 1.3205 && FR_est_F < (float) 1.345 ) ||       // 1/3
-            ( FR_est_F >= (float) 1.4835 && FR_est_F < (float) 1.5165 ) ){      // 1/2
-        return 1;
+    else{
+        (*Config_Final) = (*C_MAX);
+        return (char) Index;
     }
-    if( ( FR_est_F >= (float) 1.129 && FR_est_F < (float) 1.138 ) ||            // 2/15
-            ( FR_est_F >= (float) 1.1485 && FR_est_F < (float) 1.1605 ) ||      // 2/13
-            ( FR_est_F >= (float) 1.1745 && FR_est_F < (float) 1.191 ) ||       // 2/11
-            ( FR_est_F >= (float) 1.218 && FR_est_F < (float) 1.2265 ) ||       // 2/9
-            ( FR_est_F >= (float) 1.2795 && FR_est_F < (float) 1.293 ) ||       // 2/7
-            ( FR_est_F >= (float) 1.3925 && FR_est_F < (float) 1.4085 ) ||      // 2/5
-            ( FR_est_F >= (float) 1.655 && FR_est_F < (float) 1.6795 ) ){       // 2/3
-        return 2;
-    }
-    if( ( FR_est_F >= (float) 1.207 && FR_est_F < (float) 1.218 ) ||            // 3/14
-            ( FR_est_F >= (float) 1.2265 && FR_est_F < (float)  1.2405 ) ||     // 3/13
-            ( FR_est_F >= (float) 1.27 && FR_est_F < (float) 1.2795 ) ||        // 3/11
-            ( FR_est_F >= (float) 1.293 && FR_est_F < (float) 1.304 ) ||        // 3/10
-            ( FR_est_F >= (float) 1.3695 && FR_est_F < (float) 1.38 ) ||        // 3/8
-            ( FR_est_F >= (float) 1.423 && FR_est_F < (float) 1.4365 ) ||       // 3/7
-            ( FR_est_F >= (float) 1.5915 && FR_est_F < (float) 1.6075 ) ||      // 3/5
-            ( FR_est_F >= (float) 1.7415 && FR_est_F < (float) 1.7595 ) ){      // 3/4
-        return 3;
-    }
-    if( ( FR_est_F >= (float) 1.2585 && FR_est_F < (float) 1.27 ) ||            // 4/15
-            ( FR_est_F >= (float) 1.304 && FR_est_F < (float)  1.3205 ) ||      // 4/13
-            ( FR_est_F >= (float) 1.3605 && FR_est_F < (float) 1.3695 ) ||      // 4/11
-            ( FR_est_F >= (float) 1.4365 && FR_est_F < (float) 1.4495 ) ||      // 4/9
-            ( FR_est_F >= (float) 1.5635 && FR_est_F < (float) 1.5545 ) ||      // 4/7
-            ( FR_est_F >= (float) 1.793 && FR_est_F < (float) 1.809 ) ){        // 4/5
-        return 4;
-    }
-    if( ( FR_est_F >= (float) 1.345 && FR_est_F < (float) 1.3605 ) ||           // 5/14
-            ( FR_est_F >= (float) 1.38 && FR_est_F < (float)  1.3205 ) ||       // 5/13
-            ( FR_est_F >= (float) 1.4085 && FR_est_F < (float) 1.423 ) ||       // 5/12
-            ( FR_est_F >= (float) 1.4495 && FR_est_F < (float) 1.4585 ) ||      // 5/11
-            ( FR_est_F >= (float) 1.5505 && FR_est_F < (float) 1.5635 ) ||      // 5/9
-            ( FR_est_F >= (float) 1.62 && FR_est_F < (float) 1.6305 ) ||        // 5/8
-            ( FR_est_F >= (float) 1.707 && FR_est_F < (float) 1.7205 ) ||       // 5/7
-            ( FR_est_F >= (float) 1.8255 && FR_est_F < (float) 1.8395 ) ){      // 5/6
-        return 5;
-    }
-    if( ( FR_est_F >= (float) 1.4585 && FR_est_F < (float) 1.4645 ) ||          // 6/13
-            ( FR_est_F >= (float) 1.5415 && FR_est_F < (float) 1.5505 ) ||      // 6/11
-            ( FR_est_F >= (float) 1.8515 && FR_est_F < (float) 1.862 ) ){       // 6/7
-        return 6;
-    }
-    if( ( FR_est_F >= (float) 1.4645 && FR_est_F < (float) 1.5 ) ||             // 7/15
-            ( FR_est_F >= (float) 1.5355 && FR_est_F < (float)  1.5415 ) ||     // 7/13
-            ( FR_est_F >= (float) 1.5545 && FR_est_F < (float) 1.5915 ) ||      // 7/12
-            ( FR_est_F >= (float) 1.6305 && FR_est_F < (float) 1.6395 ) ||      // 7/11
-            ( FR_est_F >= (float) 1.696 && FR_est_F < (float) 1.707 ) ||        // 7/10
-            ( FR_est_F >= (float) 1.7735 && FR_est_F < (float) 1.782 ) ||       // 7/9
-            ( FR_est_F >= (float) 1.871 && FR_est_F < (float) 1.882 ) ){        // 7/8
-        return 7;
-    }
-    if( ( FR_est_F >= (float) 1.5165 && FR_est_F < (float) 1.5355 ) ||          // 8/15
-            ( FR_est_F >= (float) 1.6075 && FR_est_F < (float)  1.62 ) ||       // 8/13
-            ( FR_est_F >= (float) 1.7205 && FR_est_F < (float) 1.73 ) ||        // 8/11
-            ( FR_est_F >= (float) 1.882 && FR_est_F < (float) 1.8945 ) ){       // 8/9
-        return 8;
-    }
-    if( ( FR_est_F >= (float) 1.6395 && FR_est_F < (float) 1.655 ) ||           // 9/14
-            ( FR_est_F >= (float) 1.6795 && FR_est_F < (float)  1.696 ) ||      // 9/13
-            ( FR_est_F >= (float) 1.809 && FR_est_F < (float) 1.8255 ) ||       // 9/11
-            ( FR_est_F >= (float) 1.8945 && FR_est_F < (float) 1.9045 ) ){      // 9/10
-        return 9;
-    }
-    if( ( FR_est_F >= (float) 1.7595 && FR_est_F < (float) 1.7735 ) ||          // 10/13
-            ( FR_est_F >= (float) 1.9045 && FR_est_F < (float) 1.913 ) ){       // 10/11
-        return 10;
-     }
-    if( ( FR_est_F >= (float) 1.73 && FR_est_F < (float) 1.7415 ) ||            // 11/15
-            ( FR_est_F >= (float) 1.782 && FR_est_F < (float)  1.793 ) ||       // 11/14
-            ( FR_est_F >= (float) 1.8395 && FR_est_F < (float) 1.8515 ) ||      // 11/13
-            ( FR_est_F >= (float) 1.913 && FR_est_F < (float) 1.92 ) ){         // 11/12
-        return 11;
-    }
-    if( ( FR_est_F >= (float) 1.92 && FR_est_F < (float) 1.926 )  ){            // 12/13
-        return 12;
-    }
-    if( ( FR_est_F >= (float) 1.862 && FR_est_F < (float) 1.871 ) ||            // 13/15
-            ( FR_est_F >= (float) 1.926 && FR_est_F < (float) 1.931 ) ){        // 13/14
-        return 13;
-    }
-    if( ( FR_est_F >= (float) 1.931 && FR_est_F <= (float) 1.934 ) ){           // 14/15
-        return 14;
-    }
-    return ERROR;
 }
 
+char DAV_by_Index( char I ){
 
-char TABLA_MV( float FR_est_F, char DivAddValue ){
-    switch( DivAddValue ){
-        case 0:
-            return 1;
-
-        case 1:
-            if( FR_est_F >= (float) 1.0335 && FR_est_F < (float) 1.069 )    return 15;
-            if( FR_est_F >= (float) 1.069 && FR_est_F < (float) 1.074 )     return 14;
-            if( FR_est_F >= (float) 1.074 && FR_est_F < (float) 1.08 )      return 13;
-            if( FR_est_F >= (float) 1.08 && FR_est_F < (float) 1.087 )      return 12;
-            if( FR_est_F >= (float) 1.087 && FR_est_F < (float) 1.0955 )    return 11;
-            if( FR_est_F >= (float) 1.0955 && FR_est_F < (float) 1.1055 )   return 10;
-            if( FR_est_F >= (float) 1.1055 && FR_est_F < (float) 1.118 )    return 9;
-            if( FR_est_F >= (float) 1.118 && FR_est_F < (float) 1.129 )     return 8;
-            if( FR_est_F >= (float) 1.138 && FR_est_F < (float) 1.1485 )    return 7;
-            if( FR_est_F >= (float) 1.1605 && FR_est_F < (float) 1.1745 )   return 6;
-            if( FR_est_F >= (float) 1.191 && FR_est_F < (float) 1.207 )     return 5;
-            if( FR_est_F >= (float) 1.2405 && FR_est_F < (float) 1.2585 )   return 4;
-            if( FR_est_F >= (float) 1.3205 && FR_est_F < (float) 1.345 )    return 3;
-            if( FR_est_F >= (float) 1.4835 && FR_est_F < (float) 1.5165 )   return 2;
-
-            break;
-
-        case 2:
-            if ( FR_est_F >= (float) 1.129 && FR_est_F < (float) 1.138 )    return 15;
-            if ( FR_est_F >= (float) 1.1485 && FR_est_F < (float) 1.1605 )  return 13;
-            if ( FR_est_F >= (float) 1.1745 && FR_est_F < (float) 1.191 )   return 11;
-            if ( FR_est_F >= (float) 1.218 && FR_est_F < (float) 1.2265 )   return 9;
-            if ( FR_est_F >= (float) 1.2795 && FR_est_F < (float) 1.293 )   return 7;
-            if ( FR_est_F >= (float) 1.3925 && FR_est_F < (float) 1.4085 )  return 5;
-            if ( FR_est_F >= (float) 1.655 && FR_est_F < (float) 1.6795 )   return 3;
-            break;
-
-        case 3:
-            if ( FR_est_F >= (float) 1.207 && FR_est_F < (float) 1.218 )    return 14;
-            if ( FR_est_F >= (float) 1.2265 && FR_est_F < (float)  1.2405 ) return 13;
-            if ( FR_est_F >= (float) 1.27 && FR_est_F < (float) 1.2795 )    return 11;
-            if ( FR_est_F >= (float) 1.293 && FR_est_F < (float) 1.304 )    return 10;
-            if ( FR_est_F >= (float) 1.3695 && FR_est_F < (float) 1.38 )    return 8;
-            if ( FR_est_F >= (float) 1.423 && FR_est_F < (float) 1.4365 )   return 7;
-            if ( FR_est_F >= (float) 1.5915 && FR_est_F < (float) 1.6075 )  return 5;
-            if ( FR_est_F >= (float) 1.7415 && FR_est_F < (float) 1.7595 )  return 4;
-            break;
-
-        case 4:
-            if ( FR_est_F >= (float) 1.2585 && FR_est_F < (float) 1.27 )    return 15;
-            if ( FR_est_F >= (float) 1.304 && FR_est_F < (float)  1.3205 )  return 13;
-            if ( FR_est_F >= (float) 1.3605 && FR_est_F < (float) 1.3695 )  return 11;
-            if ( FR_est_F >= (float) 1.4365 && FR_est_F < (float) 1.4495 )  return 9;
-            if ( FR_est_F >= (float) 1.5635 && FR_est_F < (float) 1.5545 )  return 7;
-            if ( FR_est_F >= (float) 1.793 && FR_est_F < (float) 1.809 )    return 5;
-            break;
-
-        case 5:
-            if ( FR_est_F >= (float) 1.345 && FR_est_F < (float) 1.3605 )   return 14;
-            if ( FR_est_F >= (float) 1.38 && FR_est_F < (float)  1.3205 )   return 13;
-            if ( FR_est_F >= (float) 1.4085 && FR_est_F < (float) 1.423 )   return 2;
-            if ( FR_est_F >= (float) 1.4495 && FR_est_F < (float) 1.4585 )  return 11;
-            if ( FR_est_F >= (float) 1.5505 && FR_est_F < (float) 1.5635 )  return 9;
-            if ( FR_est_F >= (float) 1.62 && FR_est_F < (float) 1.6305 )    return 8;
-            if ( FR_est_F >= (float) 1.707 && FR_est_F < (float) 1.7205 )   return 7;
-            if ( FR_est_F >= (float) 1.8255 && FR_est_F < (float) 1.8395 )  return 6;
-            break;
-
-        case 6:
-            if ( FR_est_F >= (float) 1.4585 && FR_est_F < (float) 1.4645 )  return 13;
-            if ( FR_est_F >= (float) 1.5415 && FR_est_F < (float) 1.5505 )  return 11;
-            if ( FR_est_F >= (float) 1.8515 && FR_est_F < (float) 1.862 )   return 7;
-            break;
-
-        case 7:
-            if ( FR_est_F >= (float) 1.4645 && FR_est_F < (float) 1.5 )     return 15;
-            if ( FR_est_F >= (float) 1.5355 && FR_est_F < (float)  1.5415 ) return 13;
-            if ( FR_est_F >= (float) 1.5545 && FR_est_F < (float) 1.5915 )  return 12;
-            if ( FR_est_F >= (float) 1.6305 && FR_est_F < (float) 1.6395 )  return 11;
-            if ( FR_est_F >= (float) 1.696 && FR_est_F < (float) 1.707 )    return 10;
-            if ( FR_est_F >= (float) 1.7735 && FR_est_F < (float) 1.782 )   return 9;
-            if ( FR_est_F >= (float) 1.871 && FR_est_F < (float) 1.882 )    return 8;
-            break;
-
-        case 8:
-            if ( FR_est_F >= (float) 1.5165 && FR_est_F < (float) 1.5355 )  return 15;
-            if ( FR_est_F >= (float) 1.6075 && FR_est_F < (float)  1.62 )   return 13;
-            if ( FR_est_F >= (float) 1.7205 && FR_est_F < (float) 1.73 )    return 11;
-            if ( FR_est_F >= (float) 1.882 && FR_est_F < (float) 1.8945 )   return 9;
-            break;
-
-        case 9:
-            if ( FR_est_F >= (float) 1.6395 && FR_est_F < (float) 1.655 )   return 14;
-            if ( FR_est_F >= (float) 1.6795 && FR_est_F < (float)  1.696 )  return 13;
-            if ( FR_est_F >= (float) 1.809 && FR_est_F < (float) 1.8255 )   return 11;
-            if ( FR_est_F >= (float) 1.8945 && FR_est_F < (float) 1.9045 )  return 10;
-            break;
-
-        case 10:
-            if ( FR_est_F >= (float) 1.7595 && FR_est_F < (float) 1.7735 )  return 13;
-            if ( FR_est_F >= (float) 1.9045 && FR_est_F < (float) 1.913 )   return 11;
-            break;
-
-        case 11:
-            if ( FR_est_F >= (float) 1.73 && FR_est_F < (float) 1.7415 )    return 15;
-            if ( FR_est_F >= (float) 1.782 && FR_est_F < (float)  1.793 )   return 14;
-            if ( FR_est_F >= (float) 1.8395 && FR_est_F < (float) 1.8515 )  return 13;
-            if ( FR_est_F >= (float) 1.913 && FR_est_F < (float) 1.92 )     return 12;
-            break;
-
-        case 12:
-            return 13;
-
-        case 13:
-            if ( FR_est_F >= (float) 1.862 && FR_est_F < (float) 1.871 )    return 15;
-            if ( FR_est_F >= (float) 1.926 && FR_est_F < (float) 1.931 )    return 14;
-            break;
-
-        case 14:
-            if ( FR_est_F >= (float) 1.931 && FR_est_F <= (float) 1.934 ) return 15;
-            break;
-        default:
-            return ERROR;
-    }
-    return ERROR;
+    if( I == 0 ) return 0;
+    if( I <= 9  || I == 10 || I == 12 || I == 14 || I == 18 || I == 24 || I == 36 ) return 1;
+    if( I == 9  || I == 11 || I == 13 || I == 16 || I == 21 || I == 29 || I == 48 ) return 2;
+    if( I == 15 || I == 17 || I == 20 || I == 22 || I == 27 || I == 31 || I == 43 || I == 54 ) return 3;
+    if( I == 19 || I == 23 || I == 26 || I == 32 || I == 41 || I == 58 ) return 4;
+    if( I == 25 || I == 28 || I == 30 || I == 33 || I == 40 || I == 45 || I == 51 || I == 60 ) return 5;
+    if( I == 34 || I == 39 || I == 62 ) return 6;
+    if( I == 35 || I == 38 || I == 42 || I == 46 || I == 50 || I == 56 || I == 64 ) return 7;
+    if( I == 37 || I == 44 || I == 52 || I == 65 ) return 8;
+    if( I == 47 || I == 49 || I == 59 || I == 66 ) return 9;
+    if( I == 55 || I == 67 ) return 10;
+    if( I == 53 || I == 57 || I == 61 || I == 68 ) return 11;
+    if( I == 69 ) return 12;
+    if( I == 63 || I == 70 ) return 13;
+    if( I == 71 ) return 14;
+    return MI_TIPO_ERROR;
 }
 
-
+char MV_by_Index( char I ){
+    if( I == 0 ) return 1;
+    if( I == 1  || I == 9  || I == 19 || I == 35 || I == 37 || I == 67 || I == 53 || I == 63 || I == 71 ) return 15;
+    if( I == 2  || I == 15 || I == 25 || I == 47 || I == 57 || I == 70 ) return 14;
+    if( I == 3  || I == 11 || I == 17 || I == 23 || I == 28 || I == 34 || I == 38 || I == 44 || I == 49 || I == 55 || I == 61 || I == 69 ) return 13;
+    if( I == 4  || I == 30 || I == 42 || I == 68 ) return 12;
+    if( I == 5  || I == 13 || I == 20 || I == 26 || I == 33 || I == 39 || I == 46 || I == 52 || I == 59 || I == 66 ) return 11;
+    if( I == 6  || I == 22 || I == 50 || I == 66 ) return 10;
+    if( I == 7  || I == 16 || I == 32 || I == 40 || I == 56 || I == 65 ) return 9;
+    if( I == 8  || I == 27 || I == 45 || I == 64 ) return 8;
+    if( I == 10 || I == 21 || I == 31 || I == 41 || I == 51 || I == 62 ) return 7;
+    if( I == 12 || I == 60 ) return 6;
+    if( I == 14 || I == 29 || I == 43 || I == 58 ) return 5;
+    if( I == 18 || I == 54 ) return 4;
+    if( I == 24 || I == 48 ) return 3;
+    if( I == 36 ) return 2;
+    return MI_TIPO_ERROR;
+}
 
 
 
