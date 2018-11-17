@@ -1,0 +1,41 @@
+/********************/
+/* TPO Info II 2018 */
+/********************/
+
+El repositorio de GitHub es: https://github.com/LucianoSaldivia/Mano-TPO
+
+
+Instalar git en tu Linux:
+-------------------------
+
+1)	apt-get install git
+
+2) Vas al directorio donde quieras poner la carpeta del repositorio y hacés:
+
+	git clone https://github.com/LucianoSaldivia/Mano-TPO
+
+
+Comandos básicos de Git
+------------------------
+
+(para usar en la carpeta del repositorio)
+
+
+git status	// Nos dice las diferencias entre nuestra versión y el índice que lleva git.
+		// Cuando compara con ORIGIN/master está comparando con el caché que tiene de nuestro repo LOCAL.
+
+
+git pull	// Baja los cambios del repo en la web.
+
+
+git add		// Agrega un archivo nuestro al "tracker" del repositorio. Todavía no lo sube.
+
+
+git add -A	// Todo lo que esté en nuestro directorio.
+
+
+git commit -m "mensaje"	// Los archivos que en status estén marcados para commit serán agregados al respositorio, con el mensaje que indiquemos.
+
+
+git push	// Sube los archivos al repositorio.
+

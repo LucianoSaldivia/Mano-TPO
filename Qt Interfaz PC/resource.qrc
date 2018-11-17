@@ -1,0 +1,41 @@
+<RCC>
+    <qresource prefix="/Resource">
+        <file>Imagenes/Pulgares/Pulgar-1.png</file>
+        <file>Imagenes/Pulgares/Pulgar-2.png</file>
+        <file>Imagenes/Pulgares/Pulgar-3.png</file>
+        <file>Imagenes/Pulgares/Pulgar-4.png</file>
+        <file>Imagenes/Pulgares/Pulgar-5.png</file>
+        <file>Imagenes/Pulgares/Pulgar-Normal.png</file>
+        <file>Imagenes/Menores/Menor-1.png</file>
+        <file>Imagenes/Menores/Menor-2.png</file>
+        <file>Imagenes/Menores/Menor-3.png</file>
+        <file>Imagenes/Menores/Menor-4.png</file>
+        <file>Imagenes/Menores/Menor-5.png</file>
+        <file>Imagenes/Menores/Menor-Normal.png</file>
+        <file>Imagenes/Mayores/Mayor-2.png</file>
+        <file>Imagenes/Mayores/Mayor-3.png</file>
+        <file>Imagenes/Mayores/Mayor-4.png</file>
+        <file>Imagenes/Mayores/Mayor-5.png</file>
+        <file>Imagenes/Mayores/Mayor-6.png</file>
+        <file>Imagenes/Mayores/Mayor-Normal.png</file>
+        <file>Imagenes/Mayores/Mayor-1.png</file>
+        <file>Imagenes/Indices/Indice-1.png</file>
+        <file>Imagenes/Indices/Indice-2.png</file>
+        <file>Imagenes/Indices/Indice-3.png</file>
+        <file>Imagenes/Indices/Indice-4.png</file>
+        <file>Imagenes/Indices/Indice-5.png</file>
+        <file>Imagenes/Indices/Indice-6.png</file>
+        <file>Imagenes/Indices/Indice-Normal.png</file>
+        <file>Imagenes/Base/Base.png</file>
+        <file>Imagenes/Base/Base-Original.png</file>
+        <file>Imagenes/Base/Base-Original-Copia.png</file>
+        <file>Imagenes/Base/Base-Copia.png</file>
+        <file>Imagenes/Anulares/Anular-1.png</file>
+        <file>Imagenes/Anulares/Anular-2.png</file>
+        <file>Imagenes/Anulares/Anular-3.png</file>
+        <file>Imagenes/Anulares/Anular-4.png</file>
+        <file>Imagenes/Anulares/Anular-5.png</file>
+        <file>Imagenes/Anulares/Anular-6.png</file>
+        <file>Imagenes/Anulares/Anular-Normal.png</file>
+    </qresource>
+</RCC>
