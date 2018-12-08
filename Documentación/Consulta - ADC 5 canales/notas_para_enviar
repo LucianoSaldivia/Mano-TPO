@@ -1,0 +1,14 @@
+
+
+Se hace 1 conversion de cada uno de los 5 canales entre interrupciones de timer.
+
+T_int: tiempo entre interrupciones de timer
+T_adc: tiempo de conversión de adc
+
+T_int = 400useg
+
+T_adc = 5,56useg (exagerado a propósito, en realidad es más rapido)
+
+=> 5 conversiones: 27,8 useg, digamos 30useg, solamente de tiempo de conversión. Hay que sumarle el tiempo de ejecución del código de las interrupciones.
+
+

@@ -1,0 +1,6 @@
+11:23:28 **** Incremental Build of configuration Debug for project Prueba_2_PWM ****
+make -r -j4 all 
+make: Nothing to be done for `all'.
+
+11:23:28 Build Finished (took 95ms)
+

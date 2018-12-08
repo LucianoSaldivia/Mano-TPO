@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;Placa_Lucho_Mano-PWM_100/src&apos;" deleteContents="false" description="Delete resource &apos;Placa_Lucho_Mano-PWM_100/src&apos;" element1="/Placa_Lucho_Mano-PWM_100/src" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1543957666490"/>
+</session>

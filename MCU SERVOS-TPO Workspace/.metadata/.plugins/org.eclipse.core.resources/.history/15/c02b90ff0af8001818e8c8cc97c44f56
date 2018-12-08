@@ -1,0 +1,41 @@
+/*
+===============================================================================
+ Name        : Placa_Lucho_Mano-PWM_100.c
+ Author      : $(author)
+ Version     :
+ Copyright   : $(copyright)
+ Description : main definition
+===============================================================================
+*/
+
+#ifdef __USE_CMSIS
+#include "LPC17xx.h"
+#endif
+
+#include <cr_section_macros.h>
+#include "DR_Init.h"
+#include "DR_Teclas.h"
+
+int main(void) {
+	uint8_t key;
+
+	Kit_Init();
+	LED_Set(LED_STICK, OFF);
+
+    while(1) {
+
+    	key = GetKey();
+
+    	if( key == SW1 ){
+    		LED_Set(LED_STICK, LED_STICK_ON);
+    	}
+
+    	if( key == SW2 ){
+    		LED_Set(LED_STICK, LED_STICK_OFF);
+    	}
+
+
+    }
+
+    return 0 ;
+}

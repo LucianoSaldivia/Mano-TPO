@@ -1,0 +1,1072 @@
+Archive member included to satisfy reference by file (symbol)
+
+/usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libcr_c.a(__weak__main.o)
+                              ./Drivers/cr_startup_lpc175x_6x.o (__main)
+/usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+                              ./Drivers/DR_ADC_5canales_Timer.o (__aeabi_ddiv)
+/usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+                              ./Drivers/DR_SysTick.o (__aeabi_fmul)
+
+Discarded input sections
+
+ .group         0x0000000000000000        0xc ./Primitivas/PR_LCD.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_LCD.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_LCD.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_LCD.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_LCD.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_LCD.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_LCD.o
+ .text          0x0000000000000000        0x0 ./Primitivas/PR_LCD.o
+ .data          0x0000000000000000        0x0 ./Primitivas/PR_LCD.o
+ .bss           0x0000000000000000        0x0 ./Primitivas/PR_LCD.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_Mediana_5canales.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_Mediana_5canales.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_Mediana_5canales.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_Mediana_5canales.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_Mediana_5canales.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_Mediana_5canales.o
+ .text          0x0000000000000000        0x0 ./Primitivas/PR_Mediana_5canales.o
+ .data          0x0000000000000000        0x0 ./Primitivas/PR_Mediana_5canales.o
+ .bss           0x0000000000000000        0x0 ./Primitivas/PR_Mediana_5canales.o
+ .debug_macro   0x0000000000000000      0xa66 ./Primitivas/PR_Mediana_5canales.o
+ .debug_macro   0x0000000000000000       0x2e ./Primitivas/PR_Mediana_5canales.o
+ .debug_macro   0x0000000000000000      0x7c3 ./Primitivas/PR_Mediana_5canales.o
+ .debug_macro   0x0000000000000000       0x46 ./Primitivas/PR_Mediana_5canales.o
+ .debug_macro   0x0000000000000000       0x2e ./Primitivas/PR_Mediana_5canales.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_UART_0.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_UART_0.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_UART_0.o
+ .group         0x0000000000000000        0xc ./Primitivas/PR_UART_0.o
+ .text          0x0000000000000000        0x0 ./Primitivas/PR_UART_0.o
+ .data          0x0000000000000000        0x0 ./Primitivas/PR_UART_0.o
+ .bss           0x0000000000000000        0x0 ./Primitivas/PR_UART_0.o
+ .text.Transmitir
+                0x0000000000000000       0x42 ./Primitivas/PR_UART_0.o
+ .debug_macro   0x0000000000000000      0xa66 ./Primitivas/PR_UART_0.o
+ .debug_macro   0x0000000000000000       0x2e ./Primitivas/PR_UART_0.o
+ .debug_macro   0x0000000000000000      0x7c3 ./Primitivas/PR_UART_0.o
+ .debug_macro   0x0000000000000000       0x46 ./Primitivas/PR_UART_0.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_ADC_5canales_Timer.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_ADC_5canales_Timer.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_ADC_5canales_Timer.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_ADC_5canales_Timer.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_ADC_5canales_Timer.o
+ .text          0x0000000000000000        0x0 ./Drivers/DR_ADC_5canales_Timer.o
+ .data          0x0000000000000000        0x0 ./Drivers/DR_ADC_5canales_Timer.o
+ .bss           0x0000000000000000        0x0 ./Drivers/DR_ADC_5canales_Timer.o
+ .text.Stop_Sampling
+                0x0000000000000000       0x4c ./Drivers/DR_ADC_5canales_Timer.o
+ .debug_macro   0x0000000000000000      0xa66 ./Drivers/DR_ADC_5canales_Timer.o
+ .debug_macro   0x0000000000000000       0x2e ./Drivers/DR_ADC_5canales_Timer.o
+ .debug_macro   0x0000000000000000      0x7c3 ./Drivers/DR_ADC_5canales_Timer.o
+ .debug_macro   0x0000000000000000       0x46 ./Drivers/DR_ADC_5canales_Timer.o
+ .debug_macro   0x0000000000000000       0x2e ./Drivers/DR_ADC_5canales_Timer.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_GPIO.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_GPIO.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_GPIO.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_GPIO.o
+ .text          0x0000000000000000        0x0 ./Drivers/DR_GPIO.o
+ .data          0x0000000000000000        0x0 ./Drivers/DR_GPIO.o
+ .bss           0x0000000000000000        0x0 ./Drivers/DR_GPIO.o
+ .text.GetPIN   0x0000000000000000       0x54 ./Drivers/DR_GPIO.o
+ .debug_macro   0x0000000000000000      0xa66 ./Drivers/DR_GPIO.o
+ .debug_macro   0x0000000000000000       0x2e ./Drivers/DR_GPIO.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_Init.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_Init.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_Init.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_Init.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_Init.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_Init.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_Init.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_Init.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_Init.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_Init.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_Init.o
+ .text          0x0000000000000000        0x0 ./Drivers/DR_Init.o
+ .data          0x0000000000000000        0x0 ./Drivers/DR_Init.o
+ .bss           0x0000000000000000        0x0 ./Drivers/DR_Init.o
+ .debug_macro   0x0000000000000000      0xa66 ./Drivers/DR_Init.o
+ .debug_macro   0x0000000000000000       0x2e ./Drivers/DR_Init.o
+ .debug_macro   0x0000000000000000      0x7c3 ./Drivers/DR_Init.o
+ .debug_macro   0x0000000000000000       0x2e ./Drivers/DR_Init.o
+ .debug_macro   0x0000000000000000       0x46 ./Drivers/DR_Init.o
+ .debug_macro   0x0000000000000000      0x11e ./Drivers/DR_Init.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_LED_IO.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_LED_IO.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_LED_IO.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_LED_IO.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_LED_IO.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_LED_IO.o
+ .text          0x0000000000000000        0x0 ./Drivers/DR_LED_IO.o
+ .data          0x0000000000000000        0x0 ./Drivers/DR_LED_IO.o
+ .bss           0x0000000000000000        0x0 ./Drivers/DR_LED_IO.o
+ .text.LED_Toggle
+                0x0000000000000000       0xbc ./Drivers/DR_LED_IO.o
+ .text.LED_GetStatus
+                0x0000000000000000       0x78 ./Drivers/DR_LED_IO.o
+ .debug_macro   0x0000000000000000      0xa66 ./Drivers/DR_LED_IO.o
+ .debug_macro   0x0000000000000000       0x2e ./Drivers/DR_LED_IO.o
+ .debug_macro   0x0000000000000000      0x7c3 ./Drivers/DR_LED_IO.o
+ .debug_macro   0x0000000000000000       0x2e ./Drivers/DR_LED_IO.o
+ .debug_macro   0x0000000000000000       0x46 ./Drivers/DR_LED_IO.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_PINSEL.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_PINSEL.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_PINSEL.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_PINSEL.o
+ .text          0x0000000000000000        0x0 ./Drivers/DR_PINSEL.o
+ .data          0x0000000000000000        0x0 ./Drivers/DR_PINSEL.o
+ .bss           0x0000000000000000        0x0 ./Drivers/DR_PINSEL.o
+ .text.SetOpenDrainMode
+                0x0000000000000000       0x70 ./Drivers/DR_PINSEL.o
+ .debug_macro   0x0000000000000000      0xa66 ./Drivers/DR_PINSEL.o
+ .debug_macro   0x0000000000000000       0x2e ./Drivers/DR_PINSEL.o
+ .debug_macro   0x0000000000000000      0x7c3 ./Drivers/DR_PINSEL.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_SysTick.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_SysTick.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_SysTick.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_SysTick.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_SysTick.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_SysTick.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_SysTick.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_SysTick.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_SysTick.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_SysTick.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_SysTick.o
+ .text          0x0000000000000000        0x0 ./Drivers/DR_SysTick.o
+ .data          0x0000000000000000        0x0 ./Drivers/DR_SysTick.o
+ .bss           0x0000000000000000        0x0 ./Drivers/DR_SysTick.o
+ .debug_macro   0x0000000000000000      0xa66 ./Drivers/DR_SysTick.o
+ .debug_macro   0x0000000000000000       0x2e ./Drivers/DR_SysTick.o
+ .debug_macro   0x0000000000000000      0x7c9 ./Drivers/DR_SysTick.o
+ .debug_macro   0x0000000000000000       0x2e ./Drivers/DR_SysTick.o
+ .debug_macro   0x0000000000000000       0x46 ./Drivers/DR_SysTick.o
+ .debug_macro   0x0000000000000000      0x11e ./Drivers/DR_SysTick.o
+ .debug_macro   0x0000000000000000       0x28 ./Drivers/DR_SysTick.o
+ .debug_macro   0x0000000000000000       0x2e ./Drivers/DR_SysTick.o
+ .debug_macro   0x0000000000000000       0x16 ./Drivers/DR_SysTick.o
+ .debug_macro   0x0000000000000000       0x1c ./Drivers/DR_SysTick.o
+ .debug_macro   0x0000000000000000       0x16 ./Drivers/DR_SysTick.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_UART_0.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_UART_0.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_UART_0.o
+ .group         0x0000000000000000        0xc ./Drivers/DR_UART_0.o
+ .text          0x0000000000000000        0x0 ./Drivers/DR_UART_0.o
+ .data          0x0000000000000000        0x0 ./Drivers/DR_UART_0.o
+ .bss           0x0000000000000000        0x0 ./Drivers/DR_UART_0.o
+ .debug_macro   0x0000000000000000      0xa66 ./Drivers/DR_UART_0.o
+ .debug_macro   0x0000000000000000       0x2e ./Drivers/DR_UART_0.o
+ .debug_macro   0x0000000000000000      0x7c3 ./Drivers/DR_UART_0.o
+ .debug_macro   0x0000000000000000       0x46 ./Drivers/DR_UART_0.o
+ .group         0x0000000000000000        0xc ./Drivers/FW_LCD.o
+ .group         0x0000000000000000        0xc ./Drivers/FW_LCD.o
+ .group         0x0000000000000000        0xc ./Drivers/FW_LCD.o
+ .group         0x0000000000000000        0xc ./Drivers/FW_LCD.o
+ .group         0x0000000000000000        0xc ./Drivers/FW_LCD.o
+ .group         0x0000000000000000        0xc ./Drivers/FW_LCD.o
+ .group         0x0000000000000000        0xc ./Drivers/FW_LCD.o
+ .text          0x0000000000000000        0x0 ./Drivers/FW_LCD.o
+ .data          0x0000000000000000        0x0 ./Drivers/FW_LCD.o
+ .bss           0x0000000000000000        0x0 ./Drivers/FW_LCD.o
+ .debug_macro   0x0000000000000000      0xa66 ./Drivers/FW_LCD.o
+ .debug_macro   0x0000000000000000       0x2e ./Drivers/FW_LCD.o
+ .debug_macro   0x0000000000000000      0x7c3 ./Drivers/FW_LCD.o
+ .debug_macro   0x0000000000000000       0x2e ./Drivers/FW_LCD.o
+ .debug_macro   0x0000000000000000       0x46 ./Drivers/FW_LCD.o
+ .debug_macro   0x0000000000000000      0x11e ./Drivers/FW_LCD.o
+ .debug_macro   0x0000000000000000       0x28 ./Drivers/FW_LCD.o
+ .group         0x0000000000000000        0xc ./Drivers/cr_startup_lpc175x_6x.o
+ .text          0x0000000000000000        0x0 ./Drivers/cr_startup_lpc175x_6x.o
+ .data          0x0000000000000000        0x0 ./Drivers/cr_startup_lpc175x_6x.o
+ .bss           0x0000000000000000        0x0 ./Drivers/cr_startup_lpc175x_6x.o
+ .debug_macro   0x0000000000000000      0xa66 ./Drivers/cr_startup_lpc175x_6x.o
+ .group         0x0000000000000000        0xc ./Drivers/crp.o
+ .group         0x0000000000000000        0xc ./Drivers/crp.o
+ .text          0x0000000000000000        0x0 ./Drivers/crp.o
+ .data          0x0000000000000000        0x0 ./Drivers/crp.o
+ .bss           0x0000000000000000        0x0 ./Drivers/crp.o
+ .debug_macro   0x0000000000000000      0xa66 ./Drivers/crp.o
+ .group         0x0000000000000000        0xc ./Aplicacion/AP_UART_0.o
+ .group         0x0000000000000000        0xc ./Aplicacion/AP_UART_0.o
+ .group         0x0000000000000000        0xc ./Aplicacion/AP_UART_0.o
+ .group         0x0000000000000000        0xc ./Aplicacion/AP_UART_0.o
+ .group         0x0000000000000000        0xc ./Aplicacion/AP_UART_0.o
+ .text          0x0000000000000000        0x0 ./Aplicacion/AP_UART_0.o
+ .data          0x0000000000000000        0x0 ./Aplicacion/AP_UART_0.o
+ .bss           0x0000000000000000        0x0 ./Aplicacion/AP_UART_0.o
+ .debug_macro   0x0000000000000000      0xa66 ./Aplicacion/AP_UART_0.o
+ .debug_macro   0x0000000000000000       0x2e ./Aplicacion/AP_UART_0.o
+ .debug_macro   0x0000000000000000      0x7c3 ./Aplicacion/AP_UART_0.o
+ .debug_macro   0x0000000000000000       0x46 ./Aplicacion/AP_UART_0.o
+ .debug_macro   0x0000000000000000       0x16 ./Aplicacion/AP_UART_0.o
+ .group         0x0000000000000000        0xc ./Aplicacion/AP_muestreo_mano.o
+ .group         0x0000000000000000        0xc ./Aplicacion/AP_muestreo_mano.o
+ .group         0x0000000000000000        0xc ./Aplicacion/AP_muestreo_mano.o
+ .group         0x0000000000000000        0xc ./Aplicacion/AP_muestreo_mano.o
+ .group         0x0000000000000000        0xc ./Aplicacion/AP_muestreo_mano.o
+ .group         0x0000000000000000        0xc ./Aplicacion/AP_muestreo_mano.o
+ .text          0x0000000000000000        0x0 ./Aplicacion/AP_muestreo_mano.o
+ .data          0x0000000000000000        0x0 ./Aplicacion/AP_muestreo_mano.o
+ .bss           0x0000000000000000        0x0 ./Aplicacion/AP_muestreo_mano.o
+ .debug_macro   0x0000000000000000      0xa66 ./Aplicacion/AP_muestreo_mano.o
+ .debug_macro   0x0000000000000000       0x2e ./Aplicacion/AP_muestreo_mano.o
+ .debug_macro   0x0000000000000000      0x7c3 ./Aplicacion/AP_muestreo_mano.o
+ .debug_macro   0x0000000000000000       0x46 ./Aplicacion/AP_muestreo_mano.o
+ .debug_macro   0x0000000000000000       0x2e ./Aplicacion/AP_muestreo_mano.o
+ .debug_macro   0x0000000000000000       0x16 ./Aplicacion/AP_muestreo_mano.o
+ .group         0x0000000000000000        0xc ./Aplicacion/MDE_Adquisidor.o
+ .group         0x0000000000000000        0xc ./Aplicacion/MDE_Adquisidor.o
+ .group         0x0000000000000000        0xc ./Aplicacion/MDE_Adquisidor.o
+ .group         0x0000000000000000        0xc ./Aplicacion/MDE_Adquisidor.o
+ .group         0x0000000000000000        0xc ./Aplicacion/MDE_Adquisidor.o
+ .group         0x0000000000000000        0xc ./Aplicacion/MDE_Adquisidor.o
+ .group         0x0000000000000000        0xc ./Aplicacion/MDE_Adquisidor.o
+ .group         0x0000000000000000        0xc ./Aplicacion/MDE_Adquisidor.o
+ .group         0x0000000000000000        0xc ./Aplicacion/MDE_Adquisidor.o
+ .group         0x0000000000000000        0xc ./Aplicacion/MDE_Adquisidor.o
+ .group         0x0000000000000000        0xc ./Aplicacion/MDE_Adquisidor.o
+ .text          0x0000000000000000        0x0 ./Aplicacion/MDE_Adquisidor.o
+ .data          0x0000000000000000        0x0 ./Aplicacion/MDE_Adquisidor.o
+ .bss           0x0000000000000000        0x0 ./Aplicacion/MDE_Adquisidor.o
+ .debug_macro   0x0000000000000000      0xa66 ./Aplicacion/MDE_Adquisidor.o
+ .debug_macro   0x0000000000000000       0x2e ./Aplicacion/MDE_Adquisidor.o
+ .debug_macro   0x0000000000000000      0x7c9 ./Aplicacion/MDE_Adquisidor.o
+ .debug_macro   0x0000000000000000       0x2e ./Aplicacion/MDE_Adquisidor.o
+ .debug_macro   0x0000000000000000       0x46 ./Aplicacion/MDE_Adquisidor.o
+ .debug_macro   0x0000000000000000      0x11e ./Aplicacion/MDE_Adquisidor.o
+ .debug_macro   0x0000000000000000       0x28 ./Aplicacion/MDE_Adquisidor.o
+ .debug_macro   0x0000000000000000       0x16 ./Aplicacion/MDE_Adquisidor.o
+ .debug_macro   0x0000000000000000       0x2e ./Aplicacion/MDE_Adquisidor.o
+ .debug_macro   0x0000000000000000       0x16 ./Aplicacion/MDE_Adquisidor.o
+ .debug_macro   0x0000000000000000       0x1c ./Aplicacion/MDE_Adquisidor.o
+ .group         0x0000000000000000        0xc ./Aplicacion/main.o
+ .group         0x0000000000000000        0xc ./Aplicacion/main.o
+ .group         0x0000000000000000        0xc ./Aplicacion/main.o
+ .group         0x0000000000000000        0xc ./Aplicacion/main.o
+ .group         0x0000000000000000        0xc ./Aplicacion/main.o
+ .group         0x0000000000000000        0xc ./Aplicacion/main.o
+ .group         0x0000000000000000        0xc ./Aplicacion/main.o
+ .group         0x0000000000000000        0xc ./Aplicacion/main.o
+ .group         0x0000000000000000        0xc ./Aplicacion/main.o
+ .group         0x0000000000000000        0xc ./Aplicacion/main.o
+ .group         0x0000000000000000        0xc ./Aplicacion/main.o
+ .group         0x0000000000000000        0xc ./Aplicacion/main.o
+ .text          0x0000000000000000        0x0 ./Aplicacion/main.o
+ .data          0x0000000000000000        0x0 ./Aplicacion/main.o
+ .bss           0x0000000000000000        0x0 ./Aplicacion/main.o
+ .debug_macro   0x0000000000000000      0xa66 ./Aplicacion/main.o
+ .debug_macro   0x0000000000000000       0x2e ./Aplicacion/main.o
+ .debug_macro   0x0000000000000000      0x7c3 ./Aplicacion/main.o
+ .debug_macro   0x0000000000000000       0x2e ./Aplicacion/main.o
+ .debug_macro   0x0000000000000000       0x46 ./Aplicacion/main.o
+ .debug_macro   0x0000000000000000      0x11e ./Aplicacion/main.o
+ .debug_macro   0x0000000000000000       0x2e ./Aplicacion/main.o
+ .debug_macro   0x0000000000000000       0x2e ./Aplicacion/main.o
+ .debug_macro   0x0000000000000000       0x16 ./Aplicacion/main.o
+ .debug_macro   0x0000000000000000       0x1c ./Aplicacion/main.o
+ .debug_macro   0x0000000000000000       0x16 ./Aplicacion/main.o
+ .text          0x0000000000000000        0x0 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libcr_c.a(__weak__main.o)
+ .data          0x0000000000000000        0x0 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libcr_c.a(__weak__main.o)
+ .bss           0x0000000000000000        0x0 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libcr_c.a(__weak__main.o)
+ .text          0x0000000000000000        0x0 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .data          0x0000000000000000        0x0 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .bss           0x0000000000000000        0x0 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_dmul
+                0x0000000000000000      0x10c /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_dsub
+                0x0000000000000000      0x1b0 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_dadd
+                0x0000000000000000      0x10c /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_drsub
+                0x0000000000000000       0x14 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_dneg
+                0x0000000000000000        0x8 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_d2f
+                0x0000000000000000       0x54 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_d2iz
+                0x0000000000000000       0x40 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_d2lz
+                0x0000000000000000       0x6e /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_d2ulz
+                0x0000000000000000       0x5a /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__bhs_ui2d
+                0x0000000000000000       0x46 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__bhs_ul2d
+                0x0000000000000000       0x8a /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_i2d
+                0x0000000000000000       0x12 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_ui2d
+                0x0000000000000000        0x8 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_l2d
+                0x0000000000000000       0x1a /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_ul2d
+                0x0000000000000000        0x8 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_dcmpeq
+                0x0000000000000000       0x2c /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_dcmplt
+                0x0000000000000000       0x54 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_dcmpgt
+                0x0000000000000000       0x54 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_dcmple
+                0x0000000000000000       0x54 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_dcmpge
+                0x0000000000000000       0x54 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_dcmpun
+                0x0000000000000000       0x1a /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_cdcmple
+                0x0000000000000000       0x24 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text.__aeabi_cdrcmple
+                0x0000000000000000       0x14 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .text          0x0000000000000000        0x0 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .data          0x0000000000000000        0x0 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .bss           0x0000000000000000        0x0 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_frsub
+                0x0000000000000000        0xc /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_fneg
+                0x0000000000000000        0x6 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_f2iz
+                0x0000000000000000       0x36 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_f2lz
+                0x0000000000000000       0x5c /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_f2ulz
+                0x0000000000000000       0x3e /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__bhs_ul2f
+                0x0000000000000000       0x46 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_i2f
+                0x0000000000000000       0x12 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_l2f
+                0x0000000000000000       0x1a /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_ul2f
+                0x0000000000000000        0x8 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_f2d
+                0x0000000000000000       0x38 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_fcmpeq
+                0x0000000000000000       0x1e /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_fcmplt
+                0x0000000000000000       0x3a /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_fcmpgt
+                0x0000000000000000       0x3a /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_fcmple
+                0x0000000000000000       0x3e /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_fcmpge
+                0x0000000000000000       0x3e /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_fcmpun
+                0x0000000000000000       0x1a /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_cfcmple
+                0x0000000000000000       0x20 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+ .text.__aeabi_cfrcmple
+                0x0000000000000000        0xa /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+MFlash512        0x0000000000000000 0x0000000000080000 xr
+RamLoc32         0x0000000010000000 0x0000000000008000 xrw
+RamAHB32         0x000000002007c000 0x0000000000008000 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD ./Primitivas/PR_LCD.o
+LOAD ./Primitivas/PR_Mediana_5canales.o
+LOAD ./Primitivas/PR_UART_0.o
+LOAD ./Drivers/DR_ADC_5canales_Timer.o
+LOAD ./Drivers/DR_GPIO.o
+LOAD ./Drivers/DR_Init.o
+LOAD ./Drivers/DR_LED_IO.o
+LOAD ./Drivers/DR_PINSEL.o
+LOAD ./Drivers/DR_SysTick.o
+LOAD ./Drivers/DR_UART_0.o
+LOAD ./Drivers/FW_LCD.o
+LOAD ./Drivers/cr_startup_lpc175x_6x.o
+LOAD ./Drivers/crp.o
+LOAD ./Aplicacion/AP_UART_0.o
+LOAD ./Aplicacion/AP_muestreo_mano.o
+LOAD ./Aplicacion/MDE_Adquisidor.o
+LOAD ./Aplicacion/main.o
+START GROUP
+LOAD /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libcr_c.a
+LOAD /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a
+END GROUP
+                0x0000000000000000                __base_MFlash512 = 0x0
+                0x0000000000000000                __base_Flash = 0x0
+                0x0000000000080000                __top_MFlash512 = 0x80000
+                0x0000000000080000                __top_Flash = 0x80000
+                0x0000000010000000                __base_RamLoc32 = 0x10000000
+                0x0000000010000000                __base_RAM = 0x10000000
+                0x0000000010008000                __top_RamLoc32 = 0x10008000
+                0x0000000010008000                __top_RAM = 0x10008000
+                0x000000002007c000                __base_RamAHB32 = 0x2007c000
+                0x000000002007c000                __base_RAM2 = 0x2007c000
+                0x0000000020084000                __top_RamAHB32 = 0x20084000
+                0x0000000020084000                __top_RAM2 = 0x20084000
+
+.text           0x0000000000000000     0x1f20
+ FILL mask 0xff
+                0x0000000000000000                __vectors_start__ = ABSOLUTE (.)
+ *(.isr_vector)
+ .isr_vector    0x0000000000000000       0xcc ./Drivers/cr_startup_lpc175x_6x.o
+                0x0000000000000000                g_pfnVectors
+                0x00000000000000cc                . = ALIGN (0x4)
+                0x00000000000000cc                __section_table_start = .
+                0x00000000000000cc                __data_section_table = .
+                0x00000000000000cc        0x4 LONG 0x1f20 LOADADDR (.data)
+                0x00000000000000d0        0x4 LONG 0x10000000 ADDR (.data)
+                0x00000000000000d4        0x4 LONG 0x0 SIZEOF (.data)
+                0x00000000000000d8        0x4 LONG 0x1f20 LOADADDR (.data_RAM2)
+                0x00000000000000dc        0x4 LONG 0x2007c000 ADDR (.data_RAM2)
+                0x00000000000000e0        0x4 LONG 0x0 SIZEOF (.data_RAM2)
+                0x00000000000000e4                __data_section_table_end = .
+                0x00000000000000e4                __bss_section_table = .
+                0x00000000000000e4        0x4 LONG 0x10000000 ADDR (.bss)
+                0x00000000000000e8        0x4 LONG 0x17c SIZEOF (.bss)
+                0x00000000000000ec        0x4 LONG 0x2007c000 ADDR (.bss_RAM2)
+                0x00000000000000f0        0x4 LONG 0x0 SIZEOF (.bss_RAM2)
+                0x00000000000000f4                __bss_section_table_end = .
+                0x00000000000000f4                __section_table_end = .
+ *(.after_vectors*)
+ .after_vectors
+                0x00000000000000f4      0x128 ./Drivers/cr_startup_lpc175x_6x.o
+                0x00000000000000f4                data_init
+                0x0000000000000136                bss_init
+                0x000000000000016c                ResetISR
+                0x00000000000001e0                NMI_Handler
+                0x00000000000001e6                HardFault_Handler
+                0x00000000000001ec                MemManage_Handler
+                0x00000000000001f2                BusFault_Handler
+                0x00000000000001f8                UsageFault_Handler
+                0x00000000000001fe                SVC_Handler
+                0x0000000000000204                DebugMon_Handler
+                0x000000000000020a                PendSV_Handler
+                0x0000000000000216                TIMER2_IRQHandler
+                0x0000000000000216                RIT_IRQHandler
+                0x0000000000000216                I2C0_IRQHandler
+                0x0000000000000216                USBActivity_IRQHandler
+                0x0000000000000216                PWM1_IRQHandler
+                0x0000000000000216                I2C1_IRQHandler
+                0x0000000000000216                EINT2_IRQHandler
+                0x0000000000000216                UART1_IRQHandler
+                0x0000000000000216                EINT3_IRQHandler
+                0x0000000000000216                CANActivity_IRQHandler
+                0x0000000000000216                TIMER3_IRQHandler
+                0x0000000000000216                IntDefaultHandler
+                0x0000000000000216                PLL0_IRQHandler
+                0x0000000000000216                CAN_IRQHandler
+                0x0000000000000216                PLL1_IRQHandler
+                0x0000000000000216                SSP0_IRQHandler
+                0x0000000000000216                I2S_IRQHandler
+                0x0000000000000216                I2C2_IRQHandler
+                0x0000000000000216                RTC_IRQHandler
+                0x0000000000000216                SPI_IRQHandler
+                0x0000000000000216                EINT1_IRQHandler
+                0x0000000000000216                TIMER1_IRQHandler
+                0x0000000000000216                UART2_IRQHandler
+                0x0000000000000216                SSP1_IRQHandler
+                0x0000000000000216                USB_IRQHandler
+                0x0000000000000216                BOD_IRQHandler
+                0x0000000000000216                WDT_IRQHandler
+                0x0000000000000216                QEI_IRQHandler
+                0x0000000000000216                EINT0_IRQHandler
+                0x0000000000000216                DMA_IRQHandler
+                0x0000000000000216                UART3_IRQHandler
+                0x0000000000000216                MCPWM_IRQHandler
+                0x0000000000000216                ENET_IRQHandler
+                0x00000000000002fc                . = 0x2fc
+ *fill*         0x000000000000021c       0xe0 ff
+                0x00000000000002fc                PROVIDE (__CRP_WORD_START__, .)
+ *(.crp)
+ .crp           0x00000000000002fc        0x4 ./Drivers/crp.o
+                0x00000000000002fc                CRP_WORD
+                0x0000000000000300                PROVIDE (__CRP_WORD_END__, .)
+                0x0000000000000001                ASSERT (! ((__CRP_WORD_START__ == __CRP_WORD_END__)), Linker CRP Enabled, but no CRP_WORD provided within application)
+ *(.text*)
+ .text.LCD_DisplayMsg
+                0x0000000000000300       0x70 ./Primitivas/PR_LCD.o
+                0x0000000000000300                LCD_DisplayMsg
+ .text.bubble   0x0000000000000370       0x98 ./Primitivas/PR_Mediana_5canales.o
+                0x0000000000000370                bubble
+ .text.ResetBuffers
+                0x0000000000000408       0x20 ./Primitivas/PR_Mediana_5canales.o
+                0x0000000000000408                ResetBuffers
+ .text.GetBufferStatus
+                0x0000000000000428       0x2c ./Primitivas/PR_Mediana_5canales.o
+                0x0000000000000428                GetBufferStatus
+ .text.Enlistar
+                0x0000000000000454       0xec ./Primitivas/PR_Mediana_5canales.o
+                0x0000000000000454                Enlistar
+ .text.Mediana_de_Buffers
+                0x0000000000000540       0xe0 ./Primitivas/PR_Mediana_5canales.o
+                0x0000000000000540                Mediana_de_Buffers
+ .text.U0_PushRx
+                0x0000000000000620       0x4c ./Primitivas/PR_UART_0.o
+                0x0000000000000620                U0_PushRx
+ .text.U0_PopRx
+                0x000000000000066c       0x64 ./Primitivas/PR_UART_0.o
+                0x000000000000066c                U0_PopRx
+ .text.U0_PushTx
+                0x00000000000006d0       0x64 ./Primitivas/PR_UART_0.o
+                0x00000000000006d0                U0_PushTx
+ .text.U0_PopTx
+                0x0000000000000734       0x64 ./Primitivas/PR_UART_0.o
+                0x0000000000000734                U0_PopTx
+ .text.TIMER0_IRQHandler
+                0x0000000000000798       0x3c ./Drivers/DR_ADC_5canales_Timer.o
+                0x0000000000000798                TIMER0_IRQHandler
+ .text.ADC_Pins_Initialize
+                0x00000000000007d4       0x6c ./Drivers/DR_ADC_5canales_Timer.o
+                0x00000000000007d4                ADC_Pins_Initialize
+ .text.ADC_InputSelect
+                0x0000000000000840       0xa4 ./Drivers/DR_ADC_5canales_Timer.o
+                0x0000000000000840                ADC_InputSelect
+ .text.ADC_Start
+                0x00000000000008e4       0x1c ./Drivers/DR_ADC_5canales_Timer.o
+                0x00000000000008e4                ADC_Start
+ .text.ADC_IRQHandler
+                0x0000000000000900       0xf0 ./Drivers/DR_ADC_5canales_Timer.o
+                0x0000000000000900                ADC_IRQHandler
+ .text.Timer0_ADC_Init
+                0x00000000000009f0      0x100 ./Drivers/DR_ADC_5canales_Timer.o
+                0x00000000000009f0                Timer0_ADC_Init
+ .text.ADC_Init
+                0x0000000000000af0       0x88 ./Drivers/DR_ADC_5canales_Timer.o
+                0x0000000000000af0                ADC_Init
+ .text.Start_Sampling
+                0x0000000000000b78       0x34 ./Drivers/DR_ADC_5canales_Timer.o
+                0x0000000000000b78                Start_Sampling
+ .text.SetDIR   0x0000000000000bac       0x78 ./Drivers/DR_GPIO.o
+                0x0000000000000bac                SetDIR
+ .text.SetPIN   0x0000000000000c24       0x50 ./Drivers/DR_GPIO.o
+                0x0000000000000c24                SetPIN
+ .text.Kit_Init
+                0x0000000000000c74       0x50 ./Drivers/DR_Init.o
+                0x0000000000000c74                Kit_Init
+ .text.PLL_Init
+                0x0000000000000cc4      0x140 ./Drivers/DR_Init.o
+                0x0000000000000cc4                PLL_Init
+ .text.LED_Initialize
+                0x0000000000000e04       0x80 ./Drivers/DR_LED_IO.o
+                0x0000000000000e04                LED_Initialize
+ .text.LED_Set  0x0000000000000e84       0x70 ./Drivers/DR_LED_IO.o
+                0x0000000000000e84                LED_Set
+ .text.SetPINSEL
+                0x0000000000000ef4       0x90 ./Drivers/DR_PINSEL.o
+                0x0000000000000ef4                SetPINSEL
+ .text.SetResistorMode
+                0x0000000000000f84       0x84 ./Drivers/DR_PINSEL.o
+                0x0000000000000f84                SetResistorMode
+ .text.SysTick_Handler
+                0x0000000000001008       0x54 ./Drivers/DR_SysTick.o
+                0x0000000000001008                SysTick_Handler
+ .text.Ticks_Config
+                0x000000000000105c       0xdc ./Drivers/DR_SysTick.o
+                0x000000000000105c                Ticks_Config
+ .text.SysTick_Init
+                0x0000000000001138       0x8c ./Drivers/DR_SysTick.o
+                0x0000000000001138                SysTick_Init
+ .text.UART0_IRQHandler
+                0x00000000000011c4       0xc4 ./Drivers/DR_UART_0.o
+                0x00000000000011c4                UART0_IRQHandler
+ .text.UART0_Initialize
+                0x0000000000001288       0xd4 ./Drivers/DR_UART_0.o
+                0x0000000000001288                UART0_Initialize
+ .text.U0_StartTx
+                0x000000000000135c       0x28 ./Drivers/DR_UART_0.o
+                0x000000000000135c                U0_StartTx
+ .text.LCD_Init
+                0x0000000000001384       0xc0 ./Drivers/FW_LCD.o
+                0x0000000000001384                LCD_Init
+ .text.LCD_Config
+                0x0000000000001444      0x114 ./Drivers/FW_LCD.o
+                0x0000000000001444                LCD_Config
+ .text.LCD_Push
+                0x0000000000001558       0xc4 ./Drivers/FW_LCD.o
+                0x0000000000001558                LCD_Push
+ .text.LCD_Pop  0x000000000000161c       0x64 ./Drivers/FW_LCD.o
+                0x000000000000161c                LCD_Pop
+ .text.LCD_Driver
+                0x0000000000001680       0xd0 ./Drivers/FW_LCD.o
+                0x0000000000001680                LCD_Driver
+ .text.leer_comandos
+                0x0000000000001750       0x40 ./Aplicacion/AP_UART_0.o
+                0x0000000000001750                leer_comandos
+ .text.RX_Mensajes
+                0x0000000000001790       0xa4 ./Aplicacion/AP_UART_0.o
+                0x0000000000001790                RX_Mensajes
+ .text.Preparar_y_Enviar
+                0x0000000000001834       0x40 ./Aplicacion/AP_muestreo_mano.o
+                0x0000000000001834                Preparar_y_Enviar
+ .text.EnviarMano
+                0x0000000000001874       0xb0 ./Aplicacion/AP_muestreo_mano.o
+                0x0000000000001874                EnviarMano
+ .text.MDE_Adquisidor
+                0x0000000000001924       0xe8 ./Aplicacion/MDE_Adquisidor.o
+                0x0000000000001924                MDE_Adquisidor
+ .text.main     0x0000000000001a0c       0x12 ./Aplicacion/main.o
+                0x0000000000001a0c                main
+ .text.__weak_main
+                0x0000000000001a1e        0x4 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libcr_c.a(__weak__main.o)
+                0x0000000000001a1e                __main
+                0x0000000000001a1e                __weak_main
+ *fill*         0x0000000000001a22        0x2 ff
+ .text.__aeabi_ddiv
+                0x0000000000001a24      0x130 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+                0x0000000000001a24                __aeabi_ddiv
+ .text.__aeabi_d2uiz
+                0x0000000000001b54       0x30 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+                0x0000000000001b54                __aeabi_d2uiz
+ .text.__aeabi_fmul
+                0x0000000000001b84       0xb0 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+                0x0000000000001b84                __aeabi_fmul
+ .text.__aeabi_fdiv
+                0x0000000000001c34       0xb8 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+                0x0000000000001c34                __aeabi_fdiv
+ .text.__aeabi_fsub
+                0x0000000000001cec       0xe0 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+                0x0000000000001cec                __aeabi_fsub
+ .text.__aeabi_fadd
+                0x0000000000001dcc       0xb0 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+                0x0000000000001dcc                __aeabi_fadd
+ .text.__aeabi_f2uiz
+                0x0000000000001e7c       0x28 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+                0x0000000000001e7c                __aeabi_f2uiz
+ .text.__bhs_ui2f
+                0x0000000000001ea4       0x26 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+                0x0000000000001ea4                __bhs_ui2f
+ .text.__aeabi_ui2f
+                0x0000000000001eca        0x8 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+                0x0000000000001eca                __aeabi_ui2f
+ *(.rodata .rodata.* .constdata .constdata.*)
+ *fill*         0x0000000000001ed2        0x2 ff
+ .rodata        0x0000000000001ed4       0x4c ./Aplicacion/MDE_Adquisidor.o
+                0x0000000000001f20                . = ALIGN (0x4)
+
+.glue_7         0x0000000000001f20        0x0
+ .glue_7        0x0000000000001f20        0x0 linker stubs
+
+.glue_7t        0x0000000000001f20        0x0
+ .glue_7t       0x0000000000001f20        0x0 linker stubs
+
+.vfp11_veneer   0x0000000000001f20        0x0
+ .vfp11_veneer  0x0000000000001f20        0x0 linker stubs
+
+.v4_bx          0x0000000000001f20        0x0
+ .v4_bx         0x0000000000001f20        0x0 linker stubs
+
+.iplt           0x0000000000001f20        0x0
+ .iplt          0x0000000000001f20        0x0 ./Primitivas/PR_LCD.o
+
+.rel.dyn        0x0000000000001f20        0x0
+ .rel.iplt      0x0000000000001f20        0x0 ./Primitivas/PR_LCD.o
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+                0x0000000000001f20                __exidx_start = .
+
+.ARM.exidx
+ *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+                0x0000000000001f20                __exidx_end = .
+                0x0000000000001f20                _etext = .
+
+.data_RAM2      0x000000002007c000        0x0 load address 0x0000000000001f20
+ FILL mask 0xff
+                [!provide]                        PROVIDE (__start_data_RAM2, .)
+ *(.ramfunc.$RAM2)
+ *(.ramfunc.$RamAHB32)
+ *(.data.$RAM2*)
+ *(.data.$RamAHB32*)
+                0x000000002007c000                . = ALIGN (0x4)
+                [!provide]                        PROVIDE (__end_data_RAM2, .)
+
+.uninit_RESERVED
+                0x0000000010000000        0x0
+ *(.bss.$RESERVED*)
+                0x0000000010000000                . = ALIGN (0x4)
+                0x0000000010000000                _end_uninit_RESERVED = .
+
+.data           0x0000000010000000        0x0 load address 0x0000000000001f20
+ FILL mask 0xff
+                0x0000000010000000                _data = .
+ *(vtable)
+ *(.ramfunc*)
+ *(.data*)
+                0x0000000010000000                . = ALIGN (0x4)
+                0x0000000010000000                _edata = .
+
+.igot.plt       0x0000000010000000        0x0 load address 0x0000000000001f20
+ .igot.plt      0x0000000010000000        0x0 ./Primitivas/PR_LCD.o
+
+.bss_RAM2       0x000000002007c000        0x0
+                [!provide]                        PROVIDE (__start_bss_RAM2, .)
+ *(.bss.$RAM2*)
+ *(.bss.$RamAHB32*)
+                0x000000002007c000                . = ALIGN ((. != 0x0)?0x4:0x1)
+                [!provide]                        PROVIDE (__end_bss_RAM2, .)
+
+.bss            0x0000000010000000      0x17c
+                0x0000000010000000                _bss = .
+ *(.bss*)
+ .bss.inxBuffers
+                0x0000000010000000        0x1 ./Primitivas/PR_Mediana_5canales.o
+ .bss.BufferNumber
+                0x0000000010000001        0x1 ./Primitivas/PR_Mediana_5canales.o
+ *fill*         0x0000000010000002        0x2 
+ .bss.BufferInput0
+                0x0000000010000004       0x14 ./Primitivas/PR_Mediana_5canales.o
+                0x0000000010000004                BufferInput0
+ .bss.BufferInput1
+                0x0000000010000018       0x14 ./Primitivas/PR_Mediana_5canales.o
+                0x0000000010000018                BufferInput1
+ .bss.BufferInput2
+                0x000000001000002c       0x14 ./Primitivas/PR_Mediana_5canales.o
+                0x000000001000002c                BufferInput2
+ .bss.BufferInput3
+                0x0000000010000040       0x14 ./Primitivas/PR_Mediana_5canales.o
+                0x0000000010000040                BufferInput3
+ .bss.BufferInput4
+                0x0000000010000054       0x14 ./Primitivas/PR_Mediana_5canales.o
+                0x0000000010000054                BufferInput4
+ .bss.bufferRx  0x0000000010000068       0x20 ./Primitivas/PR_UART_0.o
+ .bss.bufferTx  0x0000000010000088       0x20 ./Primitivas/PR_UART_0.o
+ .bss.inx_Rx_in
+                0x00000000100000a8        0x1 ./Primitivas/PR_UART_0.o
+ .bss.inx_Rx_out
+                0x00000000100000a9        0x1 ./Primitivas/PR_UART_0.o
+ .bss.inx_Tx_in
+                0x00000000100000aa        0x1 ./Primitivas/PR_UART_0.o
+ .bss.inx_Tx_out
+                0x00000000100000ab        0x1 ./Primitivas/PR_UART_0.o
+ .bss.ADC_sample
+                0x00000000100000ac        0x2 ./Drivers/DR_ADC_5canales_Timer.o
+                0x00000000100000ac                ADC_sample
+ .bss.ADC_dato_disponible
+                0x00000000100000ae        0x1 ./Drivers/DR_ADC_5canales_Timer.o
+                0x00000000100000ae                ADC_dato_disponible
+ .bss.analogIn  0x00000000100000af        0x1 ./Drivers/DR_ADC_5canales_Timer.o
+ .bss.aux_cnt_Timer
+                0x00000000100000b0        0x4 ./Drivers/DR_ADC_5canales_Timer.o
+ .bss.aux_cnt_ADC
+                0x00000000100000b4        0x4 ./Drivers/DR_ADC_5canales_Timer.o
+ .bss.f_U0_Tx   0x00000000100000b8        0x1 ./Drivers/DR_UART_0.o
+                0x00000000100000b8                f_U0_Tx
+ *fill*         0x00000000100000b9        0x3 
+ .bss.buffer_LCD
+                0x00000000100000bc       0xa0 ./Drivers/FW_LCD.o
+                0x00000000100000bc                buffer_LCD
+ .bss.indexIn_LCD
+                0x000000001000015c        0x4 ./Drivers/FW_LCD.o
+                0x000000001000015c                indexIn_LCD
+ .bss.indexOut_LCD
+                0x0000000010000160        0x4 ./Drivers/FW_LCD.o
+                0x0000000010000160                indexOut_LCD
+ .bss.LCD_delay
+                0x0000000010000164        0x4 ./Drivers/FW_LCD.o
+                0x0000000010000164                LCD_delay
+ .bss.estadoEnable.3696
+                0x0000000010000168        0x1 ./Drivers/FW_LCD.o
+ .bss.command   0x0000000010000169        0x1 ./Aplicacion/AP_UART_0.o
+                0x0000000010000169                command
+ .bss.estado_rx.3665
+                0x000000001000016a        0x1 ./Aplicacion/AP_UART_0.o
+ .bss.inx_msg_rx.3667
+                0x000000001000016b        0x1 ./Aplicacion/AP_UART_0.o
+ .bss.msg_rx.3666
+                0x000000001000016c        0x8 ./Aplicacion/AP_UART_0.o
+ .bss.f_StartSampling
+                0x0000000010000174        0x1 ./Aplicacion/MDE_Adquisidor.o
+                0x0000000010000174                f_StartSampling
+ .bss.f_StopSampling
+                0x0000000010000175        0x1 ./Aplicacion/MDE_Adquisidor.o
+                0x0000000010000175                f_StopSampling
+ *fill*         0x0000000010000176        0x2 
+ .bss.estado_medidor
+                0x0000000010000178        0x4 ./Aplicacion/MDE_Adquisidor.o
+ *(COMMON)
+                0x000000001000017c                . = ALIGN (0x4)
+                0x000000001000017c                _ebss = .
+                [!provide]                        PROVIDE (end, .)
+
+.noinit_RAM2    0x000000002007c000        0x0
+ *(.noinit.$RAM2*)
+ *(.noinit.$RamAHB32*)
+                0x000000002007c000                . = ALIGN (0x4)
+
+.noinit         0x000000001000017c        0x0
+                0x000000001000017c                _noinit = .
+ *(.noinit*)
+                0x000000001000017c                . = ALIGN (0x4)
+                0x000000001000017c                _end_noinit = .
+                [!provide]                        PROVIDE (_pvHeapStart, DEFINED (__user_heap_base)?__user_heap_base:.)
+                0x0000000010008000                PROVIDE (_vStackTop, DEFINED (__user_stack_top)?__user_stack_top:(__top_RamLoc32 - 0x0))
+                0xffffffffefff74f2                PROVIDE (__valid_user_code_checksum, (0x0 - ((((((_vStackTop + (ResetISR + 0x1)) + (NMI_Handler + 0x1)) + (HardFault_Handler + 0x1)) + (DEFINED (MemManage_Handler)?MemManage_Handler:0x0 + 0x1)) + (DEFINED (BusFault_Handler)?BusFault_Handler:0x0 + 0x1)) + (DEFINED (UsageFault_Handler)?UsageFault_Handler:0x0 + 0x1))))
+                0x0000000000000000                _image_start = LOADADDR (.text)
+                0x0000000000001f20                _image_end = (LOADADDR (.data) + SIZEOF (.data))
+                0x0000000000001f20                _image_size = (_image_end - _image_start)
+OUTPUT(InfoII_TPO_Adquisidor_214 (Correccion Augusto).axf elf32-littlearm)
+
+.debug_info     0x0000000000000000     0x16a2
+ .debug_info    0x0000000000000000       0xca ./Primitivas/PR_LCD.o
+ .debug_info    0x00000000000000ca      0x248 ./Primitivas/PR_Mediana_5canales.o
+ .debug_info    0x0000000000000312      0x1db ./Primitivas/PR_UART_0.o
+ .debug_info    0x00000000000004ed      0x1e9 ./Drivers/DR_ADC_5canales_Timer.o
+ .debug_info    0x00000000000006d6      0x166 ./Drivers/DR_GPIO.o
+ .debug_info    0x000000000000083c       0xfe ./Drivers/DR_Init.o
+ .debug_info    0x000000000000093a       0xfc ./Drivers/DR_LED_IO.o
+ .debug_info    0x0000000000000a36      0x152 ./Drivers/DR_PINSEL.o
+ .debug_info    0x0000000000000b88      0x166 ./Drivers/DR_SysTick.o
+ .debug_info    0x0000000000000cee      0x132 ./Drivers/DR_UART_0.o
+ .debug_info    0x0000000000000e20      0x19a ./Drivers/FW_LCD.o
+ .debug_info    0x0000000000000fba      0x255 ./Drivers/cr_startup_lpc175x_6x.o
+ .debug_info    0x000000000000120f       0x3f ./Drivers/crp.o
+ .debug_info    0x000000000000124e      0x11d ./Aplicacion/AP_UART_0.o
+ .debug_info    0x000000000000136b      0x144 ./Aplicacion/AP_muestreo_mano.o
+ .debug_info    0x00000000000014af      0x10d ./Aplicacion/MDE_Adquisidor.o
+ .debug_info    0x00000000000015bc       0xe6 ./Aplicacion/main.o
+
+.debug_abbrev   0x0000000000000000      0xcd5
+ .debug_abbrev  0x0000000000000000       0x93 ./Primitivas/PR_LCD.o
+ .debug_abbrev  0x0000000000000093      0x133 ./Primitivas/PR_Mediana_5canales.o
+ .debug_abbrev  0x00000000000001c6       0xf3 ./Primitivas/PR_UART_0.o
+ .debug_abbrev  0x00000000000002b9      0x120 ./Drivers/DR_ADC_5canales_Timer.o
+ .debug_abbrev  0x00000000000003d9       0xc5 ./Drivers/DR_GPIO.o
+ .debug_abbrev  0x000000000000049e       0x82 ./Drivers/DR_Init.o
+ .debug_abbrev  0x0000000000000520       0xb5 ./Drivers/DR_LED_IO.o
+ .debug_abbrev  0x00000000000005d5       0xa0 ./Drivers/DR_PINSEL.o
+ .debug_abbrev  0x0000000000000675       0xbe ./Drivers/DR_SysTick.o
+ .debug_abbrev  0x0000000000000733       0xd6 ./Drivers/DR_UART_0.o
+ .debug_abbrev  0x0000000000000809       0xfd ./Drivers/FW_LCD.o
+ .debug_abbrev  0x0000000000000906      0x114 ./Drivers/cr_startup_lpc175x_6x.o
+ .debug_abbrev  0x0000000000000a1a       0x36 ./Drivers/crp.o
+ .debug_abbrev  0x0000000000000a50       0xd3 ./Aplicacion/AP_UART_0.o
+ .debug_abbrev  0x0000000000000b23       0xc0 ./Aplicacion/AP_muestreo_mano.o
+ .debug_abbrev  0x0000000000000be3       0x86 ./Aplicacion/MDE_Adquisidor.o
+ .debug_abbrev  0x0000000000000c69       0x6c ./Aplicacion/main.o
+
+.debug_aranges  0x0000000000000000      0x388
+ .debug_aranges
+                0x0000000000000000       0x20 ./Primitivas/PR_LCD.o
+ .debug_aranges
+                0x0000000000000020       0x40 ./Primitivas/PR_Mediana_5canales.o
+ .debug_aranges
+                0x0000000000000060       0x40 ./Primitivas/PR_UART_0.o
+ .debug_aranges
+                0x00000000000000a0       0x60 ./Drivers/DR_ADC_5canales_Timer.o
+ .debug_aranges
+                0x0000000000000100       0x30 ./Drivers/DR_GPIO.o
+ .debug_aranges
+                0x0000000000000130       0x28 ./Drivers/DR_Init.o
+ .debug_aranges
+                0x0000000000000158       0x38 ./Drivers/DR_LED_IO.o
+ .debug_aranges
+                0x0000000000000190       0x30 ./Drivers/DR_PINSEL.o
+ .debug_aranges
+                0x00000000000001c0       0x30 ./Drivers/DR_SysTick.o
+ .debug_aranges
+                0x00000000000001f0       0x30 ./Drivers/DR_UART_0.o
+ .debug_aranges
+                0x0000000000000220       0x40 ./Drivers/FW_LCD.o
+ .debug_aranges
+                0x0000000000000260       0x80 ./Drivers/cr_startup_lpc175x_6x.o
+ .debug_aranges
+                0x00000000000002e0       0x18 ./Drivers/crp.o
+ .debug_aranges
+                0x00000000000002f8       0x28 ./Aplicacion/AP_UART_0.o
+ .debug_aranges
+                0x0000000000000320       0x28 ./Aplicacion/AP_muestreo_mano.o
+ .debug_aranges
+                0x0000000000000348       0x20 ./Aplicacion/MDE_Adquisidor.o
+ .debug_aranges
+                0x0000000000000368       0x20 ./Aplicacion/main.o
+
+.debug_ranges   0x0000000000000000      0x270
+ .debug_ranges  0x0000000000000000       0x10 ./Primitivas/PR_LCD.o
+ .debug_ranges  0x0000000000000010       0x30 ./Primitivas/PR_Mediana_5canales.o
+ .debug_ranges  0x0000000000000040       0x30 ./Primitivas/PR_UART_0.o
+ .debug_ranges  0x0000000000000070       0x50 ./Drivers/DR_ADC_5canales_Timer.o
+ .debug_ranges  0x00000000000000c0       0x20 ./Drivers/DR_GPIO.o
+ .debug_ranges  0x00000000000000e0       0x18 ./Drivers/DR_Init.o
+ .debug_ranges  0x00000000000000f8       0x28 ./Drivers/DR_LED_IO.o
+ .debug_ranges  0x0000000000000120       0x20 ./Drivers/DR_PINSEL.o
+ .debug_ranges  0x0000000000000140       0x20 ./Drivers/DR_SysTick.o
+ .debug_ranges  0x0000000000000160       0x20 ./Drivers/DR_UART_0.o
+ .debug_ranges  0x0000000000000180       0x30 ./Drivers/FW_LCD.o
+ .debug_ranges  0x00000000000001b0       0x70 ./Drivers/cr_startup_lpc175x_6x.o
+ .debug_ranges  0x0000000000000220       0x18 ./Aplicacion/AP_UART_0.o
+ .debug_ranges  0x0000000000000238       0x18 ./Aplicacion/AP_muestreo_mano.o
+ .debug_ranges  0x0000000000000250       0x10 ./Aplicacion/MDE_Adquisidor.o
+ .debug_ranges  0x0000000000000260       0x10 ./Aplicacion/main.o
+
+.debug_macro    0x0000000000000000     0x25b4
+ .debug_macro   0x0000000000000000       0x61 ./Primitivas/PR_LCD.o
+ .debug_macro   0x0000000000000061      0xa66 ./Primitivas/PR_LCD.o
+ .debug_macro   0x0000000000000ac7       0x2e ./Primitivas/PR_LCD.o
+ .debug_macro   0x0000000000000af5      0x7c3 ./Primitivas/PR_LCD.o
+ .debug_macro   0x00000000000012b8       0x2e ./Primitivas/PR_LCD.o
+ .debug_macro   0x00000000000012e6       0x46 ./Primitivas/PR_LCD.o
+ .debug_macro   0x000000000000132c      0x11e ./Primitivas/PR_LCD.o
+ .debug_macro   0x000000000000144a       0x28 ./Primitivas/PR_LCD.o
+ .debug_macro   0x0000000000001472       0x54 ./Primitivas/PR_Mediana_5canales.o
+ .debug_macro   0x00000000000014c6       0x16 ./Primitivas/PR_Mediana_5canales.o
+ .debug_macro   0x00000000000014dc       0x5a ./Primitivas/PR_UART_0.o
+ .debug_macro   0x0000000000001536       0x57 ./Drivers/DR_ADC_5canales_Timer.o
+ .debug_macro   0x000000000000158d       0x32 ./Drivers/DR_GPIO.o
+ .debug_macro   0x00000000000015bf      0x7c9 ./Drivers/DR_GPIO.o
+ .debug_macro   0x0000000000001d88       0x28 ./Drivers/DR_GPIO.o
+ .debug_macro   0x0000000000001db0       0xe3 ./Drivers/DR_Init.o
+ .debug_macro   0x0000000000001e93       0x2e ./Drivers/DR_Init.o
+ .debug_macro   0x0000000000001ec1       0x2e ./Drivers/DR_Init.o
+ .debug_macro   0x0000000000001eef       0x16 ./Drivers/DR_Init.o
+ .debug_macro   0x0000000000001f05       0x1c ./Drivers/DR_Init.o
+ .debug_macro   0x0000000000001f21       0x16 ./Drivers/DR_Init.o
+ .debug_macro   0x0000000000001f37       0x62 ./Drivers/DR_LED_IO.o
+ .debug_macro   0x0000000000001f99       0x28 ./Drivers/DR_LED_IO.o
+ .debug_macro   0x0000000000001fc1       0x38 ./Drivers/DR_PINSEL.o
+ .debug_macro   0x0000000000001ff9       0x40 ./Drivers/DR_PINSEL.o
+ .debug_macro   0x0000000000002039       0xeb ./Drivers/DR_SysTick.o
+ .debug_macro   0x0000000000002124       0x9c ./Drivers/DR_UART_0.o
+ .debug_macro   0x00000000000021c0       0x53 ./Drivers/FW_LCD.o
+ .debug_macro   0x0000000000002213       0x1d ./Drivers/cr_startup_lpc175x_6x.o
+ .debug_macro   0x0000000000002230       0x1a ./Drivers/crp.o
+ .debug_macro   0x000000000000224a       0x34 ./Drivers/crp.o
+ .debug_macro   0x000000000000227e       0x6f ./Aplicacion/AP_UART_0.o
+ .debug_macro   0x00000000000022ed       0x7a ./Aplicacion/AP_muestreo_mano.o
+ .debug_macro   0x0000000000002367       0xdf ./Aplicacion/MDE_Adquisidor.o
+ .debug_macro   0x0000000000002446       0xec ./Aplicacion/main.o
+ .debug_macro   0x0000000000002532       0x82 ./Aplicacion/main.o
+
+.debug_line     0x0000000000000000     0x21fb
+ .debug_line    0x0000000000000000      0x1b5 ./Primitivas/PR_LCD.o
+ .debug_line    0x00000000000001b5      0x243 ./Primitivas/PR_Mediana_5canales.o
+ .debug_line    0x00000000000003f8      0x1ef ./Primitivas/PR_UART_0.o
+ .debug_line    0x00000000000005e7      0x23f ./Drivers/DR_ADC_5canales_Timer.o
+ .debug_line    0x0000000000000826      0x11c ./Drivers/DR_GPIO.o
+ .debug_line    0x0000000000000942      0x32c ./Drivers/DR_Init.o
+ .debug_line    0x0000000000000c6e      0x16a ./Drivers/DR_LED_IO.o
+ .debug_line    0x0000000000000dd8      0x128 ./Drivers/DR_PINSEL.o
+ .debug_line    0x0000000000000f00      0x306 ./Drivers/DR_SysTick.o
+ .debug_line    0x0000000000001206      0x1d7 ./Drivers/DR_UART_0.o
+ .debug_line    0x00000000000013dd      0x1cd ./Drivers/FW_LCD.o
+ .debug_line    0x00000000000015aa       0xd6 ./Drivers/cr_startup_lpc175x_6x.o
+ .debug_line    0x0000000000001680       0x7d ./Drivers/crp.o
+ .debug_line    0x00000000000016fd      0x24d ./Aplicacion/AP_UART_0.o
+ .debug_line    0x000000000000194a      0x290 ./Aplicacion/AP_muestreo_mano.o
+ .debug_line    0x0000000000001bda      0x2ed ./Aplicacion/MDE_Adquisidor.o
+ .debug_line    0x0000000000001ec7      0x334 ./Aplicacion/main.o
+
+.debug_str      0x0000000000000000     0x5ae8
+ .debug_str     0x0000000000000000     0x49e9 ./Primitivas/PR_LCD.o
+                                       0x4a26 (size before relaxing)
+ .debug_str     0x00000000000049e9      0x18c ./Primitivas/PR_Mediana_5canales.o
+                                       0x481f (size before relaxing)
+ .debug_str     0x0000000000004b75       0xea ./Primitivas/PR_UART_0.o
+                                       0x4746 (size before relaxing)
+ .debug_str     0x0000000000004c5f      0x14a ./Drivers/DR_ADC_5canales_Timer.o
+                                       0x4827 (size before relaxing)
+ .debug_str     0x0000000000004da9       0x3c ./Drivers/DR_GPIO.o
+                                       0x4614 (size before relaxing)
+ .debug_str     0x0000000000004de5      0x132 ./Drivers/DR_Init.o
+                                       0x4be8 (size before relaxing)
+ .debug_str     0x0000000000004f17       0x98 ./Drivers/DR_LED_IO.o
+                                       0x4775 (size before relaxing)
+ .debug_str     0x0000000000004faf       0x5a ./Drivers/DR_PINSEL.o
+                                       0x46ba (size before relaxing)
+ .debug_str     0x0000000000005009      0x108 ./Drivers/DR_SysTick.o
+                                       0x4cb4 (size before relaxing)
+ .debug_str     0x0000000000005111       0xf3 ./Drivers/DR_UART_0.o
+                                       0x4777 (size before relaxing)
+ .debug_str     0x0000000000005204       0x7d ./Drivers/FW_LCD.o
+                                       0x4a7c (size before relaxing)
+ .debug_str     0x0000000000005281      0x1ca ./Drivers/cr_startup_lpc175x_6x.o
+                                       0x2ef3 (size before relaxing)
+ .debug_str     0x000000000000544b       0xed ./Drivers/crp.o
+                                       0x2e00 (size before relaxing)
+ .debug_str     0x0000000000005538       0x83 ./Aplicacion/AP_UART_0.o
+                                       0x473b (size before relaxing)
+ .debug_str     0x00000000000055bb       0x59 ./Aplicacion/AP_muestreo_mano.o
+                                       0x47e5 (size before relaxing)
+ .debug_str     0x0000000000005614       0x71 ./Aplicacion/MDE_Adquisidor.o
+                                       0x4c1d (size before relaxing)
+ .debug_str     0x0000000000005685      0x463 ./Aplicacion/main.o
+                                       0x501b (size before relaxing)
+
+.comment        0x0000000000000000       0x7e
+ .comment       0x0000000000000000       0x7e ./Primitivas/PR_LCD.o
+                                         0x7f (size before relaxing)
+ .comment       0x000000000000007e       0x7f ./Primitivas/PR_Mediana_5canales.o
+ .comment       0x000000000000007e       0x7f ./Primitivas/PR_UART_0.o
+ .comment       0x000000000000007e       0x7f ./Drivers/DR_ADC_5canales_Timer.o
+ .comment       0x000000000000007e       0x7f ./Drivers/DR_GPIO.o
+ .comment       0x000000000000007e       0x7f ./Drivers/DR_Init.o
+ .comment       0x000000000000007e       0x7f ./Drivers/DR_LED_IO.o
+ .comment       0x000000000000007e       0x7f ./Drivers/DR_PINSEL.o
+ .comment       0x000000000000007e       0x7f ./Drivers/DR_SysTick.o
+ .comment       0x000000000000007e       0x7f ./Drivers/DR_UART_0.o
+ .comment       0x000000000000007e       0x7f ./Drivers/FW_LCD.o
+ .comment       0x000000000000007e       0x7f ./Drivers/cr_startup_lpc175x_6x.o
+ .comment       0x000000000000007e       0x7f ./Drivers/crp.o
+ .comment       0x000000000000007e       0x7f ./Aplicacion/AP_UART_0.o
+ .comment       0x000000000000007e       0x7f ./Aplicacion/AP_muestreo_mano.o
+ .comment       0x000000000000007e       0x7f ./Aplicacion/MDE_Adquisidor.o
+ .comment       0x000000000000007e       0x7f ./Aplicacion/main.o
+ .comment       0x000000000000007e       0x7f /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libcr_c.a(__weak__main.o)
+ .comment       0x000000000000007e       0x7f /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .comment       0x000000000000007e       0x7f /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+
+.ARM.attributes
+                0x0000000000000000       0x33
+ .ARM.attributes
+                0x0000000000000000       0x33 ./Primitivas/PR_LCD.o
+ .ARM.attributes
+                0x0000000000000033       0x33 ./Primitivas/PR_Mediana_5canales.o
+ .ARM.attributes
+                0x0000000000000066       0x33 ./Primitivas/PR_UART_0.o
+ .ARM.attributes
+                0x0000000000000099       0x33 ./Drivers/DR_ADC_5canales_Timer.o
+ .ARM.attributes
+                0x00000000000000cc       0x33 ./Drivers/DR_GPIO.o
+ .ARM.attributes
+                0x00000000000000ff       0x33 ./Drivers/DR_Init.o
+ .ARM.attributes
+                0x0000000000000132       0x33 ./Drivers/DR_LED_IO.o
+ .ARM.attributes
+                0x0000000000000165       0x33 ./Drivers/DR_PINSEL.o
+ .ARM.attributes
+                0x0000000000000198       0x33 ./Drivers/DR_SysTick.o
+ .ARM.attributes
+                0x00000000000001cb       0x33 ./Drivers/DR_UART_0.o
+ .ARM.attributes
+                0x00000000000001fe       0x33 ./Drivers/FW_LCD.o
+ .ARM.attributes
+                0x0000000000000231       0x33 ./Drivers/cr_startup_lpc175x_6x.o
+ .ARM.attributes
+                0x0000000000000264       0x33 ./Drivers/crp.o
+ .ARM.attributes
+                0x0000000000000297       0x33 ./Aplicacion/AP_UART_0.o
+ .ARM.attributes
+                0x00000000000002ca       0x33 ./Aplicacion/AP_muestreo_mano.o
+ .ARM.attributes
+                0x00000000000002fd       0x33 ./Aplicacion/MDE_Adquisidor.o
+ .ARM.attributes
+                0x0000000000000330       0x33 ./Aplicacion/main.o
+ .ARM.attributes
+                0x0000000000000363       0x33 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libcr_c.a(__weak__main.o)
+ .ARM.attributes
+                0x0000000000000396       0x33 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(double.o)
+ .ARM.attributes
+                0x00000000000003c9       0x33 /usr/local/mcuxpressoide-10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libcr_eabihelpers.a(float.o)
+
+.debug_frame    0x0000000000000000      0x928
+ .debug_frame   0x0000000000000000       0x34 ./Primitivas/PR_LCD.o
+ .debug_frame   0x0000000000000034       0xcc ./Primitivas/PR_Mediana_5canales.o
+ .debug_frame   0x0000000000000100       0xd0 ./Primitivas/PR_UART_0.o
+ .debug_frame   0x00000000000001d0      0x138 ./Drivers/DR_ADC_5canales_Timer.o
+ .debug_frame   0x0000000000000308       0x88 ./Drivers/DR_GPIO.o
+ .debug_frame   0x0000000000000390       0x4c ./Drivers/DR_Init.o
+ .debug_frame   0x00000000000003dc       0x98 ./Drivers/DR_LED_IO.o
+ .debug_frame   0x0000000000000474       0x88 ./Drivers/DR_PINSEL.o
+ .debug_frame   0x00000000000004fc       0x74 ./Drivers/DR_SysTick.o
+ .debug_frame   0x0000000000000570       0x78 ./Drivers/DR_UART_0.o
+ .debug_frame   0x00000000000005e8       0xc4 ./Drivers/FW_LCD.o
+ .debug_frame   0x00000000000006ac      0x170 ./Drivers/cr_startup_lpc175x_6x.o
+ .debug_frame   0x000000000000081c       0x5c ./Aplicacion/AP_UART_0.o
+ .debug_frame   0x0000000000000878       0x58 ./Aplicacion/AP_muestreo_mano.o
+ .debug_frame   0x00000000000008d0       0x2c ./Aplicacion/MDE_Adquisidor.o
+ .debug_frame   0x00000000000008fc       0x2c ./Aplicacion/main.o
