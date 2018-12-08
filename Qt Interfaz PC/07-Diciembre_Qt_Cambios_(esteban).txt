@@ -1,0 +1,44 @@
+Cambios en el código de la placa de Luciano:
+---------------------------------------------
+- Deshabilitado (comentado) todo lo que sea LCD (comparte pin con una salida de PWM)
+
+
+
+Cosas que faltan:
+-----------------
+
+- En la función: on_pushB_PlayPause_clicked()
+	Falta implementación de detener/comenzar en el modo Guante -> Mano
+
+- Falta todo lo de WIFI
+
+
+Cambios:
+--------
+- Re-organización del código en la inicialización de la GUI.
+- Encapsulado del código de la inicialización de la GUI en 3 funciones: SerialPort_Initialize(), GUI_Start_Tab_Controles(), GUI_Start_Tab_Comunicacion().
+- Agregado handler del PushButton de Play/Pause: on_pushB_PlayPause_clicked()
+- Agregado el flag privado: f_PlayPause_Status. true/false describe el estado de play/pause. Inicializa en false.
+- Agregados métodos públicos get y set para f_PlayPause
+- Botón Play/Pause en modo GUANTE_PC habilitado con setEnable() en la función: on_rdB_Guante_PC_clicked(void)
+
+Play/Pause ahora prende y apaga los modos Guante-PC y PC-Mano!
+
+- En SerialPort_Initialize() agregada la configuración para readBuffer ilimitado.
+- Implementado un buffer interno de data recibida, miembro público QByteArray data_rx
+- En on_pushB_PlayPause_clicked() al comenzar un modo se limpia el buffer interno de datos con: data_rx.clear()
+- Realizado el handler de datos ready para leer del SerialPort.
+
+Se almacenan las manos recibidas en el buffer interno de datos data_rx !!
+
+- Implementada on_pushB_Guardar_clicked(). Guarda los datos almacenados en el buffer interno de datos data_rx en un archivo.
+Protecciones: doble click de mi mouse, guardar datos sin haber antes adquirido, guardar mientras se está adquiriendo. 
+
+Se pueden guardar movimientos en archivos !!
+
+- Implementada on_pushB_Cargar_clicked(). Carga un archivo '.mno' de movimientos en el buffer interno de datos data_rx.
+	Protecciones: doble click de mi mouse, cargar datos mientras se está enviando, cargar un archivo que no sea '.mno'.
+- Modificada on_pushB_PlayPause_clicked(). Al activarse, deshabilita cambios de modo. (protección necesaria para botones guardar/cargar)
+- Implementada la función SendMovements(). Envía los datos cargados en el buffer interno data_rx
+
+Se pueden enviar movimientos !! (no lo probé, se podría debuggear en el MCU)
