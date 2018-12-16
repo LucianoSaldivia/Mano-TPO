@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;LPC1769 Mano 2.3/Aplicacion/AP_Adquisidor_MDE.h&apos; to &apos;MDE_Adquisidor.h&apos;" description="Rename resource &apos;AP_Adquisidor_MDE.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Aplicacion/AP_Adquisidor_MDE.h" name="MDE_Adquisidor.h" stamp="1542499041674" updateReferences="true"/>
-</session>

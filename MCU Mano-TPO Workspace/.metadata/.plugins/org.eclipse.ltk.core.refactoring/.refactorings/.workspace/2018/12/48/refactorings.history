@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete 3 resources" deleteContents="false" description="Delete 3 resources" element1="/InfoII_TPO_Adquisidor_300/Debug" element2="/InfoII_TPO_Adquisidor_300/InfoII_TPO_Adquisidor_214 (Correccion Augusto) LinkServer Debug.launch" element3="/InfoII_TPO_Adquisidor_300/InfoII_TPO_Adquisidor_214 (Correccion Augusto) LinkServer Release.launch" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="3" stamp="1543687196255"/>
-</session>

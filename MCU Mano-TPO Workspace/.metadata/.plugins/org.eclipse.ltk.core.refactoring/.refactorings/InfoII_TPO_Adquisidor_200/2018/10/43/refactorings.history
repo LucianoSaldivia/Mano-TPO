@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;LPC1769 Mano 2.2/Drivers/inc/FW_UART.h&apos; to &apos;dr_UART.h&apos;" description="Rename resource &apos;FW_UART.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Drivers/inc/FW_UART.h" name="dr_UART.h" stamp="1540227834475" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;LPC1769 Mano 2.2/Aplicacion/src/AP_uart.c&apos; to &apos;AP_MdE.c&apos;" description="Rename resource &apos;AP_uart.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Aplicacion/src/AP_uart.c" name="AP_MdE.c" stamp="1540234011708" updateReferences="true"/>
-</session>

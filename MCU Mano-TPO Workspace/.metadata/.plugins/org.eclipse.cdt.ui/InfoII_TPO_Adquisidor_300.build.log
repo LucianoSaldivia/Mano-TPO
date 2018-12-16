@@ -1,6 +1,0 @@
-00:21:26 **** Incremental Build of configuration Debug for project InfoII_TPO_Adquisidor_300 ****
-make -r -j4 all 
-make: Nothing to be done for `all'.
-
-00:21:26 Build Finished (took 67ms)
-
